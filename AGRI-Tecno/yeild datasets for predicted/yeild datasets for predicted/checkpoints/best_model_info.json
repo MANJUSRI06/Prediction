@@ -1,0 +1,38 @@
+{
+  "saved_at": "2025-12-02T07:55:09.570862Z",
+  "model_checkpoint": "checkpoints\\best_pipeline_xgb.pkl",
+  "numeric_columns": [
+    "Crop_Year",
+    "Area",
+    "Production",
+    "Annual_Rainfall",
+    "Fertilizer",
+    "Pesticide",
+    "yield_per_area",
+    "fert_per_area",
+    "pest_per_area",
+    "rain_x_fert",
+    "year_from"
+  ],
+  "categorical_columns": [
+    "Crop",
+    "Season",
+    "State"
+  ],
+  "engineered_features": [
+    "yield_per_area",
+    "fert_per_area",
+    "pest_per_area",
+    "rain_x_fert",
+    "year_from"
+  ],
+  "target": "Yield",
+  "metrics": {
+    "train_rmse": 58.447332513195654,
+    "test_rmse": 74.43008392999663,
+    "train_mae": 3.258014951265323,
+    "test_mae": 5.029763322919585,
+    "train_r2": 0.9956990668246516,
+    "test_r2": 0.9921050227691424
+  }
+}

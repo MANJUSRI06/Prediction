@@ -1,0 +1,15 @@
+streamlit
+pandas
+numpy
+scikit-learn
+matplotlib
+joblib
+pandas>=1.3
+numpy>=1.21
+scikit-learn>=1.0
+joblib>=1.0
+matplotlib>=3.4
+fastapi
+pydantic
+streamlit>=1.0
+FPDF>=1.7

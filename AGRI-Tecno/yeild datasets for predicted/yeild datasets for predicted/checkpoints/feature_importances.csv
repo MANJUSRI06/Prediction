@@ -1,0 +1,51 @@
+feature,importance
+cat__Crop_Coconut ,0.60462916
+num__yield_per_area,0.16669425
+cat__Crop_Sugarcane,0.04724984
+cat__Crop_Banana,0.038161352
+cat__Crop_Potato,0.031012606
+cat__Crop_Tapioca,0.026709758
+cat__Crop_Onion,0.017767198
+cat__Season_Whole Year ,0.013567408
+cat__State_Delhi,0.008441059
+num__Production,0.006943684
+cat__Crop_Sweet potato,0.006699221
+num__Area,0.0024756177
+cat__Crop_Jute,0.0018794838
+cat__Crop_Cashewnut,0.0014193396
+cat__State_Manipur,0.0011946493
+cat__State_Jharkhand,0.0011208445
+cat__Crop_Arhar/Tur,0.0010354053
+cat__State_Puducherry,0.0008748465
+cat__State_Jammu and Kashmir,0.000874427
+cat__State_Chhattisgarh,0.0007796327
+cat__Crop_Rice,0.0007224943
+cat__State_Himachal Pradesh,0.000717333
+cat__Season_Kharif     ,0.00070940465
+num__Fertilizer,0.000702407
+cat__Crop_Ginger,0.000660273
+cat__Crop_Mesta,0.0005816441
+cat__State_Mizoram,0.0005729063
+cat__State_Andhra Pradesh,0.00055443106
+cat__Season_Winter     ,0.00054811477
+num__pest_per_area,0.00048784545
+cat__State_Sikkim,0.00047432695
+cat__Crop_Oilseeds total,0.0004707688
+cat__Crop_Turmeric,0.00046721048
+cat__Crop_other oilseeds,0.00046181597
+cat__State_Haryana,0.00045580373
+num__Pesticide,0.00041461003
+cat__State_Meghalaya,0.00039707177
+cat__State_Madhya Pradesh,0.0003926688
+num__Annual_Rainfall,0.00037574698
+cat__Crop_Groundnut,0.00037491397
+cat__State_Odisha,0.0003731214
+num__rain_x_fert,0.00036858884
+cat__Crop_Maize,0.00034891668
+cat__State_Kerala,0.00031773065
+cat__State_Tamil Nadu,0.0003137964
+cat__Crop_Bajra,0.00030860555
+cat__Crop_Sesamum,0.00027807712
+cat__Crop_Cardamom,0.00027159762
+cat__Crop_Tobacco,0.00026752416
+cat__Crop_Garlic,0.00025923093

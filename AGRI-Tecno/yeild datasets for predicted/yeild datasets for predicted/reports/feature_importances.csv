@@ -1,0 +1,51 @@
+feature,importance
+num__yield_per_area,0.84256613
+cat__Crop_Cashewnut,0.010182454
+cat__Crop_Arhar/Tur,0.008508548
+cat__State_Tamil Nadu,0.0050280816
+cat__Crop_Onion,0.0046112165
+cat__Crop_Turmeric,0.0044313446
+cat__Crop_Oilseeds total,0.0041590775
+cat__Crop_other oilseeds,0.004012062
+cat__State_Sikkim,0.003528879
+cat__State_Haryana,0.0035198028
+cat__Crop_Sugarcane,0.003134205
+cat__State_Puducherry,0.0027521772
+cat__Crop_Guar seed,0.0027472745
+cat__State_Andhra Pradesh,0.002733863
+cat__State_Meghalaya,0.0025836972
+cat__Crop_Coriander,0.0023899996
+cat__Crop_Cardamom,0.0023320678
+cat__State_Chhattisgarh,0.0023317775
+cat__Crop_Garlic,0.0021790862
+cat__Crop_Maize,0.002177946
+cat__Season_Winter     ,0.0021464992
+cat__State_Madhya Pradesh,0.0020327747
+num__Fertilizer,0.0020203246
+cat__State_Kerala,0.0020088763
+cat__Season_Kharif     ,0.0019256412
+cat__Crop_Groundnut,0.0018806069
+cat__State_Odisha,0.0018646866
+cat__Crop_Arecanut,0.001807654
+cat__Crop_Tobacco,0.0018026872
+num__pest_per_area,0.0017241499
+cat__State_West Bengal,0.0017044061
+cat__Crop_Rice,0.0016060085
+cat__State_Mizoram,0.001581074
+cat__State_Jharkhand,0.001578949
+cat__Crop_Tapioca,0.0015712098
+cat__State_Maharashtra,0.0015108663
+cat__Crop_Sunflower,0.0014379399
+cat__Crop_Jute,0.0014254075
+cat__State_Arunachal Pradesh,0.0013828549
+cat__Crop_Cotton(lint),0.0013760345
+cat__State_Himachal Pradesh,0.0013577976
+cat__Crop_Potato,0.0013363331
+num__Area,0.0013348201
+cat__Crop_Banana,0.0013202444
+cat__State_Jammu and Kashmir,0.001297767
+cat__Crop_Rapeseed &Mustard,0.001209325
+cat__Crop_Barley,0.0011641305
+cat__State_Uttarakhand,0.0011292642
+cat__Crop_Small millets,0.0011277209
+cat__Season_Summer     ,0.001104705

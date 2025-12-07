@@ -1,0 +1,31 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="fastapi" />
+          <option value="uvicorn" />
+          <option value="SQLAlchemy" />
+          <option value="pydantic" />
+          <option value="passlib" />
+          <option value="python-jose" />
+          <option value="pandas" />
+          <option value="numpy" />
+          <option value="matplotlib" />
+          <option value="seaborn" />
+          <option value="scikit-learn" />
+          <option value="sqlalchemy" />
+          <option value="python-multipart" />
+          <option value="moviepy" />
+          <option value="Pillow" />
+          <option value="gTTS" />
+          <option value="pydub" />
+          <option value="pyttsx3" />
+          <option value="opencv-python" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
