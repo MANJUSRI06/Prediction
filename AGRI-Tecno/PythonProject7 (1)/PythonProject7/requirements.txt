@@ -1,3 +1,15 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pillow
+numpy
+pandas
+scikit-learn
+xgboost
+torch
+torchvision
+joblib
+requests
 # Deep Learning & Computer Vision
 torch>=2.0.0
 torchvision>=0.15.0

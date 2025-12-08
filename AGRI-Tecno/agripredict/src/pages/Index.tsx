@@ -12,6 +12,10 @@ import ToastContainer, { ToastMessage } from "@/components/AgriCare/Toast";
 import { populateNewCropResults } from "@/components/AgriCare/sampleData";
 
 const Index = () => {
+  // Use Vite env vars so the frontend can call the correct backend in production
+  const API_BASE = (import.meta as any).env.VITE_API_BASE || "http://127.0.0.1:8000";
+  const INSEASON_BASE = (import.meta as any).env.VITE_INSEASON_API_BASE || "http://127.0.0.1:8001";
+
   const [activeTab, setActiveTab] = useState<"new" | "existing">("new");
   const [isLoading, setIsLoading] = useState(false);
   const [newCropResults, setNewCropResults] =
@@ -46,7 +50,7 @@ const Index = () => {
       if (data.sowingDate) form.append("sowing_date", data.sowingDate);
       form.append("season", "Kharif"); // Default season
 
-      const resp = await fetch("http://127.0.0.1:8000/crop-insights", {
+      const resp = await fetch(`${API_BASE}/crop-insights`, {
         method: "POST",
         body: form,
       });
@@ -80,7 +84,7 @@ const Index = () => {
         uiForm.append("season", insights?.season || "Kharif");
         if (data.sowingDate) uiForm.append("sowing_date", data.sowingDate);
 
-        const uiResp = await fetch("http://127.0.0.1:8000/ui-predictions", {
+        const uiResp = await fetch(`${API_BASE}/ui-predictions`, {
           method: "POST",
           body: uiForm,
         });
