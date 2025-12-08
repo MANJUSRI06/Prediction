@@ -13,8 +13,10 @@ import { populateNewCropResults } from "@/components/AgriCare/sampleData";
 
 const Index = () => {
   // Use Vite env vars so the frontend can call the correct backend in production
-  const API_BASE = (import.meta as any).env.VITE_API_BASE || "http://127.0.0.1:8000";
-  const INSEASON_BASE = (import.meta as any).env.VITE_INSEASON_API_BASE || "http://127.0.0.1:8001";
+  const API_BASE =
+    (import.meta as any).env.VITE_API_BASE || "http://127.0.0.1:8000";
+  const INSEASON_BASE =
+    (import.meta as any).env.VITE_INSEASON_API_BASE || "http://127.0.0.1:8001";
 
   const [activeTab, setActiveTab] = useState<"new" | "existing">("new");
   const [isLoading, setIsLoading] = useState(false);
@@ -389,13 +391,9 @@ const Index = () => {
     }
   };
 
-  
-
   const handleNewCropReset = () => {
     setNewCropResults(null);
   };
-
-  
 
   const handleEnableAlerts = () => {
     addToast(
@@ -404,7 +402,6 @@ const Index = () => {
       "You'll receive fertilizer and irrigation reminders."
     );
   };
-  
 
   return (
     <div className="min-h-screen bg-gradient-agri">
