@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🥥 Chowghat Green Dwarf (CGD) Cultivation Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom right, #fffefc, #f0f8ff, #fff3cc);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        header {
+            background-color: #0b3d0b;
+            color: #fff;
+            padding: 20px 12px;
+            text-align: center;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        /* Translator Box */
+        
+        .translate-box {
+            text-align: right;
+            margin: 15px 20px 0 0;
+        }
+        /* Google Translate widget styling */
+        
+        #google_translate_element {
+            display: inline-block;
+            background: #ffffff;
+            padding: 4px 8px;
+            border-radius: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        /* Hide Google top banner */
+        
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        
+        body {
+            top: 0px !important;
+        }
+        /* Hide Google branding text and logo */
+        
+        .goog-logo-link,
+        .goog-te-gadget span {
+            display: none !important;
+        }
+        /* Dropdown styling */
+        
+        .goog-te-combo {
+            padding: 4px 8px;
+            border: 2px solid #0b3d0b;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            background: #ffffff;
+            color: #0b3d0b;
+            cursor: pointer;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        .goog-te-combo:hover {
+            border-color: #2e8b57;
+            box-shadow: 0 0 6px rgba(46, 139, 87, 0.5);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 20px auto 40px auto;
+            padding: 0 20px;
+        }
+        /* Tools row: jump + expand/collapse */
+        
+        .tool-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: linear-gradient(to bottom, rgba(255, 254, 252, 0.98), rgba(240, 248, 255, 0.94));
+            padding: 8px 0 6px;
+            backdrop-filter: blur(4px);
+        }
+        
+        .tool-group-left,
+        .tool-group-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .tool-label {
+            font-size: 0.85rem;
+            color: #0b3d0b;
+            opacity: 0.9;
+        }
+        
+        .tool-select {
+            padding: 6px 10px;
+            border-radius: 20px;
+            border: 1px solid #c8e6c9;
+            font-size: 0.85rem;
+            outline: none;
+            max-width: 260px;
+            background: #fff;
+            color: #0b3d0b;
+        }
+        
+        .tool-btn {
+            border: none;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: #e8f5e9;
+            color: #0b3d0b;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+        
+        .tool-btn:hover {
+            background: #c8e6c9;
+        }
+        
+        .section {
+            border-left: 8px solid;
+            border-radius: 10px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            cursor: pointer;
+        }
+        
+        .section-header.active {
+            background: rgba(230, 244, 234, 0.8);
+        }
+        
+        .section-header:focus {
+            outline: 2px solid #2e8b57;
+            outline-offset: 2px;
+        }
+        
+        .section h2 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+        
+        .toggle-icon {
+            font-size: 1rem;
+            color: #0b3d0b;
+            transition: transform 0.25s ease;
+        }
+        
+        .section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .section-body {
+            padding: 10px 24px 18px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+        }
+        
+        .section-body ul {
+            line-height: 1.6;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+        
+        .section-body ul li {
+            margin-bottom: 6px;
+        }
+        
+        .next-link {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: #0b3d0b;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        
+        .next-link:hover {
+            text-decoration: none;
+        }
+        
+        .back-btn {
+            display: block;
+            margin: 40px auto 0;
+            padding: 12px 24px;
+            background: #ff6f61;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(255, 202, 40, 0.7);
+            transition: background 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            width: fit-content;
+        }
+        
+        .back-btn:hover {
+            background: #ffa500;
+            transform: scale(1.05);
+        }
+        /* Distinct colors for each section */
+        
+        #land-soil {
+            border-color: #2e8b57;
+            background-color: #e6f4ea;
+        }
+        
+        #soil-ph {
+            border-color: #ff8c00;
+            background-color: #fff4e6;
+        }
+        
+        #climate {
+            border-color: #1e90ff;
+            background-color: #e6f0ff;
+        }
+        
+        #seed-treatment {
+            border-color: #9932cc;
+            background-color: #f0e6ff;
+        }
+        
+        #sowing-spacing {
+            border-color: #ff1493;
+            background-color: #ffe6f0;
+        }
+        
+        #fertilizer {
+            border-color: #8b4513;
+            background-color: #f9f1e6;
+        }
+        
+        #irrigation {
+            border-color: #00ced1;
+            background-color: #e6f9fa;
+        }
+        
+        #weed-pest {
+            border-color: #dc143c;
+            background-color: #fde6e6;
+        }
+        
+        #harvesting {
+            border-color: #ff6347;
+            background-color: #fff0e6;
+        }
+        
+        #post-harvest {
+            border-color: #ffd700;
+            background-color: #fffde6;
+        }
+        /* Back to top button */
+        
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 18px;
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: none;
+            background: #0b3d0b;
+            color: #fff;
+            font-size: 0.8rem;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+            display: none;
+            align-items: center;
+            gap: 6px;
+            z-index: 50;
+        }
+        
+        #backToTop:hover {
+            background: #2e8b57;
+        }
+        /* RESPONSIVE */
+        
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.5rem;
+                padding: 18px 8px;
+            }
+            .container {
+                padding: 0 14px;
+            }
+            .translate-box {
+                text-align: center;
+                margin: 10px 0 0 0;
+            }
+            .tool-row {
+                flex-direction: column;
+                align-items: stretch;
+                position: static;
+                backdrop-filter: none;
+            }
+            .tool-group-left,
+            .tool-group-right {
+                justify-content: space-between;
+            }
+            .tool-select {
+                flex: 1;
+                max-width: none;
+            }
+            .section-header {
+                padding: 12px 14px;
+            }
+            .section-body {
+                padding: 8px 14px 14px;
+            }
+            .section h2 {
+                font-size: 1.15rem;
+            }
+            .back-btn {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                font-size: 1.25rem;
+            }
+            .container {
+                padding: 0 10px;
+            }
+            .tool-label {
+                display: none;
+            }
+            .section {
+                border-left-width: 5px;
+            }
+            .section h2 {
+                font-size: 1.03rem;
+            }
+            .section-body ul li {
+                font-size: 0.9rem;
+            }
+            #backToTop {
+                bottom: 14px;
+                right: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>🥥 Chowghat Green Dwarf (CGD) Cultivation Guide</header>
+
+    <!-- Translator Dropdown -->
+    <div class="translate-box">
+        <div id="google_translate_element"></div>
+    </div>
+
+    <div class="container">
+
+        <!-- Tools: jump + expand/collapse -->
+        <div class="tool-row">
+            <div class="tool-group-left">
+                <span class="tool-label">Jump to:</span>
+                <select id="jumpSelect" class="tool-select">
+                    <option value="">Select section…</option>
+                    <option value="1">1. Land and Soil Preparation</option>
+                    <option value="2">2. Soil Type and pH</option>
+                    <option value="3">3. Climate Requirements</option>
+                    <option value="4">4. Seed Variety and Treatment</option>
+                    <option value="5">5. Sowing Method and Spacing</option>
+                    <option value="6">6. Fertilizer Schedule</option>
+                    <option value="7">7. Irrigation Management</option>
+                    <option value="8">8. Weed and Pest Control</option>
+                    <option value="9">9. Harvesting Time and Yield</option>
+                    <option value="10">10. Post-Harvest Handling</option>
+                </select>
+            </div>
+            <div class="tool-group-right">
+                <button id="expandAll" class="tool-btn">🔽 Expand all</button>
+                <button id="collapseAll" class="tool-btn">🔼 Collapse all</button>
+            </div>
+        </div>
+
+        <div class="section" id="land-soil" data-section="1">
+            <div class="section-header" tabindex="0">
+                <h2>🌱 Land and Soil Preparation</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Deep ploughing followed by harrowing to break clods and remove weeds.</li>
+                    <li>Pits of 1m × 1m × 1m should be dug and filled with topsoil mixed with 10 kg FYM, 1 kg neem cake, and 500 g superphosphate.</li>
+                    <li>Ensure proper drainage in low-lying areas to prevent waterlogging.</li>
+                </ul>
+                <span class="next-link" data-next="2">Next section ▷</span>
+            </div>
+        </div>
+
+        <div class="section" id="soil-ph" data-section="2">
+            <div class="section-header" tabindex="0">
+                <h2>🧪 Soil Type and pH</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Prefers well-drained loamy or sandy loam soils.</li>
+                    <li>Ideal pH: 5.5 to 7.5.</li>
+                    <li>Avoid saline or highly alkaline soils; gypsum can be added to correct pH if needed.</li>
+                </ul>
+                <span class="next-link" data-next="3">Next section ▷</span>
+            </div>
+        </div>
+
+        <div class="section" id="climate" data-section="3">
+            <div class="section-header" tabindex="0">
+                <h2>🌤 Climate Requirements</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Thrives in humid tropical climates with annual rainfall of 1000–2500 mm.</li>
+                    <li>Optimal temperature: 27–32°C.</li>
+                    <li>Sensitive to prolonged drought and frost; partial shade during early growth is beneficial.</li>
+                </ul>
+                <span class="next-link" data-next="4">Next section ▷</span>
+            </div>
+        </div>
+
+        <div class="section" id="seed-treatment" data-section="4">
+            <div class="section-header" tabindex="0">
+                <h2>🌰 Seed Variety and Treatment</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Select healthy, disease-free nuts from high-yielding mother palms.</li>
+                    <li>Soak seeds in 1% Bavistin solution for 30 minutes before sowing.</li>
+                    <li>Germinate in nursery beds with partial shade and transplant after 9–12 months.</li>
+                </ul>
+                <span class="next-link" data-next="5">Next section ▷</span>
+            </div>
+        </div>
+
+        <div class="section" id="sowing-spacing" data-section="5">
+            <div class="section-header" tabindex="0">
+                <h2>📏 Sowing Method and Spacing</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Plant at the onset of monsoon or with assured irrigation.</li>
+                    <li>Spacing: 6.5 m × 6.5 m (dwarf palms allow closer spacing).</li>
+                    <li>Square or triangular planting system recommended for uniform canopy development.</li>
+                </ul>
+                <span class="next-link" data-next="6">Next section ▷</span>
+            </div>
+        </div>
+
+        <div class="section" id="fertilizer" data-section="6">
+            <div class="section-header" tabindex="0">
+                <h2>💊 Fertilizer Schedule</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Year 1: 50 g N, 40 g P, 120 g K per palm/month.</li>
+                    <li>Year 2 onward: 500 g N, 320 g P, 1200 g K annually, split into 3 doses.</li>
+                    <li>Apply micronutrients like Zn, Mg, and B if deficiency symptoms appear.</li>
+                </ul>
+                <span class="next-link" data-next="7">Next section ▷</span>
+            </div>
+        </div>
+
+        <div class="section" id="irrigation" data-section="7">
+            <div class="section-header" tabindex="0">
+                <h2>💧 Irrigation Management</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Drip irrigation preferred: 40–50 liters/day/palm during dry months.</li>
+                    <li>Mulching with coconut husk or coir pith conserves moisture.</li>
+                    <li>Avoid over-irrigation to prevent root rot.</li>
+                </ul>
+                <span class="next-link" data-next="8">Next section ▷</span>
+            </div>
+        </div>
+
+        <div class="section" id="weed-pest" data-section="8">
+            <div class="section-header" tabindex="0">
+                <h2>🐛 Weed and Pest Control</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Manual weeding every 3 months or use of cover crops like cowpea.</li>
+                    <li>Common pests: Rhinoceros beetle, red palm weevil—control with pheromone traps and neem-based sprays.</li>
+                    <li>Diseases: Root wilt and stem bleeding—use Trichoderma and proper sanitation.</li>
+                </ul>
+                <span class="next-link" data-next="9">Next section ▷</span>
+            </div>
+        </div>
+
+        <div class="section" id="harvesting" data-section="9">
+            <div class="section-header" tabindex="0">
+                <h2>⏳ Harvesting Time and Yield</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Starts bearing in 3–4 years.</li>
+                    <li>Tender nut yield: ~60–70 nuts/palm/year.</li>
+                    <li>Harvest every 30–45 days for consistent water quality.</li>
+                </ul>
+                <span class="next-link" data-next="10">Next section ▷</span>
+            </div>
+        </div>
+
+        <div class="section" id="post-harvest" data-section="10">
+            <div class="section-header" tabindex="0">
+                <h2>📦 Post-Harvest Handling</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Sort nuts by size and water content.</li>
+                    <li>Store in cool, shaded areas to preserve freshness.</li>
+                    <li>Transport in ventilated crates to avoid husk damage.</li>
+                </ul>
+            </div>
+        </div>
+
+        <a href="coconut.html" class="back-btn">← Back to Home</a>
+
+    </div>
+
+    <!-- Back to Top -->
+    <button id="backToTop">⬆ Top</button>
+
+    <!-- Google Translate Script + persistence -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'ta,hi,ml,te,kn,bn,mr,gu,pa,en',
+                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+            }, 'google_translate_element');
+        }
+
+        // Restore selected language on reload
+        window.addEventListener("load", function() {
+            const lang = localStorage.getItem("selectedLang");
+            if (lang) {
+                const interval = setInterval(() => {
+                    const select = document.querySelector(".goog-te-combo");
+                    if (select) {
+                        select.value = lang;
+                        select.dispatchEvent(new Event("change"));
+                        clearInterval(interval);
+                    }
+                }, 500);
+            }
+        });
+
+        // Save language when user changes it
+        document.addEventListener("change", function(e) {
+            if (e.target.classList.contains("goog-te-combo")) {
+                localStorage.setItem("selectedLang", e.target.value);
+            }
+        });
+
+        // ===== INTERACTIVITY: COLLAPSIBLE SECTIONS + TOOLS =====
+        const sections = document.querySelectorAll(".section");
+
+        function setSectionState(section, open) {
+            const body = section.querySelector(".section-body");
+            if (open) {
+                section.classList.remove("collapsed");
+                body.style.display = "block";
+            } else {
+                section.classList.add("collapsed");
+                body.style.display = "none";
+            }
+        }
+
+        // Init: on mobile, keep only first section open
+        function initSections() {
+            const isMobile = window.innerWidth <= 600;
+            sections.forEach((section, index) => {
+                if (isMobile && index !== 0) {
+                    setSectionState(section, false);
+                } else {
+                    setSectionState(section, true);
+                }
+            });
+        }
+
+        initSections();
+        window.addEventListener("resize", initSections);
+
+        // Header click toggle
+        sections.forEach(section => {
+            const header = section.querySelector(".section-header");
+            header.addEventListener("click", () => {
+                const isCollapsed = section.classList.contains("collapsed");
+                const isMobile = window.innerWidth <= 600;
+
+                if (isMobile) {
+                    // Accordion behaviour on mobile
+                    if (isCollapsed) {
+                        sections.forEach(s => setSectionState(s, false));
+                        setSectionState(section, true);
+                    } else {
+                        setSectionState(section, false);
+                    }
+                } else {
+                    setSectionState(section, isCollapsed);
+                }
+            });
+
+            header.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    header.click();
+                }
+            });
+        });
+
+        const expandAllBtn = document.getElementById("expandAll");
+        const collapseAllBtn = document.getElementById("collapseAll");
+
+        expandAllBtn.addEventListener("click", () => {
+            sections.forEach(section => setSectionState(section, true));
+        });
+
+        collapseAllBtn.addEventListener("click", () => {
+            sections.forEach(section => setSectionState(section, false));
+        });
+
+        // Quick jump select
+        const jumpSelect = document.getElementById('jumpSelect');
+        jumpSelect.addEventListener('change', () => {
+            const val = jumpSelect.value;
+            if (!val) return;
+            const targetSection = document.querySelector(`.section[data-section="${val}"]`);
+            if (targetSection) {
+                setSectionState(targetSection, true);
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+
+        // "Next section" links
+        document.querySelectorAll('.next-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const nextId = link.getAttribute('data-next');
+                const targetSection = document.querySelector(`.section[data-section="${nextId}"]`);
+                if (targetSection) {
+                    setSectionState(targetSection, true);
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Back to top visibility + behaviour
+        const backToTopBtn = document.getElementById("backToTop");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 250) {
+                backToTopBtn.style.display = "flex";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        });
+
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+        // Highlight current section header while scrolling
+        const observerOptions = {
+            root: null,
+            rootMargin: "0px 0px -60% 0px",
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const section = entry.target;
+                const header = section.querySelector('.section-header');
+                if (entry.isIntersecting) {
+                    header.classList.add('active');
+                } else {
+                    header.classList.remove('active');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+    </script>
+
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+
+</html>

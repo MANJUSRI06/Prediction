@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Learn - Palmyrah Varieties</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            /* ✅ Provisional professional background */
+            background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+            color: #333;
+            background: linear-gradient(to bottom, #faf3e0, #f5e6cc);
+        }
+        
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.1rem;
+            color: #064420;
+            background-color: #d4a373;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        
+        .back-arrow:hover {
+            background-color: #064420;
+            color: white;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #064420;
+            margin: 60px 0 40px;
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            align-items: stretch;
+        }
+        
+        .card {
+            width: 360px;
+            background: #1b1b1b;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+        
+        .card img {
+            width: calc(100% - 24px);
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin: 12px;
+        }
+        
+        .card-content {
+            padding: 25px;
+            color: white;
+            text-align: left;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            text-align: center;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4a373;
+        }
+        
+        .card-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        
+        .get-started-btn {
+            display: block;
+            margin: auto auto 25px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite;
+            background: linear-gradient(90deg, #d4a373, #8d5524);
+            box-shadow: 0 0 15px #d4a373;
+        }
+        
+        .get-started-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px rgba(212, 163, 115, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(212, 163, 115, 0.9);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(212, 163, 115, 0.7);
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="agrilearn.html" class="back-arrow">← Back</a>
+    <h1>🌴 Palmyrah Varieties</h1>
+
+    <div class="cards-container">
+
+        <!-- 1. Palmyrah Variety -->
+        <div class="card">
+            <img src="palm1.jpg" alt="Palmyrah Variety 1">
+            <div class="card-content">
+                <h3>Karuppanai palm</h3>
+                <p><strong>Type:</strong> Traditional / Local variety</p>
+                <p><strong>Where it is grown:</strong> Tirunelveli, Thoothukudi, Ramanathapuram, Sivagangai districts of Tamil Nadu</p>
+                <p><strong>About:</strong> Tall, hardy palmyrah palm with dark brown to black fruits. Fruits medium-sized, strong fibrous mesocarp.</p>
+            </div>
+            <a href="Palm1.html" style="text-decoration: none;"><button class="get-started-btn">Explore More</button></a>
+        </div>
+
+        <!-- 2. Palmyrah Variety -->
+        <div class="card">
+            <img src="palm2.jpg" alt="Palmyrah Variety 2">
+            <div class="card-content">
+                <h3>Senganthal palm</h3>
+                <p><strong>Type:</strong> Traditional / Local variety</p>
+                <p><strong>Where it is grown:</strong> Sivagangai, Pudukottai, Madurai, Thanjavur districts of Tamil Nadu</p>
+                <p><strong>About:</strong> Medium-tall palm with reddish-brown fruits. Known for sweeter sap and larger fruit size.</p>
+            </div>
+            <a href="Palmyrah2.html" style="text-decoration: none;"><button class="get-started-btn">Explore More</button></a>
+        </div>
+
+        <!-- 3. Palmyrah Variety -->
+        <div class="card">
+            <img src="palm3.jpg" alt="Palmyrah Variety 3">
+            <div class="card-content">
+                <h3>Vellapanai palm</h3>
+                <p><strong>Type:</strong> Traditional / Local variety</p>
+                <p><strong>Where it is grown:</strong> Coastal districts – Nagapattinam, Cuddalore, Thoothukudi, Ramanathapuram, Kanyakumari</p>
+                <p><strong>About:</strong> Tall palm with light yellowish-brown fruits. Tender fruit kernel (Nungu) very soft and watery.</p>
+            </div>
+            <a href="Palmyrah3.html" style="text-decoration: none;"><button class="get-started-btn">Explore More</button></a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wheat Cultivation Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom right, #f2f5f2, #e2f0d9);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        header {
+            background-color: #064420;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+        }
+        /* Translator dropdown styling */
+        
+        #google_translate_element {
+            position: absolute;
+            top: 14px;
+            right: 20px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 30px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .tool-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .tool-btn {
+            border: none;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: #e0f2f1;
+            color: #064420;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .tool-btn:hover {
+            background: #b2dfdb;
+        }
+        
+        .section {
+            background: white;
+            border-left: 6px solid #00b894;
+            border-radius: 8px;
+            padding: 0;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            cursor: pointer;
+            background: #f1f8f5;
+        }
+        
+        .section-header:focus {
+            outline: 2px solid #00b894;
+            outline-offset: 2px;
+        }
+        
+        .section h2 {
+            color: #064420;
+            margin: 0;
+            font-size: 1.4rem;
+        }
+        
+        .toggle-icon {
+            font-size: 1rem;
+            color: #064420;
+            transition: transform 0.25s ease;
+        }
+        
+        .section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .section-body {
+            padding: 14px 22px 18px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .section p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .section ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+        
+        .section ul li {
+            margin-bottom: 6px;
+        }
+        
+        .back-btn {
+            display: block;
+            margin: 35px auto 0;
+            padding: 12px 24px;
+            background: #00b894;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #00b894;
+            transition: background 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            width: fit-content;
+        }
+        
+        .back-btn:hover {
+            background: #019875;
+            transform: scale(1.05);
+        }
+        /* Back to top button */
+        
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 18px;
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: none;
+            background: #064420;
+            color: #fff;
+            font-size: 0.8rem;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+            display: none;
+            align-items: center;
+            gap: 6px;
+            z-index: 900;
+        }
+        
+        #backToTop:hover {
+            background: #019875;
+        }
+        /* ===== Google Translate cleanup & styling ===== */
+        
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        
+        body {
+            top: 0px !important;
+        }
+        
+        .goog-logo-link,
+        .goog-te-gadget span {
+            display: none !important;
+        }
+        
+        .goog-te-combo {
+            padding: 4px 8px;
+            border: 2px solid #064420;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            background: #ffffff;
+            color: #064420;
+            cursor: pointer;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        .goog-te-combo:hover {
+            border-color: #00b894;
+            box-shadow: 0 0 6px rgba(0, 184, 148, 0.5);
+        }
+        /* RESPONSIVE */
+        
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.4rem;
+                padding: 14px 8px 40px;
+            }
+            .container {
+                margin: 20px auto 35px;
+                padding: 0 14px;
+            }
+            .section-header {
+                padding: 12px 14px;
+            }
+            .section-body {
+                padding: 10px 14px 14px;
+            }
+            .section h2 {
+                font-size: 1.1rem;
+            }
+            .back-btn {
+                width: 100%;
+                max-width: 320px;
+            }
+            #google_translate_element {
+                top: 8px;
+                right: 8px;
+                padding: 4px 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                font-size: 1.15rem;
+            }
+            .container {
+                padding: 0 10px;
+            }
+            .section {
+                border-left-width: 4px;
+            }
+            .section h2 {
+                font-size: 1rem;
+            }
+            .section p,
+            .section ul li {
+                font-size: 0.9rem;
+            }
+            #google_translate_element {
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+            }
+            #backToTop {
+                bottom: 14px;
+                right: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        🌾 Bread Wheat Cultivation Guide
+        <!-- Translator Widget -->
+        <div id="google_translate_element"></div>
+    </header>
+
+    <div class="container">
+
+        <div class="tool-row">
+            <button id="expandAll" class="tool-btn">🔽 Expand all</button>
+            <button id="collapseAll" class="tool-btn">🔼 Collapse all</button>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>1. Land and Soil Preparation</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Plough the field 3–4 times to get a fine tilth.</p>
+                <p>Remove weeds and crop residues.</p>
+                <p>Use a rotavator or harrow for leveling.</p>
+                <p>Raised beds or flat sowing can be used depending on irrigation facility.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>2. Soil Type and pH</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Grows well in loamy to clay-loam soils.</p>
+                <p>Best pH: 6.0 – 7.5.</p>
+                <p>Avoid saline/alkaline soils.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>3. Climate Requirements</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Cool and dry climate preferred.</p>
+                <p>Temperature: 20–25°C during sowing, 14–18°C during growth, and 25–30°C for maturity.</p>
+                <p>Requires bright sunshine at grain filling stage.</p>
+                <p>Grown in rabi season (Nov–Apr).</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>4. Seed Variety and Treatment</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Popular varieties: HD 2967, PBW 343, DBW 17, WH 1105, Lok-1 (varies by state).</p>
+                <p>Seed rate: 100–120 kg/ha.</p>
+                <p>Treat seeds with Carbendazim / Thiram @ 2.5 g/kg seed for fungal protection.</p>
+                <p>Rhizobium or Azotobacter inoculation for nitrogen fixation (optional).</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>5. Sowing Method and Spacing</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Line sowing or seed drill method is best.</p>
+                <p>Row spacing: 20–22 cm.</p>
+                <p>Depth: 4–5 cm.</p>
+                <p>Sowing time: early to mid-November for best yield.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>6. Fertilizer Schedule</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>General dose (varies by soil test): NPK: 120:60:40 kg/ha.</p>
+                <p>Apply ½ Nitrogen + full P & K as basal dose.</p>
+                <p>Apply remaining ½ Nitrogen in 2 splits (at first irrigation – crown root initiation stage, and before flowering).</p>
+                <p>Use farmyard manure (FYM) 10–12 t/ha before sowing.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>7. Irrigation Management</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Wheat is sensitive to irrigation at critical stages:</p>
+                <ul>
+                    <li>Crown root initiation (20–25 DAS)</li>
+                    <li>Tillering (40–45 DAS)</li>
+                    <li>Booting (65–70 DAS)</li>
+                    <li>Flowering (90–95 DAS)</li>
+                    <li>Grain filling / Dough stage (110–115 DAS)</li>
+                </ul>
+                <p>Normally 4–5 irrigations required depending on rainfall.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>8. Weed and Pest Control</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Weeds: <i>Phalaris minor</i>, <i>Chenopodium album</i> common.</p>
+                <p>Control by Isoproturon @ 1.0 kg/ha or Pendimethalin (pre-emergence) 1.0 L/ha.</p>
+                <p>Pests:</p>
+                <ul>
+                    <li>Termites → Chlorpyriphos soil treatment</li>
+                    <li>Aphids → Dimethoate 0.03% spray</li>
+                </ul>
+                <p>Diseases: Rusts, smut, blight → Use resistant varieties + seed treatment + fungicide spray if needed.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>9. Harvesting Time and Yield</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Crop duration: 140–150 days.</p>
+                <p>Harvest when grains are hard, straw turns golden yellow.</p>
+                <p>Average yield: 40–55 q/ha under good management.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>10. Post-harvest Handling</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>After harvesting, dry grains under sun to reduce moisture below 12%.</p>
+                <p>Store in clean, dry, pest-free gunny bags or silos.</p>
+                <p>Treat storage structures with Malathion spray to prevent pests.</p>
+            </div>
+        </div>
+
+        <a href="wheat.html" class="back-btn">← Back to Home</a>
+
+    </div>
+
+    <!-- Back to Top -->
+    <button id="backToTop">⬆ Top</button>
+
+    <!-- Google Translate Script + persistence -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,ta,te,kn,ml,bn,mr,gu,pa,ur',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+
+        // Restore selected language on reload
+        window.addEventListener("load", function() {
+            const lang = localStorage.getItem("selectedLang");
+            if (lang) {
+                const interval = setInterval(() => {
+                    const select = document.querySelector(".goog-te-combo");
+                    if (select) {
+                        select.value = lang;
+                        select.dispatchEvent(new Event("change"));
+                        clearInterval(interval);
+                    }
+                }, 500);
+            }
+        });
+
+        // Save language when user changes it
+        document.addEventListener("change", function(e) {
+            if (e.target.classList.contains("goog-te-combo")) {
+                localStorage.setItem("selectedLang", e.target.value);
+            }
+        });
+
+        // ====== INTERACTIVITY: COLLAPSIBLE SECTIONS + TOOLS ======
+        const sections = document.querySelectorAll(".section");
+
+        function toggleSection(section) {
+            section.classList.toggle("collapsed");
+            const body = section.querySelector(".section-body");
+            if (section.classList.contains("collapsed")) {
+                body.style.display = "none";
+            } else {
+                body.style.display = "block";
+            }
+        }
+
+        sections.forEach(section => {
+            const header = section.querySelector(".section-header");
+            const body = section.querySelector(".section-body");
+            // Default expanded
+            body.style.display = "block";
+
+            header.addEventListener("click", () => toggleSection(section));
+
+            header.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleSection(section);
+                }
+            });
+        });
+
+        const expandAllBtn = document.getElementById("expandAll");
+        const collapseAllBtn = document.getElementById("collapseAll");
+
+        expandAllBtn.addEventListener("click", () => {
+            sections.forEach(section => {
+                section.classList.remove("collapsed");
+                section.querySelector(".section-body").style.display = "block";
+            });
+        });
+
+        collapseAllBtn.addEventListener("click", () => {
+            sections.forEach(section => {
+                section.classList.add("collapsed");
+                section.querySelector(".section-body").style.display = "none";
+            });
+        });
+
+        // Back to top visibility + behavior
+        const backToTopBtn = document.getElementById("backToTop");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 250) {
+                backToTopBtn.style.display = "flex";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        });
+
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌱 Alphonso Mango Cultivation Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom right, #fef9e7, #f4f9f4);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        header {
+            background-color: #388e3c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 30px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .tool-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .tool-btn {
+            border: none;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: #fffde7;
+            color: #795548;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .tool-btn:hover {
+            background: #fff9c4;
+        }
+        
+        .section {
+            background: white;
+            border-left: 6px solid #fbc02d;
+            border-radius: 8px;
+            padding: 0;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            cursor: pointer;
+            background: #fffde7;
+        }
+        
+        .section-header:focus {
+            outline: 2px solid #f9a825;
+            outline-offset: 2px;
+        }
+        
+        .section h2 {
+            color: #d84315;
+            margin: 0;
+            font-size: 1.25rem;
+        }
+        
+        .toggle-icon {
+            font-size: 1rem;
+            color: #6d4c41;
+            transition: transform 0.25s ease;
+        }
+        
+        .section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .section-body {
+            padding: 14px 22px 18px;
+            border-top: 1px solid #f5f5f5;
+        }
+        
+        .section p,
+        .section ul {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        ul {
+            padding-left: 18px;
+            margin: 0;
+        }
+        
+        ul li {
+            margin-bottom: 6px;
+        }
+        
+        .back-btn {
+            display: block;
+            margin: 35px auto 0;
+            padding: 12px 24px;
+            background: #fbc02d;
+            color: #333;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(251, 192, 45, 0.7);
+            transition: background 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            width: fit-content;
+        }
+        
+        .back-btn:hover {
+            background: #f9a825;
+            transform: scale(1.05);
+        }
+        /* Floating back-to-top button */
+        
+        #backToTop {
+            position: fixed;
+            bottom: 22px;
+            right: 20px;
+            padding: 10px 14px;
+            border-radius: 50px;
+            border: none;
+            background: #388e3c;
+            color: #fff;
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            display: none;
+            align-items: center;
+            gap: 6px;
+            z-index: 1500;
+        }
+        
+        #backToTop:hover {
+            background: #2e7d32;
+        }
+        /* 🌍 Google Translate Box */
+        
+        #google_translate_element {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 2000;
+            background: #ffeb3b;
+            padding: 8px 14px;
+            border-radius: 30px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
+        /* Hide Google top banner */
+        
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        
+        body {
+            top: 0px !important;
+        }
+        /* Hide Google branding/extra text */
+        
+        .goog-logo-link,
+        .goog-te-gadget span {
+            display: none !important;
+        }
+        /* Dropdown styling */
+        
+        .goog-te-combo {
+            padding: 6px 10px;
+            border: 2px solid #064420;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            background: white;
+            color: #064420;
+            cursor: pointer;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        .goog-te-combo:hover {
+            border-color: #ff9800;
+            box-shadow: 0 0 8px rgba(255, 152, 0, 0.6);
+        }
+        /* ======= RESPONSIVE TWEAKS ======= */
+        
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.4rem;
+                padding: 14px 8px;
+            }
+            .container {
+                margin: 20px auto 35px;
+                padding: 0 14px;
+            }
+            .section-header {
+                padding: 12px 14px;
+            }
+            .section-body {
+                padding: 10px 14px 14px;
+            }
+            .section h2 {
+                font-size: 1.05rem;
+            }
+            .back-btn {
+                width: 100%;
+                max-width: 320px;
+            }
+            #google_translate_element {
+                top: 10px;
+                right: 10px;
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                font-size: 1.2rem;
+            }
+            .container {
+                padding: 0 10px;
+            }
+            .section {
+                border-left-width: 4px;
+            }
+            .section h2 {
+                font-size: 1rem;
+            }
+            ul li {
+                font-size: 0.9rem;
+            }
+            #google_translate_element {
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                top: 8px;
+            }
+            #backToTop {
+                bottom: 16px;
+                right: 14px;
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 🌍 Google Translate Dropdown -->
+    <div id="google_translate_element"></div>
+
+    <header>🌱 Alphonso Mango Cultivation Guide</header>
+
+    <div class="container">
+
+        <div class="tool-row">
+            <button id="expandAll" class="tool-btn">
+                🔽 Expand all
+            </button>
+            <button id="collapseAll" class="tool-btn">
+                🔼 Collapse all
+            </button>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>1. Land and Soil Preparation</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Deep ploughing (2–3 times) to make the soil friable.</li>
+                    <li>Remove weeds, stones, and old stumps.</li>
+                    <li>Dig pits of 1 × 1 × 1 m at proper spacing.</li>
+                    <li>Fill pits with topsoil + 25–30 kg FYM + 2–3 kg neem cake + 1 kg single super phosphate before planting.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>2. Soil Type and pH</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Best suited: well-drained lateritic, alluvial, or sandy loam soils.</li>
+                    <li>Ideal pH: 6.0–7.5.</li>
+                    <li>Avoid heavy clay, waterlogged, or saline-alkaline soils.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>3. Climate Requirements</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Grows best in tropical and subtropical climates.</li>
+                    <li>Ideal temperature: 20–35°C.</li>
+                    <li>Annual rainfall: 750–2500 mm (well distributed).</li>
+                    <li>A dry spell before flowering improves fruit set and quality.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>4. Seed Variety and Treatment</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li><b>Variety:</b> Alphonso Mango (Hapus/Hasus).</li>
+                    <li>Plant grafted seedlings from reliable nurseries (avoid seedling plants).</li>
+                    <li>Treat grafts with fungicide (Carbendazim @ 1 g/L) before planting to reduce root rot.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>5. Planting Method and Spacing</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li><b>Planting season:</b> June–July (rainfed) or December–January (irrigated conditions).</li>
+                    <li><b>Spacing:</b> 9 × 9 m (≈120 plants/ha).</li>
+                    <li>Plant graft at the same depth as in nursery.</li>
+                    <li>Provide staking to protect young grafts from wind.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>6. Fertilizer Schedule</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>FYM: 25–30 kg/tree/year.</li>
+                    <li><b>NPK Dose (per tree, after 3rd year):</b></li>
+                    <li>1st year: 200 g N, 100 g P, 200 g K.</li>
+                    <li>Increase gradually up to 1 kg N, 500 g P, 1 kg K for adult trees.</li>
+                    <li>Apply fertilizers in two splits: before flowering & after fruit set.</li>
+                    <li>Foliar spray: ZnSO₄ (0.5%) + Borax (0.2%) to improve fruit quality.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>7. Irrigation Management</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Young plants: irrigate once in 7–10 days during dry season.</li>
+                    <li>Bearing trees: irrigate at critical stages – flowering, fruit set, and fruit development.</li>
+                    <li>Stop irrigation 10–15 days before flowering to encourage good bloom.</li>
+                    <li>Drip irrigation recommended for efficient water use.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>8. Weed and Pest Control</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Use mulching (dry leaves, grass, black polythene) to suppress weeds.</li>
+                    <li><b>Major pests:</b> Mango hopper, fruit fly, mealy bug.</li>
+                    <li>Control with neem oil (5%) or approved insecticides.</li>
+                    <li><b>Major diseases:</b> Powdery mildew, anthracnose, sooty mold.</li>
+                    <li>Prevent with Mancozeb (0.25%) or Carbendazim (0.1%) sprays.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>9. Harvesting and Yield</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Bearing starts: 4–5 years after planting (grafts).</li>
+                    <li>Maturity: 90–120 days after fruit set.</li>
+                    <li>Average yield: 8–10 t/ha in initial years; 12–15 t/ha at full bearing.</li>
+                    <li>Fruits are medium-sized (150–300 g), golden yellow with saffron-colored pulp, fibreless, and very aromatic.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>10. Post-harvest Handling</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Harvest fruits at mature green or light yellow stage (not fully ripe).</li>
+                    <li>Grade fruits by size, shape, and color.</li>
+                    <li>Pack in ventilated wooden or plastic crates.</li>
+                    <li>Shelf life: 7–10 days at room temp; 2–3 weeks in cold storage (12–13°C, 85–90% RH).</li>
+                    <li>Uses: Premium table fruit, export, pulp, puree, ice creams, and confectionery.</li>
+                </ul>
+            </div>
+        </div>
+
+        <a href="mango.html" class="back-btn">← Back to Home</a>
+
+    </div>
+
+    <!-- Floating Back to Top Button -->
+    <button id="backToTop">⬆ Top</button>
+
+    <!-- 🌍 Google Translate Script + persistence -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,hi,ta,te,ml,kn,gu,mr,bn,pa,ur,fr,de,es,zh-CN,ja',
+                    layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+                },
+                'google_translate_element'
+            );
+        }
+
+        // Restore language on reload
+        window.addEventListener("load", function() {
+            const lang = localStorage.getItem("selectedLang");
+            if (lang) {
+                const interval = setInterval(() => {
+                    const select = document.querySelector(".goog-te-combo");
+                    if (select) {
+                        select.value = lang;
+                        select.dispatchEvent(new Event("change"));
+                        clearInterval(interval);
+                    }
+                }, 500);
+            }
+        });
+
+        // Store language whenever user changes it
+        document.addEventListener("change", function(e) {
+            if (e.target.classList.contains("goog-te-combo")) {
+                localStorage.setItem("selectedLang", e.target.value);
+            }
+        });
+
+        // ====== INTERACTIVITY: COLLAPSIBLE SECTIONS + TOOLS ======
+
+        const sections = document.querySelectorAll(".section");
+
+        function toggleSection(section) {
+            section.classList.toggle("collapsed");
+            const body = section.querySelector(".section-body");
+            if (section.classList.contains("collapsed")) {
+                body.style.display = "none";
+            } else {
+                body.style.display = "block";
+            }
+        }
+
+        sections.forEach(section => {
+            const header = section.querySelector(".section-header");
+            const body = section.querySelector(".section-body");
+            // default: expanded
+            body.style.display = "block";
+
+            header.addEventListener("click", () => toggleSection(section));
+
+            header.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleSection(section);
+                }
+            });
+        });
+
+        const expandAllBtn = document.getElementById("expandAll");
+        const collapseAllBtn = document.getElementById("collapseAll");
+
+        expandAllBtn.addEventListener("click", () => {
+            sections.forEach(section => {
+                section.classList.remove("collapsed");
+                section.querySelector(".section-body").style.display = "block";
+            });
+        });
+
+        collapseAllBtn.addEventListener("click", () => {
+            sections.forEach(section => {
+                section.classList.add("collapsed");
+                section.querySelector(".section-body").style.display = "none";
+            });
+        });
+
+        // Back to top visibility + behavior
+        const backToTopBtn = document.getElementById("backToTop");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 250) {
+                backToTopBtn.style.display = "flex";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        });
+
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+
+</html>

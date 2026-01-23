@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Learn - Maize Varieties</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f2 url('https://www.transparenttextures.com/patterns/wood-pattern.png') repeat;
+            margin: 0;
+            padding: 20px;
+        }
+        /* Translator Button */
+        
+        .translator-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            background: #064420;
+            padding: 6px 14px;
+            border-radius: 25px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+        
+        .translator-container i {
+            font-size: 1.3rem;
+            color: #00e6e6;
+            margin-right: 8px;
+        }
+        
+        #google_translate_element {
+            font-size: 0.9rem;
+        }
+        
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.1rem;
+            color: #064420;
+            background-color: #ffbb00;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, color 0.3s ease;
+            z-index: 101;
+        }
+        
+        .back-arrow:hover {
+            background-color: rgb(0, 102, 34);
+            color: white;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #064420;
+            margin: 80px 0 40px;
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding-bottom: 20px;
+        }
+        
+        .card {
+            width: 360px;
+            background: #111;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+        
+        .card img {
+            width: calc(100% - 24px);
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin: 12px;
+        }
+        
+        .card-content {
+            padding: 20px 25px;
+            color: white;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0;
+            color: #00e6e6;
+        }
+        
+        .card-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .get-started-btn {
+            display: block;
+            margin: 15px auto 25px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, #00e6e6, #00ff99);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #00ffcc;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite;
+            width: fit-content;
+        }
+        
+        .get-started-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #00ffcc;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px #00ffcc;
+            }
+            50% {
+                box-shadow: 0 0 20px #00ffcc;
+            }
+            100% {
+                box-shadow: 0 0 10px #00ffcc;
+            }
+        }
+        /* ---------- RESPONSIVE STYLES ---------- */
+        
+        @media (max-width: 900px) {
+            body {
+                padding: 16px;
+            }
+            h1 {
+                margin-top: 70px;
+                margin-bottom: 30px;
+            }
+            .cards-container {
+                gap: 24px;
+            }
+            .card {
+                width: 320px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 14px;
+            }
+            h1 {
+                margin-top: 70px;
+                font-size: 1.6rem;
+            }
+            .card {
+                width: 100%;
+                max-width: 380px;
+            }
+            .card-content h3 {
+                font-size: 1.25rem;
+            }
+            .card-content p {
+                font-size: 0.95rem;
+            }
+            .translator-container {
+                top: 14px;
+                right: 12px;
+                padding: 5px 10px;
+            }
+            .back-arrow {
+                top: 14px;
+                left: 12px;
+                font-size: 1rem;
+                padding: 6px 14px;
+            }
+        }
+        
+        @media (max-width: 520px) {
+            body {
+                padding: 10px;
+            }
+            /* Move translator below back button and center it */
+            .translator-container {
+                position: static;
+                margin: 10px auto 0;
+                justify-content: center;
+            }
+            h1 {
+                margin-top: 40px;
+                margin-bottom: 24px;
+                font-size: 1.4rem;
+            }
+            .back-arrow {
+                top: 10px;
+                left: 10px;
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+            .cards-container {
+                gap: 20px;
+            }
+            .card {
+                width: 100%;
+                max-width: 360px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .card {
+                width: 100%;
+            }
+            .card img {
+                height: 200px;
+            }
+            .card-content {
+                padding: 16px 18px;
+            }
+            .get-started-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Back Button -->
+    <a href="agrilearn.html" class="back-arrow">← Back</a>
+
+    <!-- Translator -->
+    <div class="translator-container">
+        <i class="fa fa-globe"></i>
+        <div id="google_translate_element"></div>
+    </div>
+
+    <h1>🌽 Maize Varieties in India</h1>
+
+    <div class="cards-container">
+
+        <!-- 1. Maize (Normal Corn) -->
+        <div class="card">
+            <img src="maize1.jpg" alt="Maize (Normal Corn)">
+            <div class="card-content">
+                <h3>🌽 Maize (Normal Corn)</h3>
+                <p><strong>Type:</strong> Hybrid / Open Pollinated (Field Maize)</p>
+                <p><strong>Where grown:</strong> Tamil Nadu (Salem, Namakkal, Erode), Bihar, UP, Karnataka, Andhra Pradesh</p>
+                <p><strong>About:</strong> Tall cereal crop with yellow kernels; grown mainly for grain and fodder.</p>
+            </div>
+            <a href="Maize Normal Corn.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 2. Red Maize -->
+        <div class="card">
+            <img src="maize2.jpg" alt="Red Maize">
+            <div class="card-content">
+                <h3>🌽 Red Maize</h3>
+                <p><strong>Type:</strong> Traditional / Local (Colored variety)</p>
+                <p><strong>Where grown:</strong> Parts of Tamil Nadu, Karnataka, Maharashtra, tribal belts of India</p>
+                <p><strong>About:</strong> Medium-tall plants, cobs with red kernels rich in anthocyanins.</p>
+            </div>
+            <a href="Red Maize.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 3. Sweet Corn -->
+        <div class="card">
+            <img src="maize3.jpg" alt="Sweet Corn">
+            <div class="card-content">
+                <h3>🌽 Sweet Corn</h3>
+                <p><strong>Type:</strong> Hybrid / Specialty variety</p>
+                <p><strong>Where grown:</strong> Tamil Nadu (Coimbatore, Erode), Karnataka, Andhra Pradesh, Maharashtra</p>
+                <p><strong>About:</strong> Short-duration crop with tender, sugary kernels harvested fresh.</p>
+            </div>
+            <a href="Sweet Corn.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Font Awesome for Globe Icon -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <!-- Google Translate -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,ta,hi,te,kn,ml,mr,bn',
+                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+
+</html>

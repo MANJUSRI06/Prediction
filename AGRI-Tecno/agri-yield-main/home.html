@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgriCare</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="navbar.css" />
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        /* Smooth scrolling */
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Hide scrollbar but keep scrolling */
+        
+        body {
+            overflow-y: scroll;
+            scrollbar-width: none;
+        }
+        
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        .nav-links li.translate-item {
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+        }
+        /* ensure hero content sits above bg from home.css */
+        
+        .hero {
+            position: relative;
+        }
+        /* ---- INTERACTIVITY / ANIMATIONS ---- */
+        /* Fade-in on scroll */
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Card hover and click */
+        
+        .card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        
+        .card.interactive {
+            cursor: pointer;
+        }
+        
+        .card.interactive:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+        }
+        
+        .feature-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        /* ---------- Layout helpers for hero/cards/features ---------- */
+        /* These are defensive styles in case home.css is basic. They only
+           really matter on small screens to avoid ugly layouts. */
+        
+        .hero-overlay {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .hero-overlay h1 {
+            font-size: 2.6rem;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+        
+        .hero-overlay p {
+            max-width: 550px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-buttons .btn {
+            cursor: pointer;
+        }
+        
+        .cards-section {
+            padding: 40px 20px;
+        }
+        
+        .cards-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+        
+        .cards-container .card img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+        }
+        
+        .features {
+            max-width: 1100px;
+            margin: 0 auto 60px;
+            padding: 0 20px 40px;
+        }
+        
+        .features h2 {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .feature-card {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .feature-card img {
+            width: 210px;
+            max-width: 40%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        
+        .feature-text {
+            flex: 1;
+        }
+        /* ===================== RESPONSIVE BREAKPOINTS ===================== */
+        
+        @media (max-width: 768px) {
+            .hero-overlay {
+                text-align: center;
+            }
+            .hero-overlay h1 {
+                font-size: 2rem;
+            }
+            .hero-overlay p {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .features {
+                padding: 0 16px 30px;
+            }
+            .feature-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .feature-card img {
+                max-width: 100%;
+                width: 100%;
+            }
+            .feature-text {
+                text-align: left;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 8px 12px;
+            }
+            .logo {
+                font-size: 18px;
+            }
+            .hero-overlay {
+                padding: 24px 14px;
+            }
+            .hero-overlay h1 {
+                font-size: 1.8rem;
+            }
+            .cards-section {
+                padding: 30px 14px;
+            }
+            .cards-container {
+                gap: 16px;
+            }
+            .feature-card {
+                margin-bottom: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-leaf animated-leaf"></i> AgriCare
+        </div>
+
+        <!-- Hamburger for mobile -->
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <ul class="nav-links">
+            <li class="active"><a href="home.html" target="_self">Home</a></li>
+            <li><a href="https://prediction-final.vercel.app/" target="_self">Yield Prediction</a></li>
+            <li><a href="diagno.html" target="_self">Diagnose</a></li>
+            <li><a href="agrilearn.html" target="_self">AgriLearn</a></li>
+            <li><a href="map.html" target="_self">Fertilizer</a></li>
+            <li><a href="weather.html" target="_self">Weather</a></li>
+            <li><a href="dasboard.html" target="_self">Sales Prediction</a></li>
+            <li><a href="government.html" target="_self">Government Schema</a></li>
+            <li><a href="contact.html" target="_self">Contact Us</a></li>
+            <li class="translate-item">
+                <div id="google_translate_element"></div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero fade-in">
+        <div class="hero-overlay">
+            <h1><span>Smart Agriculture</span><br>Made Simple</h1>
+            <p>AI-powered crop Yield prediction and optimization, weather insights, and agricultural support for Odisha farmers.</p>
+            <div class="hero-buttons">
+                <a href="https://joyful-valkyrie-2db4e9.netlify.app/" target="_self">
+                    <button class="btn primary">Start Diagnosis</button>
+                </a>
+                <a href="contact.html">
+                    <button class="btn secondary">Report Issue</button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section id="diagnose" class="cards-section fade-in">
+        <div class="cards-container">
+            <div class="card" data-link="https://joyful-valkyrie-2db4e9.netlify.app/">
+                <img src="img1.webp" alt="Crop Disease" />
+                <h3>Quick Disease Detection</h3>
+                <p>Upload a crop photo → Instantly know the disease &amp; cure.</p>
+                <p class="extra">AI-powered accurate detection in seconds.</p>
+            </div>
+
+            <div class="card" data-link="map.html">
+                <img src="img2.avif" alt="Fertilizer" />
+                <h3>Fertilizer Recommendations</h3>
+                <p>Get the right fertilizer suggestions for better yield.</p>
+                <p class="extra">Personalized guidance for soil health.</p>
+            </div>
+
+            <div class="card" data-link="agrilearn.html">
+                <img src="img3.webp" alt="Learning" />
+                <h3>Farmer Guide</h3>
+                <p>Step-by-step tutorials for new farmers.</p>
+                <p class="extra">Easy to follow crop-growing tips.</p>
+            </div>
+
+            <div class="card" data-link="map.html">
+                <img src="img4.avif" alt="Shops" />
+                <h3>Nearby Shops</h3>
+                <p>Find fertilizer shops with phone &amp; location.</p>
+                <p class="extra">Trusted vendors at your fingertips.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="agrilearn" class="features fade-in">
+        <h2>What You’ll Get Here</h2>
+
+        <div class="feature-card fade-in">
+            <img src="disease.webp" alt="Crop Diagnosis" />
+            <div class="feature-text">
+                <h3>Instant Crop Disease Diagnosis</h3>
+                <p>Upload a photo of your crop and instantly detect possible diseases. Get early warnings before it spreads across the field.</p>
+            </div>
+        </div>
+
+        <hr />
+
+        <div id="fertilizer" class="feature-card fade-in">
+            <img src="fertilizer.avif" alt="Fertilizer Suggestion" />
+            <div class="feature-text">
+                <h3>Cure Methods &amp; Fertilizer Suggestions</h3>
+                <p>Receive AI-powered recommendations for eco-friendly, cost-effective solutions.</p>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="feature-card fade-in" id="weather">
+            <img src="grow.avif" alt="Crop Guides" />
+            <div class="feature-text">
+                <h3>Beginner-Friendly Crop Growing Guides</h3>
+                <p>Learn step-by-step methods from seed to harvest. Perfect for new farmers.</p>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="feature-card fade-in">
+            <img src="sho.avif" alt="Fertilizer Shops" />
+            <div class="feature-text">
+                <h3>Fertilizer Shop Locator</h3>
+                <p>Easily find nearby fertilizer shops with maps and contact details.</p>
+            </div>
+        </div>
+
+        <hr />
+
+        <div id="contact" class="feature-card fade-in">
+            <img src="mobile.jpg" alt="Mobile Friendly" />
+            <div class="feature-text">
+                <h3>Mobile-Friendly &amp; Simple Interface</h3>
+                <p>Simple navigation, works smoothly on both mobile and desktop devices.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,ta,hi,te,ml,bn,fr,de,es',
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                },
+                'google_translate_element'
+            );
+        }
+
+        // restore selected lang from localStorage
+        window.addEventListener("load", function() {
+            const lang = localStorage.getItem("selectedLang");
+            if (lang) {
+                const interval = setInterval(() => {
+                    const select = document.querySelector(".goog-te-combo");
+                    if (select) {
+                        select.value = lang;
+                        select.dispatchEvent(new Event("change"));
+                        clearInterval(interval);
+                    }
+                }, 500);
+            }
+        });
+
+        // save lang on change
+        document.addEventListener("change", function(e) {
+            if (e.target.classList.contains("goog-te-combo")) {
+                localStorage.setItem("selectedLang", e.target.value);
+            }
+        });
+    </script>
+
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- Interactivity JS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const sections = document.querySelectorAll("section[id]");
+            const navItems = document.querySelectorAll(".nav-links li");
+            const fadeElements = document.querySelectorAll(".fade-in");
+            const cards = document.querySelectorAll(".card");
+            const menuToggle = document.getElementById("menuToggle");
+            const navLinksContainer = document.querySelector(".nav-links");
+
+            // Fade-in on scroll using IntersectionObserver
+            if ("IntersectionObserver" in window) {
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add("visible");
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, {
+                        threshold: 0.2
+                    }
+                );
+
+                fadeElements.forEach((el) => observer.observe(el));
+            } else {
+                fadeElements.forEach((el) => el.classList.add("visible"));
+            }
+
+            // Active nav highlight based on scroll position (for same-page # links)
+            function updateActiveNav() {
+                let currentId = null;
+
+                sections.forEach((section) => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 120 && rect.bottom >= 120) {
+                        currentId = section.id;
+                    }
+                });
+
+                if (!currentId) return;
+
+                navItems.forEach((li) => {
+                    const link = li.querySelector("a[href^='#']");
+                    if (!link) return;
+                    const targetId = link.getAttribute("href").slice(1);
+                    if (targetId === currentId) {
+                        li.classList.add("active");
+                    } else {
+                        li.classList.remove("active");
+                    }
+                });
+            }
+
+
+            // Make cards clickable based on data-link
+            cards.forEach((card) => {
+                const link = card.getAttribute("data-link");
+                if (!link) return;
+                card.classList.add("interactive");
+                card.addEventListener("click", () => {
+                    if (link.startsWith("http")) {
+                        window.open(link, "_blank");
+                    } else {
+                        window.location.href = link;
+                    }
+                });
+            });
+
+
+            // Mobile menu toggle
+            if (menuToggle && navLinksContainer) {
+                menuToggle.addEventListener("click", () => {
+                    navLinksContainer.classList.toggle("show-mobile");
+                });
+
+                // Close menu when clicking a link (mobile)
+                navLinksContainer.addEventListener("click", (e) => {
+                    if (e.target.tagName === "A" && window.innerWidth <= 900) {
+                        navLinksContainer.classList.remove("show-mobile");
+                    }
+                });
+            }
+
+            // Scroll events
+            window.addEventListener("scroll", () => {
+                updateActiveNav();
+            });
+
+            // Initial state
+            updateActiveNav();
+        });
+    </script>
+
+    <!-- External JS (if you use it) -->
+    <script type="module" src="home.js"></script>
+    <script src="navbar.js"></script>
+</body>
+
+</html>

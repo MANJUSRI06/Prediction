@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Learn - Coconut Varieties</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f2 url('https://www.transparenttextures.com/patterns/wood-pattern.png') repeat;
+            margin: 0;
+            padding: 20px;
+        }
+        /* Translator Bar */
+        
+        .translator-bar {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            z-index: 1000;
+            background: #064420;
+            padding: 6px 14px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        }
+        
+        .translator-bar span {
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        
+        #google_translate_element select {
+            padding: 4px 6px;
+            border-radius: 6px;
+            border: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.1rem;
+            color: #064420;
+            background-color: #ffbb00;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        
+        .back-arrow:hover {
+            background-color: rgb(0, 102, 34);
+            color: white;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #064420;
+            margin: 60px 0 40px;
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .card {
+            width: 360px;
+            background: #111;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+        
+        .card img {
+            width: calc(100% - 24px);
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin: 12px;
+        }
+        
+        .card-content {
+            padding: 20px 25px;
+            color: white;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0;
+            color: #00e6e6;
+        }
+        
+        .card-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .get-started-btn {
+            display: block;
+            margin: 15px auto 25px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, #00e6e6, #00ff99);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #00ffcc;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite;
+            width: fit-content;
+        }
+        
+        .get-started-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #00ffcc;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px #00ffcc;
+            }
+            50% {
+                box-shadow: 0 0 20px #00ffcc;
+            }
+            100% {
+                box-shadow: 0 0 10px #00ffcc;
+            }
+        }
+        /* ---------- RESPONSIVE TWEAKS ---------- */
+        
+        @media (max-width: 900px) {
+            body {
+                padding: 16px;
+            }
+            .cards-container {
+                gap: 20px;
+            }
+            .card {
+                width: 100%;
+                max-width: 380px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 14px;
+            }
+            .translator-bar {
+                top: 10px;
+                right: 10px;
+                padding: 5px 10px;
+                gap: 6px;
+            }
+            .translator-bar span {
+                font-size: 0.9rem;
+            }
+            #google_translate_element select {
+                font-size: 0.8rem;
+            }
+            .back-arrow {
+                top: 60px;
+                /* push it down so it doesn't clash with translator bar */
+                left: 14px;
+                font-size: 1rem;
+                padding: 7px 14px;
+            }
+            h1 {
+                margin: 90px 0 30px;
+                font-size: 1.6rem;
+                padding: 0 10px;
+            }
+            .card {
+                width: 100%;
+                max-width: 360px;
+            }
+            .card-content {
+                padding: 18px 18px;
+            }
+            .card-content h3 {
+                font-size: 1.25rem;
+            }
+            .card-content p {
+                font-size: 0.95rem;
+            }
+            .get-started-btn {
+                width: 80%;
+                max-width: 260px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .translator-bar {
+                top: 8px;
+                right: 8px;
+                padding: 4px 8px;
+            }
+            .translator-bar span {
+                font-size: 0.8rem;
+            }
+            #google_translate_element select {
+                font-size: 0.75rem;
+                max-width: 120px;
+            }
+            .back-arrow {
+                top: 56px;
+                left: 10px;
+                font-size: 0.95rem;
+                padding: 6px 12px;
+            }
+            h1 {
+                margin: 90px 0 24px;
+                font-size: 1.4rem;
+            }
+            .cards-container {
+                gap: 16px;
+            }
+            .card {
+                width: 100%;
+                max-width: 100%;
+                border-radius: 16px;
+            }
+            .card img {
+                height: 190px;
+                margin: 10px;
+                border-radius: 14px;
+            }
+            .card-content {
+                padding: 14px 14px 18px;
+            }
+            .card-content h3 {
+                font-size: 1.1rem;
+            }
+            .card-content p {
+                font-size: 0.9rem;
+            }
+            .get-started-btn {
+                font-size: 0.9rem;
+                padding: 10px 18px;
+                margin: 12px auto 18px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Translator -->
+    <div class="translator-bar notranslate">
+        <span>🌐 Translate:</span>
+        <div id="google_translate_element"></div>
+    </div>
+
+    <a href="agrilearn.html" class="back-arrow">← Back</a>
+    <h1>🥥 Coconut Varieties in India</h1>
+
+    <div class="cards-container">
+
+        <!-- 1. Chowghat Green Dwarf -->
+        <div class="card">
+            <img src="coconut1.jpg" alt="Chowghat Green Dwarf">
+            <div class="card-content">
+                <h3>🌱 Chowghat Green Dwarf (CGD)</h3>
+                <p><strong>Type:</strong> Traditional Dwarf Variety</p>
+                <p><strong>Where it is grown:</strong> Kerala, Tamil Nadu (Coimbatore, Pollachi), Karnataka</p>
+                <p><strong>About:</strong> Compact dwarf palm with early bearing (3–4 years). Produces medium-sized green-husked nuts with high water content. Suitable for home gardens and high-density plantations.</p>
+            </div>
+            <a href="Chowghat Green Dwarf.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 2. Malayan Yellow Dwarf -->
+        <div class="card">
+            <img src="coconut2.jpg" alt="Malayan Yellow Dwarf">
+            <div class="card-content">
+                <h3>🌱 Malayan Yellow Dwarf (MYD)</h3>
+                <p><strong>Type:</strong> Traditional Dwarf Variety</p>
+                <p><strong>Where it is grown:</strong> Tamil Nadu (Thanjavur, Villupuram), Andhra Pradesh, Maharashtra</p>
+                <p><strong>About:</strong> Fast-growing dwarf palm with bright yellow husk. Early fruiting with sweet water and soft endosperm. Ideal for small farms and urban cultivation.</p>
+            </div>
+            <a href="Malayan Yellow Dwarf.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 3. Chandrasankara -->
+        <div class="card">
+            <img src="coconut3.jpg" alt="Chandrasankara">
+            <div class="card-content">
+                <h3>🧬 Chandrasankara (COD × WCT)</h3>
+                <p><strong>Type:</strong> Hybrid (Dwarf × Tall)</p>
+                <p><strong>Where it is grown:</strong> Tamil Nadu (Salem, Erode, Tiruppur), Kerala, Karnataka</p>
+                <p><strong>About:</strong> Cross between COD (Chowghat Orange Dwarf) and WCT (West Coast Tall) - Combines early bearing with high copra yield.</p>
+            </div>
+            <a href="Chandrasankara.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,ta,hi,kn,te,ml,mr,bn',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌱 Brown Ragi Cultivation Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom right, #fdf6f0, #f8eee5);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        header {
+            background-color: #6d4c41;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 30px auto 50px;
+            padding: 0 20px;
+        }
+        /* Sticky tools bar */
+        
+        .tool-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: linear-gradient(to bottom, #fdf6f0, rgba(253, 246, 240, 0.9));
+            padding: 8px 0 6px;
+            backdrop-filter: blur(4px);
+        }
+        
+        .tool-group-left,
+        .tool-group-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .tool-label {
+            font-size: 0.85rem;
+            color: #4e342e;
+            opacity: 0.9;
+        }
+        
+        .tool-select {
+            padding: 6px 10px;
+            border-radius: 20px;
+            border: 1px solid #d7ccc8;
+            font-size: 0.85rem;
+            outline: none;
+            max-width: 240px;
+            background: #fff;
+            color: #4e342e;
+        }
+        
+        .tool-btn {
+            border: none;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: #efebe9;
+            color: #4e342e;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .tool-btn:hover {
+            background: #d7ccc8;
+        }
+        
+        .section {
+            border-left: 8px solid;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            cursor: pointer;
+            background: rgba(245, 235, 224, 0.9);
+            transition: background 0.2s ease;
+        }
+        
+        .section-header.active {
+            background: #e8dcd1;
+        }
+        
+        .section-header:focus {
+            outline: 2px solid #8d6e63;
+            outline-offset: 2px;
+        }
+        
+        .section h2 {
+            color: #4e342e;
+            margin: 0;
+            font-size: 1.4rem;
+        }
+        
+        .toggle-icon {
+            font-size: 1rem;
+            color: #4e342e;
+            transition: transform 0.25s ease;
+        }
+        
+        .section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .section-body {
+            padding: 14px 22px 18px;
+            border-top: 1px solid rgba(158, 136, 123, 0.35);
+            background-color: transparent;
+        }
+        
+        .section-body p,
+        .section-body ul {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .section-body ul {
+            padding-left: 18px;
+        }
+        
+        .section-body ul li {
+            margin-bottom: 6px;
+        }
+        /* Brown Ragi Theme Colors */
+        
+        .section.land {
+            background-color: #f5ebe0;
+            border-color: #a1887f;
+        }
+        
+        .section.soil {
+            background-color: #f2e4dc;
+            border-color: #8d6e63;
+        }
+        
+        .section.climate {
+            background-color: #f5ebe0;
+            border-color: #a1887f;
+        }
+        
+        .section.seed {
+            background-color: #f2e4dc;
+            border-color: #795548;
+        }
+        
+        .section.sowing {
+            background-color: #f5ebe0;
+            border-color: #6d4c41;
+        }
+        
+        .section.fertilizer {
+            background-color: #f2e4dc;
+            border-color: #5d4037;
+        }
+        
+        .section.irrigation {
+            background-color: #f5ebe0;
+            border-color: #4e342e;
+        }
+        
+        .section.weeds {
+            background-color: #f2e4dc;
+            border-color: #6d4c41;
+        }
+        
+        .section.harvest {
+            background-color: #f5ebe0;
+            border-color: #8d6e63;
+        }
+        
+        .section.postharvest {
+            background-color: #f2e4dc;
+            border-color: #5d4037;
+        }
+        
+        .back-btn {
+            display: block;
+            margin: 35px auto 0;
+            padding: 12px 24px;
+            background: #6d4c41;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #8d6e63;
+            transition: background 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            width: fit-content;
+        }
+        
+        .back-btn:hover {
+            background: #4e342e;
+            transform: scale(1.05);
+        }
+        /* Back to top button */
+        
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 18px;
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: none;
+            background: #6d4c41;
+            color: #fff;
+            font-size: 0.8rem;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+            display: none;
+            align-items: center;
+            gap: 6px;
+            z-index: 900;
+        }
+        
+        #backToTop:hover {
+            background: #4e342e;
+        }
+        /* Translator widget styling */
+        
+        #google_translate_element {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        /* ===== Google Translate cleanup & styling ===== */
+        
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        
+        body {
+            top: 0px !important;
+        }
+        
+        .goog-logo-link,
+        .goog-te-gadget span {
+            display: none !important;
+        }
+        
+        .goog-te-combo {
+            padding: 4px 8px;
+            border: 2px solid #6d4c41;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            background: #ffffff;
+            color: #6d4c41;
+            cursor: pointer;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        .goog-te-combo:hover {
+            border-color: #8d6e63;
+            box-shadow: 0 0 6px rgba(141, 110, 99, 0.5);
+        }
+        /* RESPONSIVE */
+        
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.4rem;
+                padding: 14px 8px 40px;
+            }
+            .container {
+                margin: 20px auto 35px;
+                padding: 0 14px;
+            }
+            .tool-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .tool-group-left,
+            .tool-group-right {
+                justify-content: space-between;
+            }
+            .tool-select {
+                flex: 1;
+                max-width: none;
+            }
+            .section-header {
+                padding: 12px 14px;
+            }
+            .section-body {
+                padding: 10px 14px 14px;
+            }
+            .section h2 {
+                font-size: 1.1rem;
+            }
+            .back-btn {
+                width: 100%;
+                max-width: 320px;
+            }
+            #google_translate_element {
+                top: 8px;
+                right: 8px;
+                transform: none;
+                padding: 4px 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                font-size: 1.15rem;
+            }
+            .container {
+                padding: 0 10px;
+            }
+            .section {
+                border-left-width: 5px;
+            }
+            .section h2 {
+                font-size: 1rem;
+            }
+            .section-body p,
+            .section-body ul li {
+                font-size: 0.9rem;
+            }
+            .tool-label {
+                display: none;
+            }
+            #google_translate_element {
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+            }
+            #backToTop {
+                bottom: 14px;
+                right: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        🌱 Brown Ragi (Finger Millet – Brown Variety) Cultivation Guide
+        <div id="google_translate_element"></div>
+    </header>
+
+    <div class="container">
+
+        <div class="tool-row">
+            <div class="tool-group-left">
+                <span class="tool-label">Jump to:</span>
+                <select id="jumpSelect" class="tool-select">
+                    <option value="">Select section…</option>
+                    <option value="1">1. Land and Soil Preparation</option>
+                    <option value="2">2. Soil Type and pH</option>
+                    <option value="3">3. Climate Requirements</option>
+                    <option value="4">4. Seed Variety and Treatment</option>
+                    <option value="5">5. Sowing Method and Spacing</option>
+                    <option value="6">6. Fertilizer Schedule</option>
+                    <option value="7">7. Irrigation Management</option>
+                    <option value="8">8. Weed and Pest Control</option>
+                    <option value="9">9. Harvesting Time and Yield</option>
+                    <option value="10">10. Post-Harvest Handling</option>
+                </select>
+            </div>
+            <div class="tool-group-right">
+                <button id="expandAll" class="tool-btn">🔽 Expand all</button>
+                <button id="collapseAll" class="tool-btn">🔼 Collapse all</button>
+            </div>
+        </div>
+
+        <div class="section land" data-section="1">
+            <div class="section-header" tabindex="0">
+                <h2>1. Land and Soil Preparation</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Prepare the field with 2–3 deep ploughings followed by harrowing to ensure fine tilth.</p>
+                <p>Incorporate well-decomposed FYM @ 8–10 tons/acre at the last ploughing.</p>
+                <p>Level the field properly to avoid water stagnation.</p>
+                <p>Brown ragi is hardy and can grow in marginal and less fertile soils, ideal for upland and semi-arid areas.</p>
+            </div>
+        </div>
+
+        <div class="section soil" data-section="2">
+            <div class="section-header" tabindex="0">
+                <h2>2. Soil Type and pH</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Thrives in red loamy, light black, and sandy loam soils.</p>
+                <p>Well-drained soils are preferred; waterlogging reduces yield and increases disease incidence.</p>
+                <p>Soil pH: 5.5–7.5 (slightly acidic to neutral).</p>
+                <p>Can tolerate low fertility soils but performs best with nutrient-rich soils.</p>
+            </div>
+        </div>
+
+        <div class="section climate" data-section="3">
+            <div class="section-header" tabindex="0">
+                <h2>3. Climate Requirements</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Brown ragi is drought-tolerant and suitable for semi-arid and hilly tracts.</p>
+                <p>Temperature: 25–30°C is optimum.</p>
+                <p>Rainfall requirement: 400–900 mm annually; can survive dry periods.</p>
+                <p>Grows well at altitudes up to 1800–2000 m above sea level.</p>
+                <p>Sensitive to frost at flowering and grain-filling stages.</p>
+            </div>
+        </div>
+
+        <div class="section seed" data-section="4">
+            <div class="section-header" tabindex="0">
+                <h2>4. Seed Variety and Treatment</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Popular local varieties: Karunkezhvaragu (Tamil Nadu), Kappu Ragi (Karnataka).</p>
+                <p>Seed rate: 8–10 kg/acre for line sowing, 10–12 kg/acre for broadcasting.</p>
+                <p><b>Seed treatment:</b></p>
+                <ul>
+                    <li>Treat with Trichoderma viride @ 4 g/kg or Carbendazim 2 g/kg.</li>
+                    <li>Biofertilizer coating with Azospirillum + Phosphobacteria improves germination and early growth.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section sowing" data-section="5">
+            <div class="section-header" tabindex="0">
+                <h2>5. Sowing Method and Spacing</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p><b>Season:</b></p>
+                <ul>
+                    <li>Kharif: June–July (rainy season)</li>
+                    <li>Rabi: September–October under irrigated conditions</li>
+                </ul>
+                <p><b>Methods:</b></p>
+                <ul>
+                    <li>Line sowing – Recommended for uniform plant population and easy weed management.</li>
+                    <li>Broadcasting – Traditional, less efficient.</li>
+                </ul>
+                <p><b>Spacing:</b> 30 cm between rows × 10–12 cm between plants. Thin seedlings at 2 weeks.</p>
+            </div>
+        </div>
+
+        <div class="section fertilizer" data-section="6">
+            <div class="section-header" tabindex="0">
+                <h2>6. Fertilizer Schedule</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Apply FYM @ 8–10 tons/acre before sowing.</p>
+                <p>NPK recommendation: 40:20:20 kg/acre.</p>
+                <p>Apply half nitrogen + full P and K as basal at sowing.</p>
+                <p>Remaining nitrogen top-dressed at 30–35 DAS (tillering stage).</p>
+                <p>Foliar spray of 2% urea at flowering enhances grain filling. Micronutrients like zinc and boron may be applied in deficient soils.</p>
+            </div>
+        </div>
+
+        <div class="section irrigation" data-section="7">
+            <div class="section-header" tabindex="0">
+                <h2>7. Irrigation Management</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Brown ragi is drought-tolerant, but irrigation improves yield:</p>
+                <ul>
+                    <li>At sowing (if rainfall insufficient)</li>
+                    <li>At tillering (25–30 DAS)</li>
+                    <li>At flowering (45–50 DAS)</li>
+                    <li>Grain-filling stage (65–70 DAS)</li>
+                </ul>
+                <p>Avoid waterlogging at all stages.</p>
+            </div>
+        </div>
+
+        <div class="section weeds" data-section="8">
+            <div class="section-header" tabindex="0">
+                <h2>8. Weed and Pest Control</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>First weeding: 15–20 DAS. Second weeding: 30–35 DAS.</p>
+                <p>Herbicide option: Pendimethalin 1.0 kg a.i./ha (pre-emergence).</p>
+                <p>Pests: Shoot fly – early sowing and Neem oil sprays help. Stem borer – Neem-based or chemical sprays if severe.</p>
+                <p>Diseases: Leaf and neck blast – Tricyclazole 0.6 g/litre or Carbendazim 1 g/litre. Smut – seed treatment with Carbendazim.</p>
+            </div>
+        </div>
+
+        <div class="section harvest" data-section="9">
+            <div class="section-header" tabindex="0">
+                <h2>9. Harvesting Time and Yield</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Crop duration: 100–120 days depending on variety and season.</p>
+                <p>Harvest when ear heads turn dark brown and grains harden.</p>
+                <p>Cut ear heads separately or harvest whole plants and sun-dry before threshing.</p>
+                <p>Yield: Grain 8–12 quintals/acre (800–1200 kg), Straw 15–20 quintals/acre (fodder).</p>
+            </div>
+        </div>
+
+        <div class="section postharvest" data-section="10">
+            <div class="section-header" tabindex="0">
+                <h2>10. Post-Harvest Handling</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Dry ear heads for 3–4 days in sunlight before threshing.</p>
+                <p>Thresh manually or using mechanical thresher.</p>
+                <p>Dry grains to 8–10% moisture for safe storage.</p>
+                <p>Store in airtight bins or gunny bags in a dry, ventilated place.</p>
+                <p>Brown ragi is used for traditional foods, roti, porridge, flour, malt, and health mixes, often preferred for its rich mineral content and slightly stronger taste.</p>
+            </div>
+        </div>
+
+        <a href="ragi.html" class="back-btn">← Back to Home</a>
+
+    </div>
+
+    <button id="backToTop">⬆ Top</button>
+
+    <!-- Google Translate Script + persistence -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,ta,te,kn,ml,bn,mr,gu,pa,ur',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+
+        // Restore selected language on reload
+        window.addEventListener("load", function() {
+            const lang = localStorage.getItem("selectedLang");
+            if (lang) {
+                const interval = setInterval(() => {
+                    const select = document.querySelector(".goog-te-combo");
+                    if (select) {
+                        select.value = lang;
+                        select.dispatchEvent(new Event("change"));
+                        clearInterval(interval);
+                    }
+                }, 500);
+            }
+        });
+
+        // Save language when user changes it
+        document.addEventListener("change", function(e) {
+            if (e.target.classList.contains("goog-te-combo")) {
+                localStorage.setItem("selectedLang", e.target.value);
+            }
+        });
+
+        // ====== INTERACTIVITY: COLLAPSIBLE SECTIONS + TOOLS ======
+        const sections = document.querySelectorAll(".section");
+
+        function toggleSection(section) {
+            section.classList.toggle("collapsed");
+            const body = section.querySelector(".section-body");
+            if (section.classList.contains("collapsed")) {
+                body.style.display = "none";
+            } else {
+                body.style.display = "block";
+            }
+        }
+
+        // Init: on mobile, only first section open
+        function initSections() {
+            const isMobile = window.innerWidth <= 600;
+            sections.forEach((section, index) => {
+                const body = section.querySelector(".section-body");
+                if (isMobile && index !== 0) {
+                    section.classList.add("collapsed");
+                    body.style.display = "none";
+                } else {
+                    section.classList.remove("collapsed");
+                    body.style.display = "block";
+                }
+            });
+        }
+
+        initSections();
+
+        sections.forEach(section => {
+            const header = section.querySelector(".section-header");
+            header.addEventListener("click", () => toggleSection(section));
+            header.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleSection(section);
+                }
+            });
+        });
+
+        const expandAllBtn = document.getElementById("expandAll");
+        const collapseAllBtn = document.getElementById("collapseAll");
+
+        expandAllBtn.addEventListener("click", () => {
+            sections.forEach(section => {
+                section.classList.remove("collapsed");
+                section.querySelector(".section-body").style.display = "block";
+            });
+        });
+
+        collapseAllBtn.addEventListener("click", () => {
+            sections.forEach(section => {
+                section.classList.add("collapsed");
+                section.querySelector(".section-body").style.display = "none";
+            });
+        });
+
+        // Quick jump select
+        const jumpSelect = document.getElementById('jumpSelect');
+        jumpSelect.addEventListener('change', () => {
+            const val = jumpSelect.value;
+            if (!val) return;
+            const targetSection = document.querySelector(`.section[data-section="${val}"]`);
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+
+        // Back to top
+        const backToTopBtn = document.getElementById("backToTop");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 250) {
+                backToTopBtn.style.display = "flex";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        });
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+        // Active header highlighting
+        const observerOptions = {
+            root: null,
+            rootMargin: "0px 0px -60% 0px",
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const section = entry.target;
+                const header = section.querySelector('.section-header');
+                if (entry.isIntersecting) {
+                    header.classList.add('active');
+                } else {
+                    header.classList.remove('active');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+
+</html>

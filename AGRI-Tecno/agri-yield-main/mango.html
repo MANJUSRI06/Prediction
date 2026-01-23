@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Learn - Mango Varieties</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f2 url('https://www.transparenttextures.com/patterns/wood-pattern.png') repeat;
+            padding: 16px;
+            color: #111;
+        }
+        
+        .page-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .back-arrow {
+            display: inline-block;
+            font-size: 0.95rem;
+            color: #064420;
+            background-color: #ffbb00;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+        
+        .back-arrow:hover {
+            background-color: rgb(0, 102, 34);
+            color: white;
+            transform: translateY(-1px);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #064420;
+            margin: 24px 0 32px;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+        }
+        
+        .card {
+            background: #111;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: min(360px, 100%);
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+        
+        .card img {
+            width: calc(100% - 24px);
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin: 12px;
+            display: block;
+        }
+        
+        .card-content {
+            padding: 20px 22px 18px;
+            color: #fff;
+            text-align: left;
+        }
+        
+        .card-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: #ffbb00;
+        }
+        
+        .card-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .get-started-btn {
+            display: block;
+            margin: 0 auto 20px;
+            padding: 10px 22px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, #ffbb00, #ff8800);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #ffbb00;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .get-started-btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 22px #ffbb00;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px #ffbb00;
+            }
+            50% {
+                box-shadow: 0 0 18px #ff8800;
+            }
+            100% {
+                box-shadow: 0 0 10px #ffbb00;
+            }
+        }
+        /* Tablet */
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            h1 {
+                margin: 20px 0 26px;
+            }
+            .cards-container {
+                gap: 20px;
+            }
+            .card {
+                width: 100%;
+                max-width: 420px;
+            }
+            .card img {
+                height: 210px;
+            }
+        }
+        /* Small phones */
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .back-arrow {
+                font-size: 0.9rem;
+                padding: 7px 14px;
+            }
+            h1 {
+                margin-top: 18px;
+                font-size: 1.35rem;
+            }
+            .card-content h3 {
+                font-size: 1.1rem;
+            }
+            .card-content p {
+                font-size: 0.9rem;
+            }
+            .get-started-btn {
+                font-size: 0.9rem;
+                padding: 9px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <a href="agrilearn.html" class="back-arrow">← Back</a>
+        <h1>🥭 Mango Varieties in India</h1>
+
+        <div class="cards-container">
+
+            <!-- 1. Totapuri Mango -->
+            <div class="card">
+                <img src="mango1.jpg" alt="Totapuri Mango">
+                <div class="card-content">
+                    <h3>Totapuri Mango</h3>
+                    <p><strong>Type:</strong> Commercial / Table &amp; Processing Variety</p>
+                    <p><strong>Where it is grown:</strong> Karnataka, Andhra Pradesh, Tamil Nadu, Telangana (Bengaluru, Krishnagiri, Chittoor, Salem)</p>
+                    <p><strong>About:</strong> Totapuri Mango is widely used for pulp, juices, and pickles. Recognized by its elongated shape with a parrot-like beak, it has a tangy-sweet taste and firm pulp, making it a top choice for processing.</p>
+                </div>
+                <a href="Totapuri Mango.html" style="text-decoration: none;">
+                    <button class="get-started-btn">Explore More</button>
+                </a>
+            </div>
+
+            <!-- 2. Alphonso Mango -->
+            <div class="card">
+                <img src="mango2.jpg" alt="Alphonso Mango">
+                <div class="card-content">
+                    <h3>Alphonso Mango</h3>
+                    <p><strong>Type:</strong> Premium Dessert Variety</p>
+                    <p><strong>Where it is grown:</strong> Maharashtra (Ratnagiri, Sindhudurg), Gujarat, Karnataka, Tamil Nadu</p>
+                    <p><strong>About:</strong> Known as the “King of Mangoes,” Alphonso has unmatched sweetness, saffron-colored pulp, rich aroma, and fibreless texture. Highly demanded in domestic and export markets for its premium quality.</p>
+                </div>
+                <a href="Alphonso Mango.html" style="text-decoration: none;">
+                    <button class="get-started-btn">Explore More</button>
+                </a>
+            </div>
+
+            <!-- 3. Ratnagiri Mango -->
+            <div class="card">
+                <img src="mango3.jpg" alt="Ratnagiri Mango">
+                <div class="card-content">
+                    <h3>Ratnagiri Mango</h3>
+                    <p><strong>Type:</strong> Premium Variety / Commercial &amp; Export</p>
+                    <p><strong>Where it is grown:</strong> Ratnagiri, Sindhudurg, Raigad, Konkan (Maharashtra)</p>
+                    <p><strong>About:</strong> GI-tagged Ratnagiri Alphonso is world-famous for its golden-yellow color, rich aroma, and superior sweetness. Unique coastal climate gives this mango its exceptional flavor, making it highly export-worthy.</p>
+                </div>
+                <a href="Ratnagiri Mango.html" style="text-decoration: none;">
+                    <button class="get-started-btn">Explore More</button>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

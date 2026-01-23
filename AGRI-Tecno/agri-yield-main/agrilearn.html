@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agri Learn - Voice Crop Detection</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="navbar.css" />
+
+    <style>
+         :root {
+            --green-main: #036c09;
+            --green-dark: #1b5e20;
+            --green-light: #43a047;
+            --accent: #ffca28;
+            --danger: #e53935;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            background: linear-gradient(rgba(229, 241, 229, 0.50), rgba(213, 232, 223, 0.60)), url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        /* ===================== PAGE LAYOUT ===================== */
+        
+        .page-wrap {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 1rem 3rem;
+        }
+        
+        @media (min-width: 900px) {
+            .page-wrap {
+                padding: 2rem 3rem 3.5rem;
+            }
+        }
+        
+        .content-card {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.88);
+            border-radius: 18px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(8px);
+            padding: 1.5rem 1.7rem 2.5rem;
+            border: 1px solid rgba(67, 160, 71, 0.35);
+            animation: fadeInUp 0.7s ease-out;
+        }
+        
+        @media (min-width: 900px) {
+            .content-card {
+                padding: 2rem 2.4rem 2.8rem;
+            }
+        }
+        
+        .main-title {
+            margin: 0 0 10px;
+            font-size: clamp(2.1rem, 3.4vw, 2.8rem);
+            font-weight: 800;
+            text-align: left;
+            background: linear-gradient(90deg, #00796B, #43A047, #8BC34A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+            letter-spacing: 1.2px;
+        }
+        
+        .subtitle {
+            margin-top: 0;
+            font-size: 0.98rem;
+            color: #28412a;
+            opacity: 0.88;
+        }
+        
+        .helper-text {
+            font-size: 0.8rem;
+            color: #455a64;
+            opacity: 0.9;
+            margin: 4px 0 10px;
+        }
+        /* ===================== STATUS / TOAST BAR ===================== */
+        
+        .status-bar {
+            margin: 0.3rem 0 1rem;
+            padding: 0.55rem 0.8rem;
+            border-radius: 10px;
+            font-size: 0.83rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.85);
+            border-left: 4px solid var(--green-main);
+            color: #1b5e20;
+            min-height: 32px;
+            opacity: 0;
+            transform: translateY(-6px);
+            pointer-events: none;
+            transition: all 0.25s ease;
+        }
+        
+        .status-bar.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        
+        .status-bar.info {
+            border-left-color: #039be5;
+            color: #01579b;
+        }
+        
+        .status-bar.success {
+            border-left-color: #43a047;
+            color: #1b5e20;
+        }
+        
+        .status-bar.error {
+            border-left-color: var(--danger);
+            color: #b71c1c;
+        }
+        
+        .status-bar i {
+            font-size: 1rem;
+        }
+        
+        .status-text {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .status-close {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+        
+        .status-close:hover {
+            opacity: 1;
+        }
+        /* ===================== FILTER AREA ===================== */
+        
+        .search-filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin: 8px 0 6px;
+            flex-wrap: wrap;
+        }
+        
+        .search-filter-left,
+        .search-filter-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .search-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .search-filter-bar input {
+            width: 260px;
+            max-width: 100%;
+            padding: 10px 34px 10px 14px;
+            border-radius: 999px;
+            border: 1px solid #bbb;
+            font-size: 0.95rem;
+            outline: none;
+            background: #fcfcfc;
+            position: relative;
+        }
+        
+        .search-wrapper i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            color: #757575;
+        }
+        
+        .search-filter-bar input:focus {
+            border-color: var(--green-light);
+            box-shadow: 0 0 0 2px rgba(67, 160, 71, 0.25);
+            background: #fff;
+        }
+        
+        .search-filter-bar select {
+            padding: 9px 14px;
+            border-radius: 999px;
+            border: 1px solid #bbb;
+            font-size: 0.9rem;
+            cursor: pointer;
+            background: #fcfcfc;
+        }
+        
+        .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        
+        .chip {
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            border: 1px solid rgba(3, 108, 9, 0.4);
+            color: #1b5e20;
+            background: rgba(232, 245, 233, 0.8);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.18s ease;
+        }
+        
+        .chip i {
+            font-size: 0.75rem;
+        }
+        
+        .chip.active {
+            background: linear-gradient(135deg, #1b5e20, #43a047);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 4px 10px rgba(1, 59, 9, 0.5);
+        }
+        
+        .chip:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+        }
+        
+        .mic-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 999px;
+            background: #00796b;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            white-space: nowrap;
+        }
+        
+        .mic-btn i {
+            font-size: 1rem;
+        }
+        
+        .mic-btn.listening {
+            background: #d32f2f;
+            animation: pulse 1s infinite;
+        }
+        
+        .mic-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+        }
+        
+        .clear-btn {
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: none;
+            background: rgba(0, 0, 0, 0.05);
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #424242;
+            transition: 0.15s;
+        }
+        
+        .clear-btn i {
+            font-size: 0.8rem;
+        }
+        
+        .clear-btn:hover {
+            background: rgba(0, 0, 0, 0.12);
+        }
+        
+        .suggestions-wrapper {
+            position: relative;
+        }
+        
+        .suggestions-box {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #bbb;
+            border-radius: 12px;
+            max-height: 220px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .suggestions-box div {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .suggestions-box div:hover,
+        .suggestions-box div.active {
+            background: #e8f5e9;
+        }
+        
+        .active-filters {
+            font-size: 0.8rem;
+            color: #37474f;
+            margin-bottom: 6px;
+            opacity: 0.9;
+        }
+        /* ===================== CROP GRIDS ===================== */
+        
+        h3 {
+            margin: 18px 0 6px;
+            color: #044018;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        h3 span.section-count {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: #33691e;
+            opacity: 0.85;
+        }
+        
+        .crop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 28px;
+            width: 100%;
+            margin-bottom: 14px;
+        }
+        
+        .crop-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            padding-bottom: 4px;
+        }
+        
+        .crop-item.highlight {
+            animation: highlightPulse 1.2s ease-out;
+        }
+        
+        .crop-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: black;
+            border: 5px solid #046929;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .crop-circle::after {
+            content: "View";
+            position: absolute;
+            bottom: 10px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 999px;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: all 0.2s ease;
+        }
+        
+        .crop-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            transition: transform 0.35s ease;
+        }
+        
+        .crop-item:hover .crop-circle {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 10px 22px rgba(1, 28, 5, 0.6);
+        }
+        
+        .crop-item:hover .crop-circle img {
+            transform: scale(1.08);
+        }
+        
+        .crop-item:hover .crop-circle::after {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .crop-item:active .crop-circle img {
+            transform: rotate(10deg) scale(1.1);
+        }
+        
+        .crop-label {
+            margin-top: 10px;
+            font-size: 0.98rem;
+            color: #333;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 600px) {
+            .crop-circle {
+                width: 140px;
+                height: 140px;
+            }
+            .crop-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 16px;
+            }
+            h3 {
+                font-size: 0.98rem;
+            }
+            .crop-label {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .crop-grid {
+                grid-template-columns: 1fr;
+            }
+            .crop-circle {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        /* ===================== MOBILE FILTER LAYOUT ===================== */
+        
+        @media (max-width: 768px) {
+            .page-wrap {
+                padding: 1.1rem 0.7rem 2.5rem;
+            }
+            .content-card {
+                padding: 1.1rem 1rem 1.8rem;
+                border-radius: 14px;
+            }
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            .search-filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-filter-left,
+            .search-filter-right {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .search-wrapper,
+            .search-filter-bar input,
+            .search-filter-bar select {
+                width: 100%;
+            }
+            .filter-chips {
+                width: 100%;
+            }
+            .chip {
+                flex: 1 1 calc(50% - 6px);
+                justify-content: center;
+                text-align: center;
+            }
+            .mic-btn,
+            .clear-btn {
+                flex: 1 1 calc(50% - 6px);
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.7rem;
+            }
+            .helper-text {
+                font-size: 0.78rem;
+            }
+            .status-bar {
+                font-size: 0.78rem;
+            }
+        }
+        /* ===================== ANIMATIONS ===================== */
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(211, 47, 47, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes highlightPulse {
+            0% {
+                transform: scale(1);
+            }
+            40% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-leaf animated-leaf"></i> AgriCare
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <ul class="nav-links">
+            <li><a href="home.html" target="_self">Home</a></li>
+            <li><a href="https://prediction-final.vercel.app/" target="_self">Yield Prediction</a></li>
+            <li><a href="diagno.html" target="_self">Diagnose</a></li>
+            <li class="active"><a href="agrilearn.html" target="_self">AgriLearn</a></li>
+            <li><a href="map.html" target="_self">Fertilizer</a></li>
+            <li><a href="weather.html" target="_self">Weather</a></li>
+            <li><a href="dasboard.html" target="_self">Sales Prediction</a></li>
+            <li><a href="government.html" target="_self">Government Schema</a></li>
+            <li><a href="contact.html" target="_self">Contact Us</a></li>
+            <li class="translate-item">
+                <div id="google_translate_element"></div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- script to convert lowercase -> Capital words and set hrefs -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".nav-links a[data-page]").forEach(a => {
+                const original = a.getAttribute("data-page"); // e.g. "yield prediction", "home", "agrilearn"
+
+                // Title-case for display: first letter of each word capital
+                const formatted = original
+                    .split(" ")
+                    .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+                    .join(" ");
+
+                a.innerText = formatted;
+
+                // Decide target filename
+                let fileKey = original.trim().toLowerCase();
+
+                if (fileKey === "map") {
+                    a.href = "map.html";
+                } else {
+                    const filename = original.replace(/\s+/g, "").toLowerCase();
+                    a.href = filename + ".html";
+                }
+
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+            });
+        });
+    </script>
+
+    <!-- ================= PAGE CONTENT ================= -->
+    <div class="page-wrap">
+        <div class="content-card">
+            <h1 class="main-title">Agri Learn</h1>
+            <p class="subtitle">
+                Search or speak a crop name. Filter by category. Click a crop to open its detailed guide.
+            </p>
+            <p class="helper-text" id="helperText">
+                Tip: type or speak a crop name, then tap a card to view its guide.
+            </p>
+
+            <!-- Status / Toast -->
+            <div id="statusBar" class="status-bar">
+                <i class="fa-regular fa-circle-info"></i>
+                <span class="status-text"></span>
+                <button class="status-close" type="button" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Filters -->
+            <div class="search-filter-bar">
+                <div class="search-filter-left">
+                    <div class="search-wrapper suggestions-wrapper">
+                        <input type="text" id="searchInput" placeholder="Search crops..." />
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <div id="suggestions" class="suggestions-box"></div>
+                    </div>
+
+                    <select id="topicFilter">
+                        <option value="all">Crop Category</option>
+                        <option value="FieldCrops">Field Crops</option>
+                        <option value="Vegetables">Vegetables</option>
+                        <option value="TreePlants">Tree Plants</option>
+                    </select>
+
+                    <button id="clearBtn" class="clear-btn" type="button">
+                        <i class="fa-solid fa-eraser"></i> Clear
+                    </button>
+                </div>
+
+                <div class="search-filter-right">
+                    <div class="filter-chips">
+                        <button class="chip active" data-topic-chip="all">
+                            <i class="fa-solid fa-seedling"></i> All
+                        </button>
+                        <button class="chip" data-topic-chip="FieldCrops">
+                            <i class="fa-solid fa-wheat-awn"></i> Field
+                        </button>
+                        <button class="chip" data-topic-chip="Vegetables">
+                            <i class="fa-solid fa-carrot"></i> Vegetables
+                        </button>
+                        <button class="chip" data-topic-chip="TreePlants">
+                            <i class="fa-solid fa-tree"></i> Trees
+                        </button>
+                    </div>
+
+                    <button id="micBtn" class="mic-btn" type="button">
+                        <i class="fa-solid fa-microphone"></i> Speak
+                    </button>
+                </div>
+            </div>
+
+            <div class="active-filters" id="activeFilters"></div>
+
+            <!-- Crop Grids -->
+            <h3>
+                Field Crops
+                <span class="section-count" data-count-for="FieldCrops"></span>
+            </h3>
+            <div class="crop-grid" data-topic="FieldCrops">
+                <div class="crop-item" data-crop="Wheat">
+                    <a href="wheat.html">
+                        <div class="crop-circle"><img src="wheat.jpg" alt="Wheat" /></div>
+                    </a>
+                    <div class="crop-label">Wheat</div>
+                </div>
+                <div class="crop-item" data-crop="Rice">
+                    <a href="rice.html">
+                        <div class="crop-circle"><img src="rice.jpg" alt="Rice" /></div>
+                    </a>
+                    <div class="crop-label">Rice</div>
+                </div>
+                <div class="crop-item" data-crop="Corn">
+                    <a href="corn.html">
+                        <div class="crop-circle"><img src="corn.jpg" alt="Corn" /></div>
+                    </a>
+                    <div class="crop-label">Corn</div>
+                </div>
+                <div class="crop-item" data-crop="Ragi">
+                    <a href="ragi.html">
+                        <div class="crop-circle"><img src="ragi.jpg" alt="Ragi" /></div>
+                    </a>
+                    <div class="crop-label">Ragi</div>
+                </div>
+                <div class="crop-item" data-crop="Sugarcane">
+                    <a href="sugarcane.html">
+                        <div class="crop-circle"><img src="sugarcane.jpg" alt="Sugarcane" /></div>
+                    </a>
+                    <div class="crop-label">Sugarcane</div>
+                </div>
+            </div>
+
+            <h3>
+                Vegetables
+                <span class="section-count" data-count-for="Vegetables"></span>
+            </h3>
+            <div class="crop-grid" data-topic="Vegetables">
+                <div class="crop-item" data-crop="Tomato">
+                    <a href="tomato.html">
+                        <div class="crop-circle"><img src="tomato.jpg" alt="Tomato" /></div>
+                    </a>
+                    <div class="crop-label">Tomato</div>
+                </div>
+                <div class="crop-item" data-crop="Onion">
+                    <a href="onion.html">
+                        <div class="crop-circle"><img src="onion.jpg" alt="Onion" /></div>
+                    </a>
+                    <div class="crop-label">Onion</div>
+                </div>
+                <div class="crop-item" data-crop="Potato">
+                    <a href="potato.html">
+                        <div class="crop-circle"><img src="potato.jpg" alt="Potato" /></div>
+                    </a>
+                    <div class="crop-label">Potato</div>
+                </div>
+                <div class="crop-item" data-crop="Garlic">
+                    <a href="garlic.html">
+                        <div class="crop-circle"><img src="garlic.jpg" alt="Garlic" /></div>
+                    </a>
+                    <div class="crop-label">Garlic</div>
+                </div>
+                <div class="crop-item" data-crop="Brinjal">
+                    <a href="brinjal.html">
+                        <div class="crop-circle"><img src="brinjal.jpg" alt="Brinjal" /></div>
+                    </a>
+                    <div class="crop-label">Brinjal</div>
+                </div>
+            </div>
+
+            <h3>
+                Tree Plants
+                <span class="section-count" data-count-for="TreePlants"></span>
+            </h3>
+            <div class="crop-grid" data-topic="TreePlants">
+                <div class="crop-item" data-crop="Mango">
+                    <a href="mango.html">
+                        <div class="crop-circle"><img src="mango.jpg" alt="Mango" /></div>
+                    </a>
+                    <div class="crop-label">Mango</div>
+                </div>
+                <div class="crop-item" data-crop="Coconut">
+                    <a href="coconut.html">
+                        <div class="crop-circle"><img src="coconut.jpg" alt="Coconut" /></div>
+                    </a>
+                    <div class="crop-label">Coconut</div>
+                </div>
+                <div class="crop-item" data-crop="Palmirah">
+                    <a href="palmirah.html">
+                        <div class="crop-circle"><img src="palmirah.jpg" alt="Palmirah" /></div>
+                    </a>
+                    <div class="crop-label">Palmirah</div>
+                </div>
+                <div class="crop-item" data-crop="Banana">
+                    <a href="banana.html">
+                        <div class="crop-circle"><img src="banana.jpg" alt="Banana" /></div>
+                    </a>
+                    <div class="crop-label">Banana</div>
+                </div>
+                <div class="crop-item" data-crop="Jackfruit">
+                    <a href="jackfruit.html">
+                        <div class="crop-circle"><img src="jackfruit.jpg" alt="Jackfruit" /></div>
+                    </a>
+                    <div class="crop-label">Jackfruit</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= GOOGLE TRANSLATE SCRIPT ================= -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: [
+                        'en', 'hi', 'bn', 'te', 'mr', 'ta', 'gu', 'ur',
+                        'kn', 'ml', 'pa', 'or', 'as', 'ne', 'sd', 'sa',
+                        'gom', 'mai', 'bho', 'mni-Mtei', 'sat'
+                    ].join(','),
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                },
+                'google_translate_element'
+            );
+        }
+
+        // Restore selected language on reload
+        window.addEventListener("load", function() {
+            const lang = localStorage.getItem("selectedLang");
+            if (lang) {
+                const interval = setInterval(() => {
+                    const select = document.querySelector(".goog-te-combo");
+                    if (select) {
+                        select.value = lang;
+                        select.dispatchEvent(new Event("change"));
+                        clearInterval(interval);
+                    }
+                }, 500);
+            }
+        });
+
+        // Persist language whenever user changes it
+        document.addEventListener("change", function(e) {
+            if (e.target.classList.contains("goog-te-combo")) {
+                localStorage.setItem("selectedLang", e.target.value);
+            }
+        });
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- ================= INTERACTIVITY + VOICE + SEARCH SCRIPT ================= -->
+    <script>
+        /// Crop data with multiple pronunciation variants
+        const cropNames = [
+            "Wheat", "Rice", "Corn", "Ragi", "Sugarcane",
+            "Tomato", "Onion", "Potato", "Garlic", "Brinjal",
+            "Mango", "Coconut", "Palmirah", "Banana", "Jackfruit"
+        ];
+
+        const cropSynonyms = {
+            wheat: ["wheat", "weet", "beet", "eat", "gothumai", "godhumai", "godhumai wheat", "aah wheat", "whett", "whit", "weat", "wheet", "ghothumai", "wheet wheat", "vheat", "vhett", "vit", "vhut", "weett", "whett wheat", "ghodumai"],
+            rice: ["rice", "arisi", "arice", "saadam", "aah rice", "riis", "rees", "rais", "raice", "raees", "arisee", "aricci", "arisse", "arish", "araasi", "aah raice", "ricee", "rees rice", "riice", "raaci"],
+            corn: ["corn", "khaan", "maize", "makka", "makka cholam", "aah corn", "korn", "kawn", "khoarn", "maizee", "maiz", "maayz", "macca", "makka cholum", "maik", "kornn", "coarn", "coarnn", "corny", "korny", "cawrn"],
+            ragi: ["ragi", "kelvaragu", "kambu", "kollu", "aah ragi", "raagi", "raggy", "ragi wheat", "khelvaragu", "kambhu", "kolluu", "ragi rice", "raagi", "raagii", "raggii", "kelvaraguu", "raggie", "raggi", "raagy"],
+            sugarcane: ["sugarcane", "karumbu", "sugarcan", "kharumbu", "sugar", "aah sugarcane", "sugercane", "sugar cane", "sugercan", "karumbhu", "karumbu juice", "sugercann", "sugarcain", "sugarcainn", "sugarcaan", "sugarcane juice", "sugarcainne", "shugarcane", "sugercanee", "sugarcanee", "sugercainn"],
+            tomato: ["tomato", "thakkali", "aah tomato", "tomatto", "tommato", "tomatow", "tomaato", "tommattow", "tomat", "tomtato", "tomatta", "thakkalee", "thakkalii", "tomaato", "tomaatoo", "tomatoo", "tomattoo", "tomattoe", "tomatte"],
+            onion: ["onion", "vengayam", "aah onion", "onionn", "oniyun", "onien", "oniyun", "unyun", "onioon", "oniyon", "vengaiyam", "vengeyam", "vengaiyum", "vengayum", "vengaiyum onion", "unyun onion", "onionn", "onioon"],
+            potato: ["potato", "urulai kilangu", "aah potato", "potatto", "potatow", "potattow", "potattoe", "pottato", "pottaato", "potaato", "urulai kilangoo", "poteto", "potetoo", "potetow", "potaato", "potatoo", "potate"],
+            garlic: ["garlic", "gaaarlic", "poondu", "gaarlic", "garlick", "garlique", "garlicc", "garlick", "gaarlick", "garlik", "gaarrlic", "poondhu", "poondu garlic", "garlik", "garlikc", "garlicoo", "garlickoo", "garleek", "garleec", "garlicke"],
+            brinjal: ["brinjal", "kathirikai", "aah brinjal", "brinjall", "brinjal eggplant", "brinjal k", "brinjal ka", "brinjhal", "brinjal kaathirikai", "brinjal kathrikai", "brinjale", "brinjal kathrik", "brinjal kathir", "brinjal kathirrai", "brinjal kaathir", "brinjal kathi", "brinjal kathiri", "brinjal kathi kai"],
+            mango: ["mango", "maampazham", "aah mango", "mangoo", "manggo", "maangoo", "maanggo", "mangow", "maangow", "mangowh", "mangoo fruit", "maampazham fruit", "maampazham mango", "maampazhum", "maampazhamn", "mangoo mango", "mango fruit", "maangoo fruit"],
+            coconut: ["coconut", "thengai", "cokaanut", "coconutt", "cocanut", "coconat", "cokonut", "cokonat", "kokonat", "thengai coconut", "thengaii", "thengay", "tengai", "coconut tree", "coconu", "cocono", "coconuutt", "coconutte"],
+            palmirah: ["palmirah", "panai", "pana", "panamaram", "aah palmirah", "palmira", "palmira tree", "palmera", "palmiira", "palmeera", "palmyra", "palmiraah", "palmirha", "palmyrah", "palmaira", "palmiirah", "panai tree", "palmirah palm", "palmeerah"],
+            banana: ["banana", "vazhai", "vazhaipazham", "aah banana", "vaalapalam", "bannana", "bananna", "bananah", "bananaa", "bananna fruit", "banana fruit", "vazhaai", "vazhaipazham fruit", "vaalapalam fruit", "bananah fruit", "bananaa fruit", "banan", "banana tree", "bannana tree", "bananaa"],
+            jackfruit: ["jackfruit", "pala pazham", "aah jackfruit", "palaapalam", "jack fruit", "jackfruut", "jackfruitt", "jackfruit fruit", "pala pazham fruit", "palaapalam fruit", "jackfruit tree", "jackfruittree", "jackfrut", "jakfruit", "jakfrut", "jakfruitt", "jackfroot"]
+        };
+
+        function normalize(str) {
+            return str.toLowerCase().replace(/[^a-z0-9]/g, '');
+        }
+
+        function levenshtein(a, b) {
+            const m = a.length,
+                n = b.length;
+            const dp = Array.from({
+                length: m + 1
+            }, () => Array(n + 1).fill(0));
+            for (let i = 0; i <= m; i++) dp[i][0] = i;
+            for (let j = 0; j <= n; j++) dp[0][j] = j;
+            for (let i = 1; i <= m; i++) {
+                for (let j = 1; j <= n; j++) {
+                    dp[i][j] = (a[i - 1] === b[j - 1]) ?
+                        dp[i - 1][j - 1] :
+                        1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+                }
+            }
+            return dp[m][n];
+        }
+
+        function findBestCrop(word) {
+            word = normalize(word);
+            let bestCrop = null,
+                bestScore = Infinity;
+
+            for (const crop in cropSynonyms) {
+                for (const syn of cropSynonyms[crop]) {
+                    const dist = levenshtein(word, normalize(syn));
+                    if (dist < bestScore) {
+                        bestScore = dist;
+                        bestCrop = crop;
+                    }
+                }
+            }
+            return bestScore <= 4 ? bestCrop.charAt(0).toUpperCase() + bestCrop.slice(1) : null;
+        }
+
+        const searchInput = document.getElementById("searchInput");
+        const suggestionsBox = document.getElementById("suggestions");
+        const topicFilter = document.getElementById("topicFilter");
+        const micBtn = document.getElementById("micBtn");
+        const clearBtn = document.getElementById("clearBtn");
+        const statusBar = document.getElementById("statusBar");
+        const statusText = statusBar.querySelector(".status-text");
+        const statusClose = statusBar.querySelector(".status-close");
+        const chips = document.querySelectorAll("[data-topic-chip]");
+        const navToggle = document.getElementById("navToggle");
+        const navLinks = document.getElementById("navLinks");
+        const activeFiltersEl = document.getElementById("activeFilters");
+
+        let statusTimeout = null;
+        let suggestionIndex = -1;
+
+        function showStatus(message, type = "info", icon = null) {
+            statusBar.classList.remove("info", "success", "error");
+            statusBar.classList.add(type);
+            statusText.textContent = message;
+
+            const iconEl = statusBar.querySelector("i");
+            if (icon) iconEl.className = icon;
+            else {
+                if (type === "success") iconEl.className = "fa-regular fa-circle-check";
+                else if (type === "error") iconEl.className = "fa-regular fa-circle-xmark";
+                else iconEl.className = "fa-regular fa-circle-info";
+            }
+
+            statusBar.classList.add("visible");
+            if (statusTimeout) clearTimeout(statusTimeout);
+            statusTimeout = setTimeout(() => {
+                statusBar.classList.remove("visible");
+            }, 4000);
+        }
+
+        statusClose.addEventListener("click", () => {
+            statusBar.classList.remove("visible");
+            if (statusTimeout) clearTimeout(statusTimeout);
+        });
+
+        // Active filters text
+        function updateActiveFilters() {
+            const searchVal = searchInput.value.trim();
+            const topicVal = topicFilter.value;
+            let parts = [];
+
+            if (searchVal) parts.push(`Search: "${searchVal}"`);
+            if (topicVal !== "all") {
+                const labelMap = {
+                    "FieldCrops": "Field Crops",
+                    "Vegetables": "Vegetables",
+                    "TreePlants": "Tree Plants"
+                };
+                parts.push(`Category: ${labelMap[topicVal] || topicVal}`);
+            }
+
+            if (parts.length === 0) {
+                activeFiltersEl.textContent = "No active filters. Showing all crops.";
+            } else {
+                activeFiltersEl.textContent = parts.join(" · ");
+            }
+        }
+
+        // Suggestion box
+        function showSuggestions(value) {
+            suggestionsBox.innerHTML = "";
+            suggestionIndex = -1;
+
+            if (!value.trim()) {
+                suggestionsBox.style.display = "none";
+                return;
+            }
+            const filtered = cropNames.filter(name =>
+                name.toLowerCase().includes(value.toLowerCase())
+            );
+            filtered.forEach((name, idx) => {
+                const div = document.createElement("div");
+                div.textContent = name;
+                if (idx === 0) {
+                    div.classList.add("active");
+                    suggestionIndex = 0;
+                }
+                div.onclick = () => {
+                    searchInput.value = name;
+                    suggestionsBox.style.display = "none";
+                    filterCrops(true);
+                };
+                suggestionsBox.appendChild(div);
+            });
+            suggestionsBox.style.display = filtered.length ? "block" : "none";
+        }
+
+        // Keyboard navigation for suggestions
+        function moveSuggestionHighlight(delta) {
+            const items = Array.from(suggestionsBox.querySelectorAll("div"));
+            if (!items.length) return;
+            suggestionIndex += delta;
+            if (suggestionIndex < 0) suggestionIndex = items.length - 1;
+            if (suggestionIndex >= items.length) suggestionIndex = 0;
+            items.forEach((el, idx) => {
+                el.classList.toggle("active", idx === suggestionIndex);
+            });
+        }
+
+        function pickActiveSuggestion() {
+            const items = Array.from(suggestionsBox.querySelectorAll("div"));
+            if (!items.length) return;
+            const active = items[suggestionIndex] || items[0];
+            if (!active) return;
+            searchInput.value = active.textContent;
+            suggestionsBox.style.display = "none";
+            filterCrops(true);
+        }
+
+        // Crop counting per section
+        function updateSectionCounts() {
+            const sections = document.querySelectorAll(".crop-grid");
+            sections.forEach(grid => {
+                const topic = grid.getAttribute("data-topic");
+                const totalVisible = Array.from(grid.querySelectorAll(".crop-item"))
+                    .filter(item => item.style.display !== "none").length;
+                const span = document.querySelector(`[data-count-for="${topic}"]`);
+                if (span) {
+                    if (totalVisible === 0) span.textContent = "(0 crops)";
+                    else span.textContent = `(${totalVisible} crop${totalVisible > 1 ? "s" : ""})`;
+                }
+            });
+        }
+
+        // Filter logic
+        function filterCrops(fromVoice = false) {
+            const searchValue = searchInput.value.toLowerCase();
+            const selectedTopic = topicFilter.value;
+            let totalVisibleGlobal = 0;
+            let firstVisible = null;
+
+            document.querySelectorAll(".crop-grid").forEach(grid => {
+                const topic = grid.getAttribute("data-topic");
+                let anyVisible = false;
+                grid.querySelectorAll(".crop-item").forEach(item => {
+                    const text = item.querySelector(".crop-label").innerText.toLowerCase();
+                    const matchSearch = text.includes(searchValue);
+                    const matchTopic = (selectedTopic === "all" || selectedTopic === topic);
+                    if (matchSearch && matchTopic) {
+                        item.style.display = "flex";
+                        anyVisible = true;
+                        totalVisibleGlobal++;
+                        if (!firstVisible) firstVisible = item;
+                    } else {
+                        item.style.display = "none";
+                    }
+                });
+                grid.previousElementSibling.style.display = anyVisible ? "flex" : "none";
+                grid.style.display = anyVisible ? "grid" : "none";
+            });
+
+            updateSectionCounts();
+            updateActiveFilters();
+
+            if (totalVisibleGlobal === 0) {
+                showStatus("No crops found. Try a different name or clear filters.", "error");
+            } else {
+                const msg = `Showing ${totalVisibleGlobal} crop${totalVisibleGlobal > 1 ? "s" : ""}.`;
+                showStatus(msg, "success");
+            }
+
+            if (fromVoice && firstVisible) {
+                firstVisible.classList.add("highlight");
+                firstVisible.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+                setTimeout(() => firstVisible.classList.remove("highlight"), 900);
+            }
+        }
+
+        searchInput.addEventListener("keyup", (e) => {
+            if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Enter") {
+                // handled in keydown to avoid conflicts
+                return;
+            }
+            showSuggestions(searchInput.value);
+            filterCrops();
+        });
+
+        searchInput.addEventListener("keydown", (e) => {
+            if (suggestionsBox.style.display === "block") {
+                if (e.key === "ArrowDown") {
+                    e.preventDefault();
+                    moveSuggestionHighlight(1);
+                } else if (e.key === "ArrowUp") {
+                    e.preventDefault();
+                    moveSuggestionHighlight(-1);
+                } else if (e.key === "Enter") {
+                    e.preventDefault();
+                    pickActiveSuggestion();
+                }
+            } else if (e.key === "Enter") {
+                e.preventDefault();
+                filterCrops();
+            }
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!suggestionsBox.contains(e.target) && e.target !== searchInput) {
+                suggestionsBox.style.display = "none";
+            }
+        });
+
+        topicFilter.addEventListener("change", () => {
+            const val = topicFilter.value;
+            chips.forEach(chip => {
+                chip.classList.toggle("active", chip.getAttribute("data-topic-chip") === val);
+            });
+            filterCrops();
+        });
+
+        chips.forEach(chip => {
+            chip.addEventListener("click", () => {
+                const topic = chip.getAttribute("data-topic-chip");
+                topicFilter.value = topic;
+                chips.forEach(c => c.classList.toggle("active", c === chip));
+                filterCrops();
+            });
+        });
+
+        clearBtn.addEventListener("click", () => {
+            searchInput.value = "";
+            topicFilter.value = "all";
+            chips.forEach(chip => chip.classList.toggle("active", chip.getAttribute("data-topic-chip") === "all"));
+            filterCrops();
+            showStatus("Filters cleared.", "info");
+        });
+
+        // Crop click toast
+        document.querySelectorAll(".crop-item").forEach(item => {
+            item.addEventListener("click", () => {
+                const name = item.getAttribute("data-crop") || item.querySelector(".crop-label").innerText.trim();
+                showStatus(`Opening ${name} guide...`, "info");
+            });
+        });
+
+        // Voice Assistant
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (SpeechRecognition && micBtn) {
+            const recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = "en-US";
+            recognition.maxAlternatives = 5;
+            let isListening = false;
+
+            micBtn.addEventListener("click", () => {
+                if (isListening) recognition.stop();
+                else recognition.start();
+            });
+
+            recognition.onstart = () => {
+                isListening = true;
+                micBtn.classList.add("listening");
+                micBtn.innerHTML = '<i class="fa-solid fa-microphone-lines"></i> Listening...';
+                showStatus("Listening... say a crop name like 'Tomato' or 'Ragi'.", "info");
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript.trim();
+                const synth = window.speechSynthesis;
+                const matchedCrop = findBestCrop(transcript);
+                if (matchedCrop) {
+                    searchInput.value = matchedCrop;
+                    filterCrops(true);
+                    searchInput.focus();
+                    synth.speak(new SpeechSynthesisUtterance("The crop " + matchedCrop + " is detected"));
+                    showStatus(`Heard "${transcript}". Detected crop: ${matchedCrop}.`, "success");
+                } else {
+                    synth.speak(new SpeechSynthesisUtterance("Crop " + transcript + " is not detected"));
+                    showStatus(`Could not detect crop from "${transcript}". Try again or type manually.`, "error");
+                }
+            };
+
+            recognition.onerror = () => {
+                showStatus("Voice recognition error. Try again.", "error");
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                micBtn.classList.remove("listening");
+                micBtn.innerHTML = '<i class="fa-solid fa-microphone"></i> Speak';
+            };
+        } else if (micBtn) {
+            micBtn.style.display = "none";
+            showStatus("Your browser does not support speech recognition.", "error");
+        }
+
+        // Mobile nav toggle
+        if (navToggle && navLinks) {
+            navToggle.addEventListener("click", () => {
+                navLinks.classList.toggle("open");
+            });
+
+            navLinks.querySelectorAll("a").forEach(a => {
+                a.addEventListener("click", () => {
+                    navLinks.classList.remove("open");
+                });
+            });
+
+            // Close nav if window resized back to desktop
+            window.addEventListener("resize", () => {
+                if (window.innerWidth > 900) {
+                    navLinks.classList.remove("open");
+                }
+            });
+        }
+
+        // Initial counts and filter
+        updateSectionCounts();
+        filterCrops();
+    </script>
+</body>
+
+    <script src="navbar.js"></script>
+</html>

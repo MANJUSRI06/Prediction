@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌽 Maize Cultivation Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom right, #fef9e7, #fff5e6);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #f9a825;
+            color: white;
+            padding: 18px 12px;
+            text-align: center;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 24px auto 32px auto;
+            padding: 0 16px;
+        }
+        
+        .section {
+            border-left: 8px solid;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-clip: padding-box;
+        }
+        
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section h2 {
+            color: #33691e;
+            margin-bottom: 10px;
+            font-size: clamp(1.1rem, 2.8vw, 1.4rem);
+        }
+        
+        .section p,
+        .section ul {
+            margin-bottom: 8px;
+        }
+        
+        .section ul {
+            padding-left: 20px;
+        }
+        
+        .section ul li {
+            margin-bottom: 5px;
+            font-size: 0.97rem;
+        }
+        /* Section color themes */
+        
+        .section.land {
+            background-color: #fffde7;
+            border-color: #fbc02d;
+        }
+        
+        .section.soil {
+            background-color: #f1f8e9;
+            border-color: #8bc34a;
+        }
+        
+        .section.climate {
+            background-color: #fff3e0;
+            border-color: #ffb74d;
+        }
+        
+        .section.seed {
+            background-color: #fffde7;
+            border-color: #fdd835;
+        }
+        
+        .section.sowing {
+            background-color: #f1f8e9;
+            border-color: #7cb342;
+        }
+        
+        .section.fertilizer {
+            background-color: #fff3e0;
+            border-color: #ffa726;
+        }
+        
+        .section.irrigation {
+            background-color: #fffde7;
+            border-color: #fbc02d;
+        }
+        
+        .section.weeds {
+            background-color: #f1f8e9;
+            border-color: #689f38;
+        }
+        
+        .section.harvest {
+            background-color: #fff3e0;
+            border-color: #fb8c00;
+        }
+        
+        .section.postharvest {
+            background-color: #fffde7;
+            border-color: #fdd835;
+        }
+        
+        .back-btn {
+            display: block;
+            margin: 30px auto 8px auto;
+            padding: 12px 20px;
+            background: #f9a825;
+            color: white;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #fbc02d;
+            transition: background 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+            max-width: 260px;
+        }
+        
+        .back-btn:hover {
+            background: #f57f17;
+            transform: scale(1.03);
+        }
+        /* Responsive tweaks */
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto 28px auto;
+                padding: 0 12px;
+            }
+            .section {
+                padding: 14px 16px;
+                margin-bottom: 18px;
+                border-left-width: 6px;
+            }
+            .section ul {
+                padding-left: 18px;
+            }
+            .section ul li {
+                font-size: 0.95rem;
+            }
+            header {
+                padding: 14px 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                font-size: 0.95rem;
+            }
+            header {
+                font-size: 1.35rem;
+            }
+            .section h2 {
+                font-size: 1.05rem;
+            }
+            .back-btn {
+                margin-top: 24px;
+                padding: 10px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>🌽 Maize Cultivation Guide</header>
+
+    <div class="container">
+
+        <div class="section land">
+            <h2>1. Land and Soil Preparation</h2>
+            <p>Maize requires a well-prepared seedbed to ensure good germination.</p>
+            <p>Deep plough the land once with a mouldboard plough followed by 2–3 harrowings to achieve a fine tilth.</p>
+            <p>Remove stubbles, weeds, and clods to keep the field clean.</p>
+            <p>Incorporate 10–12 tonnes/ha of well-decomposed farmyard manure (FYM) or compost at the final ploughing for soil fertility.</p>
+            <p>Raised beds or ridges are preferred in heavy rainfall areas to avoid water stagnation.</p>
+        </div>
+
+        <div class="section soil">
+            <h2>2. Soil Type and pH</h2>
+            <p>Best soil: fertile, well-drained loamy soils with good organic matter.</p>
+            <p>Maize is adaptable but performs poorly in saline, waterlogged, or very acidic soils.</p>
+            <p>Ideal soil pH: 6.0–7.5.</p>
+            <p>Soil testing should be done before sowing to adjust fertilizer needs.</p>
+        </div>
+
+        <div class="section climate">
+            <h2>3. Climate Requirements</h2>
+            <p>Maize is a warm-season C4 crop needing plenty of sunlight.</p>
+            <p>Optimum temperature: 18–27°C for germination and growth; up to 32°C during maturity.</p>
+            <p>Rainfall: Requires 50–80 cm of well-distributed rainfall during its life cycle.</p>
+            <p>Sensitive to frost and prolonged drought.</p>
+            <p>In Tamil Nadu &amp; South India, maize is grown in both Kharif (June–July) and Rabi (October–November) seasons.</p>
+        </div>
+
+        <div class="section seed">
+            <h2>4. Seed Variety and Treatment</h2>
+            <p>Popular varieties/hybrids in India: Ganga-5, Deccan-107, HQPM-1, COH(M)6, COH(M)8 (TNAU hybrid).</p>
+            <p>Seed rate: 18–20 kg/ha for hybrids, 25 kg/ha for composites.</p>
+            <p><b>Seed treatment:</b></p>
+            <ul>
+                <li>Fungicide treatment with Carbendazim/Thiram @ 2–3 g/kg seed to prevent seed-borne diseases.</li>
+                <li>Biofertilizer inoculation with Azospirillum / Azotobacter for nitrogen fixation.</li>
+                <li>In pest-prone areas, treat seeds with Imidacloprid 5–10 ml/kg seed to protect against soil insects.</li>
+            </ul>
+        </div>
+
+        <div class="section sowing">
+            <h2>5. Sowing Method and Spacing</h2>
+            <p>Sown directly in the field by dibbling or seed drill.</p>
+            <p>Spacing depends on variety:</p>
+            <ul>
+                <li>Hybrids: 75 × 20 cm</li>
+                <li>Composites: 60 × 25 cm</li>
+            </ul>
+            <p>Planting depth: 4–5 cm in light soils, 3–4 cm in heavy soils.</p>
+            <p>Ensure uniform plant population of about 60,000–70,000 plants/ha for good yields.</p>
+        </div>
+
+        <div class="section fertilizer">
+            <h2>6. Fertilizer Schedule</h2>
+            <p><b>Basal dose (before sowing):</b></p>
+            <ul>
+                <li>10–12 t/ha FYM</li>
+                <li>NPK (60:60:40 kg/ha)</li>
+            </ul>
+            <p><b>Top dressing (after sowing):</b> Apply remaining nitrogen in 3 splits:</p>
+            <ul>
+                <li>At 30 DAS (knee-high stage)</li>
+                <li>At tasseling stage</li>
+                <li>At grain-filling stage</li>
+            </ul>
+            <p>Total recommended: 150:75:40 NPK kg/ha for hybrids.</p>
+            <p>Micronutrients like zinc sulphate (25 kg/ha) may be applied in deficient soils.</p>
+            <p>Foliar sprays of urea + micronutrients improve cob filling.</p>
+        </div>
+
+        <div class="section irrigation">
+            <h2>7. Irrigation Management</h2>
+            <p>Critical irrigation stages:</p>
+            <ul>
+                <li>Knee-high stage (20–25 DAS)</li>
+                <li>Tasseling stage</li>
+                <li>Silking stage</li>
+                <li>Grain filling stage</li>
+            </ul>
+            <p>About 5–7 irrigations are required in medium soils. Avoid waterlogging, especially during early stages.</p>
+            <p>Drip irrigation is effective for water-use efficiency and fertigation.</p>
+        </div>
+
+        <div class="section weeds">
+            <h2>8. Weed and Pest Control</h2>
+            <p><b>Weeds:</b> Echinochloa, Cyperus, Amaranthus. First intercultivation/hand weeding at 20 DAS, second at 40 DAS. Pre-emergence herbicide: Atrazine 1 kg a.i./ha within 2 days of sowing.</p>
+            <p><b>Pests:</b> Stem borer (Chilo partellus), Fall armyworm. Use recommended pesticides and biocontrol.</p>
+            <p><b>Diseases:</b> Turcicum Leaf Blight, Downy Mildew, Rust. Grow resistant hybrids + fungicide sprays (Mancozeb 0.2%).</p>
+        </div>
+
+        <div class="section harvest">
+            <h2>9. Harvesting Time and Yield</h2>
+            <p>Maturity: 90–110 days (depending on hybrid and season).</p>
+            <p>Signs of maturity: Husk turns brown and dry; kernels hard and shiny; 20–25% grain moisture.</p>
+            <p>Harvest manually or with combine harvesters.</p>
+            <p>Average yields: Traditional maize: 20–25 q/ha, Hybrids: 50–60 q/ha. Fodder yield: 40–50 t/ha (green fodder).</p>
+        </div>
+
+        <div class="section postharvest">
+            <h2>10. Post-Harvest Handling</h2>
+            <p>Shelling: Done by hand or mechanical shellers.</p>
+            <p>Drying: Reduce grain moisture to 12–13% for safe storage.</p>
+            <p>Storage: Store in clean, airtight bins/silos.</p>
+            <p>Processing &amp; Uses: Flour, starch, animal feed, ethanol, corn oil, and food products.</p>
+        </div>
+
+        <a href="corn.html" class="back-btn">← Back to Home</a>
+
+    </div>
+
+</body>
+
+</html>

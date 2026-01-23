@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agri Learn - Profile</title>
+    <link rel="icon" href="profilefavi.png" />
+    <style>
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(to top, #e8f5e9, #c8e6c9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+        
+        .profile-header {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2e7d32;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .welcome-msg {
+            font-size: 18px;
+            color: #388e3c;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .info-card {
+            background: white;
+            border: 2px solid #a5d6a7;
+            border-radius: 15px;
+            padding: 25px;
+            width: 320px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .info-card h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #1b5e20;
+        }
+        
+        .info-card p {
+            margin: 8px 0;
+            font-size: 15px;
+            color: #4e4e4e;
+        }
+        
+        .crop-tags {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag {
+            background: #c5e1a5;
+            color: #33691e;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+            cursor: default;
+        }
+        
+        .tag:hover {
+            transform: scale(1.1);
+            background: #aed581;
+        }
+        
+        .edit-btn {
+            margin-top: 25px;
+            padding: 12px 20px;
+            background: #43a047;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        
+        .edit-btn:hover {
+            background: #2e7d32;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile-header">👋 Hello, Pragadeeshwaran!</div>
+    <div class="welcome-msg">Welcome back to Agri Learn — your smart farming companion 🌾</div>
+
+    <div class="info-card">
+        <h3>👤 Profile Info</h3>
+        <p><strong>Name:</strong> Pragadeeshwaran</p>
+        <p><strong>Phone:</strong> +91 9876543210</p>
+        <p><strong>Location:</strong> Salem, Tamil Nadu</p>
+
+        <div class="crop-tags">
+            <div class="tag">🌾 Wheat</div>
+            <div class="tag">🌱 Rice</div>
+            <div class="tag">🌽 Corn</div>
+            <div class="tag">🍅 Tomato</div>
+        </div>
+
+        <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
+    </div>
+
+    <script>
+        function editProfile() {
+            alert("Redirecting to profile editor...");
+            window.location.href = "editprofile.html";
+        }
+    </script>
+
+</body>
+
+</html>

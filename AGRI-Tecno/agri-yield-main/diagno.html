@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crop Disease Detection</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="navbar.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+        }
+        /* ===== PAGE CONTENT ===== */
+        
+        main {
+            max-width: 900px;
+            margin: 32px auto 40px;
+            padding: 0 16px 32px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #225c26;
+            font-size: 1.6rem;
+        }
+        
+        .card {
+            margin-top: 18px;
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 20px 18px 24px;
+            box-shadow: 0 12px 30px rgba(15, 35, 25, 0.08);
+        }
+        
+        .field {
+            margin-bottom: 16px;
+        }
+        
+        .field label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #28442d;
+            margin-bottom: 6px;
+        }
+        
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid #cdd9cf;
+            font-size: 0.95rem;
+            outline: none;
+            background: #f9fbf8;
+            appearance: none;
+        }
+        
+        select:focus,
+        input[type="file"]:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.18);
+        }
+        
+        .preview img {
+            width: 100%;
+            max-height: 260px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-top: 8px;
+            border: 1px solid #dde6dd;
+        }
+        
+        button#analyzeBtn {
+            margin-top: 8px;
+            width: 100%;
+            padding: 12px;
+            border-radius: 999px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(90deg, #2e7d32, #43a047);
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(46, 125, 50, 0.3);
+            transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.25s ease;
+        }
+        
+        button#analyzeBtn:hover {
+            background: linear-gradient(90deg, #1b5e20, #2e7d32);
+            box-shadow: 0 12px 26px rgba(27, 94, 32, 0.4);
+            transform: translateY(-1px);
+        }
+        
+        button#analyzeBtn:active {
+            transform: translateY(0);
+            box-shadow: 0 6px 14px rgba(27, 94, 32, 0.35);
+        }
+        /* ===== RECOMMENDATION RESULT CARD ===== */
+        
+        .result-box {
+            margin-top: 20px;
+            padding: 18px 16px 20px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+            display: none;
+            font-size: 0.95rem;
+            border: 1px solid #c8e6c9;
+            box-shadow: 0 14px 30px rgba(30, 85, 35, 0.16);
+        }
+        
+        .result-header {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            background: rgba(56, 142, 60, 0.12);
+            color: #2e7d32;
+            width: fit-content;
+        }
+        
+        .pill i {
+            margin-right: 6px;
+        }
+        
+        .result-header h2 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: #1b5e20;
+        }
+        
+        .confidence-chip {
+            font-size: 0.8rem;
+            color: #1b5e20;
+            font-weight: 600;
+        }
+        
+        .confidence-chip span {
+            padding: 2px 7px;
+            border-radius: 999px;
+            background: #c8e6c9;
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-top: 10px;
+        }
+        
+        .result-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 14px;
+            padding: 10px 10px 12px;
+            border: 1px solid #dcefe0;
+        }
+        
+        .result-section h3 {
+            margin: 0 0 6px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #2e7d32;
+        }
+        
+        .result-section p {
+            margin: 0;
+            line-height: 1.45;
+        }
+        
+        .result-footer {
+            margin-top: 14px;
+            font-size: 0.8rem;
+            color: #33691e;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        
+        .result-footer span {
+            opacity: 0.85;
+        }
+        
+        .result-footer a {
+            color: #1b5e20;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+        
+        .result-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 720px) {
+            .card {
+                padding: 18px 14px 20px;
+            }
+            h1 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-leaf animated-leaf"></i> AgriCare
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <ul class="nav-links">
+            <li><a href="home.html" target="_self">Home</a></li>
+            <li><a href="https://prediction-final.vercel.app/" target="_self">Yield Prediction</a></li>
+            <li class="active"><a href="diagno.html" target="_self">Diagnose</a></li>
+            <li><a href="agrilearn.html" target="_self">AgriLearn</a></li>
+            <li><a href="map.html" target="_self">Fertilizer</a></li>
+            <li><a href="weather.html" target="_self">Weather</a></li>
+            <li><a href="dasboard.html" target="_self">Sales Prediction</a></li>
+            <li><a href="government.html" target="_self">Government Schema</a></li>
+            <li><a href="contact.html" target="_self">Contact Us</a></li>
+            <li class="translate-item">
+                <div id="google_translate_element"></div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- MAIN -->
+    <main>
+        <h1>🌱 Crop Disease Detection</h1>
+
+        <div class="card">
+            <!-- CROP & VARIETY -->
+            <div class="field">
+                <label for="cropSelect">Select Crop *</label>
+                <select id="cropSelect">
+          <option value="">-- Select Crop --</option>
+          <option value="RICE">Rice</option>
+          <option value="MAIZE">Maize</option>
+          <option value="PIGEONPEA">Pigeon Pea (Arhar)</option>
+          <option value="GREENGRAM">Green Gram (Moong)</option>
+          <option value="BLACKGRAM">Black Gram (Urad)</option>
+          <option value="GROUNDNUT">Groundnut</option>
+          <option value="SESAME">Sesame</option>
+          <option value="RAGI">Ragi</option>
+        </select>
+            </div>
+
+            <div class="field">
+                <label for="varietySelect">Select Variety *</label>
+                <select id="varietySelect" disabled>
+          <option value="">-- Select Variety --</option>
+        </select>
+            </div>
+
+            <div class="field">
+                <label for="imageUpload">Upload Leaf / Plant Image *</label>
+                <input type="file" id="imageUpload" accept="image/*" />
+                <div class="preview" id="preview"></div>
+            </div>
+
+            <button id="analyzeBtn">Analyze</button>
+
+            <div class="result-box" id="resultBox"></div>
+        </div>
+    </main>
+
+    <script>
+        // ========= VARIETY OPTIONS =========
+        const varietyOptions = {
+            RICE: [
+                "Swarna",
+                "MTU-1010",
+                "IR-36",
+                "Naveen",
+                "Lalat",
+                "Khandagiri",
+                "NDR-359",
+                "Ranjit"
+            ],
+            MAIZE: [
+                "HQPM-1",
+                "DHM-117",
+                "Ganga-11",
+                "Bio-9681",
+                "Kanchan",
+                "Vivek-165",
+                "African Tall"
+            ],
+            PIGEONPEA: [
+                "PUSA-9",
+                "ICPL-88039",
+                "ICPH-2671",
+                "T-21",
+                "Maruti",
+                "RTA-1",
+                "MALS-25"
+            ],
+            GREENGRAM: [
+                "Pusa-9531",
+                "TARM-1",
+                "IPM 02-3",
+                "Samrat",
+                "ML-131",
+                "Asha",
+                "Konkan Ghati-1"
+            ],
+            BLACKGRAM: [
+                "TU-40",
+                "PU-19",
+                "Vamban-6",
+                "IPU-2",
+                "Pant U-19",
+                "KU-301",
+                "Trombay"
+            ],
+            GROUNDNUT: [
+                "K-6",
+                "TAG-24",
+                "ICGV 91114",
+                "JL-24",
+                "Girnar",
+                "TG-37A",
+                "GG-2"
+            ],
+            SESAME: [
+                "Krishna",
+                "RT-346",
+                "TKG-22",
+                "Swetha",
+                "BSR-2",
+                "Samrat",
+                "K-6 (til)"
+            ],
+            RAGI: [
+                "GPU-28",
+                "VL-352",
+                "PR-202",
+                "CO-9",
+                "MR-1",
+                "Indaf-9",
+                "GPU-67"
+            ]
+        };
+
+        // ========= DISEASE + FERTILIZER DATA (8 crops, 3 diseases each) =========
+        const cropDatabase = {
+            RICE: [{
+                disease: "Rice Blast",
+                type: "Fungal disease",
+                cause: "Magnaporthe oryzae infects leaves, nodes and panicles in humid weather.",
+                prevention: "Use blast-resistant varieties, avoid excess nitrogen, maintain proper spacing and drainage.",
+                treatment: "Spray Tricyclazole 0.6 g/L or Isoprothiolane at first lesions; repeat if weather remains conducive.",
+                fertilizer: "Apply 40:20:20 NPK kg/acre in 3 splits (basal, tillering, panicle initiation). Avoid heavy late urea dose.",
+                timeDuration: "Repeat fungicide at 10–12 day interval till disease stops.",
+                confidence: "90%"
+            }, {
+                disease: "Bacterial Leaf Blight",
+                type: "Bacterial disease",
+                cause: "Xanthomonas oryzae enters through leaf tips and wounds, favored by strong winds and rain.",
+                prevention: "Use disease-free seed, avoid high nitrogen, keep field weed-free and ensure good drainage.",
+                treatment: "Spray Streptocycline 0.1 g/L + Copper oxychloride 2 g/L twice at 7–10 day interval.",
+                fertilizer: "Balanced NPK with added 10–15 kg/acre zinc sulphate in deficient soils to improve plant strength.",
+                timeDuration: "2 sprays normally enough if applied at early streak stage.",
+                confidence: "88%"
+            }, {
+                disease: "Sheath Blight",
+                type: "Fungal disease",
+                cause: "Rhizoctonia solani infects leaf sheath in dense, lodged crop with standing water.",
+                prevention: "Avoid dense planting and lodging, keep water level optimum, remove collateral host weeds.",
+                treatment: "Spray Validamycin 2 ml/L or Hexaconazole 1 ml/L targeting lower canopy.",
+                fertilizer: "Reduce late nitrogen, apply 25–30 kg/acre potash to strengthen stem and sheath.",
+                timeDuration: "1–2 sprays at 10 day interval depending on severity.",
+                confidence: "87%"
+            }],
+
+            MAIZE: [{
+                disease: "Gray Leaf Spot",
+                type: "Fungal disease",
+                cause: "Cercospora zeae-maydis causing rectangular lesions on leaves in warm, humid weather.",
+                prevention: "Use resistant hybrids, follow 2–3 year crop rotation, avoid dense sowing.",
+                treatment: "Spray Azoxystrobin 1 ml/L or combination fungicide at tasseling stage.",
+                fertilizer: "Recommended dose 60:30:30 NPK kg/acre with 25% N as basal and rest in 2 splits.",
+                timeDuration: "1–2 sprays at 12–14 day interval.",
+                confidence: "90%"
+            }, {
+                disease: "Common Rust",
+                type: "Fungal disease",
+                cause: "Puccinia sorghi producing rusty pustules on both sides of leaves.",
+                prevention: "Select rust-tolerant hybrids, destroy crop residues after harvest.",
+                treatment: "Spray Mancozeb 2 g/L or Propiconazole 1 ml/L at first pustules.",
+                fertilizer: "Maintain balanced N and K; avoid pure urea flooding which makes foliage more tender.",
+                timeDuration: "Generally 1 spray is enough if done early.",
+                confidence: "88%"
+            }, {
+                disease: "Downy Mildew",
+                type: "Fungal-like disease",
+                cause: "Peronosclerospora sorghi infects seedlings causing stunting and chlorosis.",
+                prevention: "Treat seed with Metalaxyl 2 g/kg, avoid sowing maize repeatedly on same field.",
+                treatment: "Rogue severely affected plants; foliar spray Metalaxyl + Mancozeb 2 g/L if needed.",
+                fertilizer: "Basal application of well-decomposed FYM (2–3 t/acre) plus recommended NPK to support recovery.",
+                timeDuration: "Seed treatment is one-time; foliar spray once at early stage.",
+                confidence: "86%"
+            }],
+
+            PIGEONPEA: [{
+                disease: "Fusarium Wilt",
+                type: "Fungal disease",
+                cause: "Fusarium udum blocks xylem vessels leading to sudden wilting.",
+                prevention: "Use wilt-resistant varieties, rotate with cereals, avoid water stagnation.",
+                treatment: "Drench base with Carbendazim 2 ml/L or Trichoderma formulation around root zone.",
+                fertilizer: "Apply 12:24:12 NPK kg/acre as basal plus 2–3 kg/acre zinc sulphate; add 1–1.5 t/acre FYM.",
+                timeDuration: "Repeat drenching after 15 days if symptoms persist.",
+                confidence: "89%"
+            }, {
+                disease: "Sterility Mosaic",
+                type: "Viral disease",
+                cause: "Pigeonpea sterility mosaic virus spread by eriophyid mites.",
+                prevention: "Destroy infected plants, control mite vector using recommended acaricides.",
+                treatment: "No direct cure; focus on vector control (Neem oil 3% or recommended acaricide).",
+                fertilizer: "Apply recommended NPK and micronutrient mixture to healthy plants to maximize compensation.",
+                timeDuration: "Continuous monitoring throughout vegetative stage.",
+                confidence: "86%"
+            }, {
+                disease: "Phytophthora Blight",
+                type: "Fungal disease",
+                cause: "Phytophthora drechsleri causing stem lesions and sudden collapse after heavy rains.",
+                prevention: "Provide good field drainage and raised beds in heavy soils.",
+                treatment: "Spray Metalaxyl + Mancozeb 2 g/L on foliage and stem; drench base in severely affected patches.",
+                fertilizer: "Avoid excess nitrogen; add 20–25 kg/acre potash to strengthen stems and reduce lodging.",
+                timeDuration: "2 sprays at 10 day interval in epidemic years.",
+                confidence: "84%"
+            }],
+
+            GREENGRAM: [{
+                disease: "Yellow Mosaic Virus",
+                type: "Viral disease",
+                cause: "YMV transmitted by whiteflies causing yellow patches on leaves.",
+                prevention: "Use YMV-resistant varieties, sow early, keep field weed-free, control whiteflies.",
+                treatment: "No cure for infected plants; remove them. Spray Imidacloprid 0.3–0.5 ml/L to control vector.",
+                fertilizer: "Basal 8:16:16 NPK kg/acre + 1–1.5 t/acre FYM; foliar 1% urea spray at flowering for yield recovery.",
+                timeDuration: "Vector sprays at 10–12 day interval during early crop growth.",
+                confidence: "89%"
+            }, {
+                disease: "Cercospora Leaf Spot",
+                type: "Fungal disease",
+                cause: "Cercospora canescens produces circular lesions on leaves.",
+                prevention: "Adopt crop rotation, avoid overhead irrigation late evening.",
+                treatment: "Spray Mancozeb 2 g/L or Chlorothalonil at first appearance.",
+                fertilizer: "Apply recommended NPK with emphasis on potash to improve leaf toughness.",
+                timeDuration: "1–2 sprays at 12–14 day interval.",
+                confidence: "87%"
+            }, {
+                disease: "Powdery Mildew",
+                type: "Fungal disease",
+                cause: "Erysiphe polygoni forms white powdery growth on leaves under dry, cool conditions.",
+                prevention: "Maintain proper spacing and air circulation.",
+                treatment: "Spray wettable sulfur 2–3 g/L or Hexaconazole 1 ml/L.",
+                fertilizer: "Light nitrogen top-dressing with 10–12 kg urea/acre after control improves new foliage growth.",
+                timeDuration: "Repeat sulfur after 10 days if needed.",
+                confidence: "85%"
+            }],
+
+            BLACKGRAM: [{
+                disease: "Leaf Curl / Yellowing",
+                type: "Viral disease",
+                cause: "Whitefly-borne virus causing curling and yellowing of leaves.",
+                prevention: "Early sowing, weed control, reflective mulches reduce vector landing.",
+                treatment: "Remove infected plants; spray Imidacloprid 0.3–0.5 ml/L or Thiamethoxam for whitefly control.",
+                fertilizer: "Basal 8:16:16 NPK kg/acre; foliar spray 1% KNO3 at flowering for better pod set in healthy plants.",
+                timeDuration: "2–3 sprays at 10 day interval during early crop growth.",
+                confidence: "88%"
+            }, {
+                disease: "Anthracnose",
+                type: "Fungal disease",
+                cause: "Colletotrichum truncatum causing dark sunken lesions on leaves and pods.",
+                prevention: "Use certified seed, avoid continuous pulse cropping.",
+                treatment: "Spray Carbendazim 1 g/L or combination fungicide at first lesions.",
+                fertilizer: "Apply 20–25 kg/acre potash along with recommended NPK to strengthen stems and pods.",
+                timeDuration: "1–2 sprays at 12 day interval.",
+                confidence: "86%"
+            }, {
+                disease: "Rust",
+                type: "Fungal disease",
+                cause: "Uromyces appendiculatus producing orange pustules on leaves.",
+                prevention: "Destroy volunteer hosts, sow recommended varieties.",
+                treatment: "Spray Mancozeb 2 g/L or Propiconazole 1 ml/L.",
+                fertilizer: "Balanced fertilizer with FYM improves plant vigour and reduces rust damage.",
+                timeDuration: "Repeat once after 12 days if disease persists.",
+                confidence: "84%"
+            }],
+
+            GROUNDNUT: [{
+                disease: "Tikka Leaf Spot",
+                type: "Fungal disease",
+                cause: "Cercospora arachidicola and C. personata causing early and late leaf spots.",
+                prevention: "Use tolerant varieties, follow clean cultivation and crop rotation.",
+                treatment: "Spray Mancozeb 2 g/L or Chlorothalonil at 30–35 DAS and repeat twice at 12–15 day interval.",
+                fertilizer: "Apply gypsum 200 kg/acre at flowering for pods + 12:24:24 NPK kg/acre as basal.",
+                timeDuration: "3 sprays across crop season in endemic areas.",
+                confidence: "90%"
+            }, {
+                disease: "Rust",
+                type: "Fungal disease",
+                cause: "Puccinia arachidis forming reddish brown pustules on leaves.",
+                prevention: "Same schedule as leaf spot works well; avoid moisture stress.",
+                treatment: "Spray Hexaconazole or Propiconazole 1 ml/L mixed with Mancozeb 2 g/L.",
+                fertilizer: "Adequate potash and calcium through K2O and gypsum reduces severity.",
+                timeDuration: "1–2 sprays depending on intensity.",
+                confidence: "88%"
+            }, {
+                disease: "Collar Rot",
+                type: "Fungal disease",
+                cause: "Aspergillus niger infects collar region of seedlings.",
+                prevention: "Treat seed with Trichoderma or Carbendazim, avoid sowing in poorly drained fields.",
+                treatment: "Drench collar region with Carbendazim 1 g/L around affected patches.",
+                fertilizer: "Apply 1–1.5 t/acre FYM plus recommended NPK to improve soil health.",
+                timeDuration: "One drench, repeat after 10 days if new infection appears.",
+                confidence: "85%"
+            }],
+
+            SESAME: [{
+                disease: "Leaf Spot",
+                type: "Fungal disease",
+                cause: "Cercospora sesami causing numerous small brown spots.",
+                prevention: "Crop rotation, remove infected crop residues.",
+                treatment: "Spray Mancozeb 2 g/L at first spotting.",
+                fertilizer: "Recommended NPK 8:16:8 kg/acre; avoid excess nitrogen.",
+                timeDuration: "1–2 sprays at 12 day interval.",
+                confidence: "87%"
+            }, {
+                disease: "Phyllody",
+                type: "Phytoplasma disease",
+                cause: "Floral parts turn leafy due to phytoplasma spread by leafhoppers.",
+                prevention: "Use healthy seed, control leafhopper vector.",
+                treatment: "Rogue affected plants; spray systemic insecticide (Imidacloprid 0.3 ml/L).",
+                fertilizer: "Balanced nutrition and irrigation support remaining healthy plants to compensate yield.",
+                timeDuration: "Vector control at 10–12 day interval during flowering.",
+                confidence: "86%"
+            }, {
+                disease: "Alternaria Leaf Blight",
+                type: "Fungal disease",
+                cause: "Alternaria sesami causing concentric ring spots on leaves.",
+                prevention: "Avoid dense sowing and waterlogging.",
+                treatment: "Spray Chlorothalonil 2 g/L.",
+                fertilizer: "Include 20–25 kg/acre potash to strengthen plants.",
+                timeDuration: "Repeat once after 12 days.",
+                confidence: "85%"
+            }],
+
+            RAGI: [{
+                disease: "Blast Disease",
+                type: "Fungal disease",
+                cause: "Magnaporthe grisea causing leaf and neck blast.",
+                prevention: "Use blast-resistant varieties, avoid excessive nitrogen.",
+                treatment: "Spray Carbendazim 2 g/L or Tricyclazole 0.6 g/L at first symptoms.",
+                fertilizer: "NPK 20:20:0 kg/acre split in 2–3 doses; avoid heavy late N application.",
+                timeDuration: "2 sprays at 10–12 day interval in severe conditions.",
+                confidence: "91%"
+            }, {
+                disease: "Leaf Spot",
+                type: "Fungal disease",
+                cause: "Helminthosporium spp. producing elongated spots on leaves.",
+                prevention: "Maintain spacing and good air movement.",
+                treatment: "Spray Mancozeb 2 g/L.",
+                fertilizer: "Add 15–20 kg/acre potash to strengthen foliage.",
+                timeDuration: "1–2 sprays depending on pressure.",
+                confidence: "90%"
+            }, {
+                disease: "Downy Mildew",
+                type: "Fungal-like disease",
+                cause: "Sclerospora graminicola leading to chlorosis and stunted growth.",
+                prevention: "Use treated seeds; rotate with non-millet crops.",
+                treatment: "Seed treatment + foliar Metalaxyl 2 g/L at early stage.",
+                fertilizer: "Basal FYM plus recommended NPK improves plant recovery.",
+                timeDuration: "Generally one foliar spray is enough if done early.",
+                confidence: "88%"
+            }]
+        };
+
+        const cropDisplayNames = {
+            RICE: "Rice",
+            MAIZE: "Maize",
+            PIGEONPEA: "Pigeon Pea (Arhar)",
+            GREENGRAM: "Green Gram (Moong)",
+            BLACKGRAM: "Black Gram (Urad)",
+            GROUNDNUT: "Groundnut",
+            SESAME: "Sesame",
+            RAGI: "Ragi"
+        };
+
+        // ========= UI HOOKUP =========
+        const cropSelect = document.getElementById("cropSelect");
+        const varietySelect = document.getElementById("varietySelect");
+        const imageUpload = document.getElementById("imageUpload");
+        const preview = document.getElementById("preview");
+        const resultBox = document.getElementById("resultBox");
+        const analyzeBtn = document.getElementById("analyzeBtn");
+
+        // populate variety when crop changes
+        cropSelect.addEventListener("change", () => {
+            const cropKey = cropSelect.value;
+            const varieties = varietyOptions[cropKey] || [];
+
+            varietySelect.innerHTML = '<option value="">-- Select Variety --</option>';
+
+            if (varieties.length === 0) {
+                varietySelect.disabled = true;
+                return;
+            }
+
+            varieties.forEach((v) => {
+                const opt = document.createElement("option");
+                opt.value = v;
+                opt.textContent = v;
+                varietySelect.appendChild(opt);
+            });
+
+            varietySelect.disabled = false;
+        });
+
+        // image preview
+        imageUpload.addEventListener("change", function() {
+            const file = this.files[0];
+            if (!file) {
+                preview.innerHTML = "";
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                preview.innerHTML = `<img src="${event.target.result}" alt="Uploaded Image" />`;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // analyze button -> vibrant recommendation card
+        analyzeBtn.addEventListener("click", () => {
+            const cropKey = cropSelect.value;
+            const variety = varietySelect.value;
+
+            if (!cropKey) {
+                alert("Please select a crop.");
+                return;
+            }
+            if (!variety && !varietySelect.disabled) {
+                alert("Please select a variety.");
+                return;
+            }
+
+            const diseases = cropDatabase[cropKey];
+            if (!diseases || diseases.length === 0) {
+                alert("No disease data for this crop yet.");
+                return;
+            }
+
+            const randomDisease = diseases[Math.floor(Math.random() * diseases.length)];
+            const displayName = cropDisplayNames[cropKey] || cropKey;
+
+            const cropLabel = variety ?
+                `${displayName} – ${variety}` :
+                displayName;
+
+            resultBox.style.display = "block";
+            resultBox.innerHTML = `
+        <div class="result-header">
+          <span class="pill">
+            <i class="fa-solid fa-seedling"></i>
+            Smart Recommendation
+          </span>
+          <h2>${cropLabel}</h2>
+          <div class="confidence-chip">
+            AI Confidence: <span>${randomDisease.confidence}</span>
+          </div>
+        </div>
+
+        <div class="result-grid">
+          <div class="result-section">
+            <h3>Disease detected</h3>
+            <p>
+              <strong>${randomDisease.disease}</strong><br/>
+              <small>${randomDisease.type}</small>
+            </p>
+          </div>
+
+          <div class="result-section">
+            <h3>Probable cause</h3>
+            <p>${randomDisease.cause}</p>
+          </div>
+
+          <div class="result-section">
+            <h3>Prevention tips</h3>
+            <p>${randomDisease.prevention}</p>
+          </div>
+
+          <div class="result-section">
+            <h3>Treatment</h3>
+            <p>${randomDisease.treatment}</p>
+          </div>
+
+          <div class="result-section">
+            <h3>Fertilizer plan</h3>
+            <p>${randomDisease.fertilizer}</p>
+          </div>
+
+          <div class="result-section">
+            <h3>Time duration</h3>
+            <p>${randomDisease.timeDuration}</p>
+          </div>
+        </div>
+
+        <div class="result-footer">
+          <span>
+            <i class="fa-regular fa-circle-question"></i>
+            Use this as guidance only. Please cross-check with your local agriculture officer before spraying.
+          </span>
+          <a href="agrilearn.html">Open AgriLearn →</a>
+        </div>
+      `;
+        });
+    </script>
+    <script src="navbar.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌾 Basmati Rice Cultivation Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom right, #fffde7, #fff9c4, #fff59d);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        header {
+            background-color: #558b2f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 30px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .tool-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .tool-btn {
+            border: none;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: #fff9c4;
+            color: #455a26;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .tool-btn:hover {
+            background: #ffecb3;
+        }
+        
+        .section {
+            background: white;
+            border-left: 6px solid #fbc02d;
+            border-radius: 8px;
+            padding: 0;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            cursor: pointer;
+            background: #fffde7;
+        }
+        
+        .section-header:focus {
+            outline: 2px solid #fbc02d;
+            outline-offset: 2px;
+        }
+        
+        .section h2 {
+            color: #d84315;
+            margin: 0;
+            font-size: 1.4rem;
+        }
+        
+        .toggle-icon {
+            font-size: 1rem;
+            color: #6d4c41;
+            transition: transform 0.25s ease;
+        }
+        
+        .section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .section-body {
+            padding: 14px 22px 18px;
+            border-top: 1px solid #f5f5f5;
+        }
+        
+        .section p,
+        .section ul {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+        
+        ul li {
+            margin-bottom: 6px;
+        }
+        
+        .back-btn {
+            display: block;
+            margin: 35px auto 0;
+            padding: 12px 24px;
+            background: #fbc02d;
+            color: #333;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(251, 192, 45, 0.7);
+            transition: background 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            width: fit-content;
+        }
+        
+        .back-btn:hover {
+            background: #f9a825;
+            transform: scale(1.05);
+        }
+        /* Back to top button */
+        
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 18px;
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: none;
+            background: #558b2f;
+            color: #fff;
+            font-size: 0.8rem;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+            display: none;
+            align-items: center;
+            gap: 6px;
+            z-index: 900;
+        }
+        
+        #backToTop:hover {
+            background: #33691e;
+        }
+        /* 🌍 Google Translate Dropdown */
+        
+        #google_translate_element {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+            background: #ffeb3b;
+            padding: 8px 14px;
+            border-radius: 30px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
+        
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        
+        body {
+            top: 0px !important;
+        }
+        
+        .goog-logo-link,
+        .goog-te-gadget span {
+            display: none !important;
+        }
+        
+        .goog-te-combo {
+            padding: 6px 10px;
+            border: 2px solid #558b2f;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            background: white;
+            color: #558b2f;
+            cursor: pointer;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        .goog-te-combo:hover {
+            border-color: #f57c00;
+            box-shadow: 0 0 8px rgba(245, 124, 0, 0.6);
+        }
+        /* RESPONSIVE */
+        
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.4rem;
+                padding: 14px 8px;
+            }
+            .container {
+                margin: 20px auto 35px;
+                padding: 0 14px;
+            }
+            .section-header {
+                padding: 12px 14px;
+            }
+            .section-body {
+                padding: 10px 14px 14px;
+            }
+            .section h2 {
+                font-size: 1.1rem;
+            }
+            .back-btn {
+                width: 100%;
+                max-width: 320px;
+            }
+            #google_translate_element {
+                top: 10px;
+                right: 10px;
+                padding: 6px 10px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                font-size: 1.2rem;
+            }
+            .container {
+                padding: 0 10px;
+            }
+            .section {
+                border-left-width: 4px;
+            }
+            .section h2 {
+                font-size: 1rem;
+            }
+            ul li {
+                font-size: 0.9rem;
+            }
+            #google_translate_element {
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                top: 8px;
+            }
+            #backToTop {
+                bottom: 14px;
+                right: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 🌍 Google Translate Dropdown -->
+    <div id="google_translate_element"></div>
+
+    <header>🌾 Basmati Rice Cultivation Guide</header>
+
+    <div class="container">
+
+        <div class="tool-row">
+            <button id="expandAll" class="tool-btn">🔽 Expand all</button>
+            <button id="collapseAll" class="tool-btn">🔼 Collapse all</button>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>1. Land and Soil Preparation</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Basmati requires well-prepared, level, and fertile fields for uniform growth.</li>
+                    <li>First ploughing should be deep with a mouldboard plough, followed by 2–3 harrowings.</li>
+                    <li>Land should be well-puddled (wet tillage) before transplanting to reduce water loss and suppress weeds.</li>
+                    <li>Ensure good drainage and prepare proper bunds (embankments) to hold irrigation water.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>2. Soil Type and pH</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Best suited soils: Clay loam to silty loam with good water retention capacity.</li>
+                    <li>Ideal pH: 5.5 – 7.5 (slightly acidic to neutral).</li>
+                    <li>Avoid saline or alkaline soils as they reduce grain aroma and yield.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>3. Climate Requirements</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Basmati is a tropical and subtropical crop, requires warm climate.</li>
+                    <li>Temperature: 20°C to 35°C during growth; optimum is 25–32°C.</li>
+                    <li>Rainfall: 100–150 cm is ideal (irrigation is needed in low rainfall areas).</li>
+                    <li>Requires bright sunshine and dry weather during maturity for better aroma.</li>
+                    <li>Cannot tolerate frost or cold stress.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>4. Seed Variety and Treatment</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Popular Basmati varieties: Pusa Basmati 1121, Pusa Basmati 1509, Pusa Basmati 1, Traditional Basmati.</li>
+                    <li>Use certified seeds for high yield and quality.</li>
+                    <li>Seed rate: 8–10 kg/acre for nursery sowing.</li>
+                    <li>Seed treatment: Soak seeds in water for 8–10 hours and treat with fungicides (e.g., Carbendazim 2 g/kg seed) to prevent seed-borne diseases.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>5. Sowing Method and Spacing</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Nursery raising & transplanting is the most common method.</li>
+                    <li>Prepare raised nursery beds of 1–1.5 m width.</li>
+                    <li>Sow pre-germinated seeds evenly and cover with fine soil.</li>
+                    <li>After 25–30 days, seedlings are ready for transplanting.</li>
+                    <li>Transplant spacing: 20 x 15 cm or 22.5 x 22.5 cm (row-to-row × plant-to-plant).</li>
+                    <li>Plant 2–3 seedlings per hill for optimum growth.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>6. Fertilizer Schedule</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Organic manures: Apply 5–10 tons/acre of well-decomposed FYM (farmyard manure) before last ploughing.</li>
+                    <li>Chemical fertilizers (per acre): Nitrogen (N): 40–50 kg, Phosphorus (P2O5): 20–25 kg, Potash (K2O): 20–25 kg</li>
+                    <li>Apply half nitrogen + full phosphorus and potash as basal dose at transplanting.</li>
+                    <li>Apply remaining nitrogen in 2 splits: First top dressing 25–30 days after transplanting, Second top dressing 50–55 days after transplanting.</li>
+                    <li>Foliar spray of micronutrients (zinc, iron, boron) helps improve yield and grain quality.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>7. Irrigation Management</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>First irrigation: Immediately after transplanting.</li>
+                    <li>Maintain 2–5 cm water depth until flowering.</li>
+                    <li>During flowering and grain filling, maintain soil moisture without water stress.</li>
+                    <li>Drain water before 15–20 days of harvesting to ease harvesting and avoid grain shattering.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>8. Weed and Pest Control</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Major weeds: Echinochloa, Cyperus, Fimbristylis.</li>
+                    <li>Apply pre-emergence herbicide (Butachlor 1.5 kg a.i./ha) within 2–3 days of transplanting.</li>
+                    <li>Hand weeding at 20 and 40 days after transplanting.</li>
+                    <li>Pests: Stem borer, leaf folder, brown planthopper (BPH), rice hispa. Use pheromone traps and spray insecticides when infestation crosses ETL.</li>
+                    <li>Diseases: Blast, bacterial leaf blight, sheath blight. Use resistant varieties and treat with fungicides.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>9. Harvesting Time and Yield</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Harvest when 80–85% of the grains are mature and straw turns yellow.</li>
+                    <li>Avoid early harvesting, as immature grains reduce aroma and cooking quality.</li>
+                    <li>Harvesting is done by sickle or combine harvester.</li>
+                    <li>Average yield: 18–25 quintals/acre.</li>
+                    <li>Traditional Basmati yields less but fetches higher price due to aroma.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>10. Post-Harvest Handling</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <ul>
+                    <li>Sun-dry bundles for 2–3 days to reduce grain moisture to 13–14%.</li>
+                    <li>Threshing manually or by machine.</li>
+                    <li>Store grains in aerated godowns with moisture-proof bags.</li>
+                    <li>Aging: 6–12 months before milling enhances aroma and elongation.</li>
+                    <li>Proper milling with minimal breakage is essential for premium quality.</li>
+                </ul>
+            </div>
+        </div>
+
+        <a href="rice.html" class="back-btn">← Back to Home</a>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="backToTop">⬆ Top</button>
+
+    <!-- 🌍 Google Translate Script + persistence -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,ta,te,ml,kn,gu,mr,bn,pa,ur,fr,de,es,zh-CN,ja',
+                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+            }, 'google_translate_element');
+        }
+
+        // Restore selected language on reload
+        window.addEventListener("load", function() {
+            const lang = localStorage.getItem("selectedLang");
+            if (lang) {
+                const interval = setInterval(() => {
+                    const select = document.querySelector(".goog-te-combo");
+                    if (select) {
+                        select.value = lang;
+                        select.dispatchEvent(new Event("change"));
+                        clearInterval(interval);
+                    }
+                }, 500);
+            }
+        });
+
+        // Save language when user changes it
+        document.addEventListener("change", function(e) {
+            if (e.target.classList.contains("goog-te-combo")) {
+                localStorage.setItem("selectedLang", e.target.value);
+            }
+        });
+
+        // ====== INTERACTIVITY: COLLAPSIBLE SECTIONS + TOOLS ======
+        const sections = document.querySelectorAll(".section");
+
+        function toggleSection(section) {
+            section.classList.toggle("collapsed");
+            const body = section.querySelector(".section-body");
+            if (section.classList.contains("collapsed")) {
+                body.style.display = "none";
+            } else {
+                body.style.display = "block";
+            }
+        }
+
+        sections.forEach(section => {
+            const header = section.querySelector(".section-header");
+            const body = section.querySelector(".section-body");
+            // Default: expanded
+            body.style.display = "block";
+
+            header.addEventListener("click", () => toggleSection(section));
+
+            header.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleSection(section);
+                }
+            });
+        });
+
+        const expandAllBtn = document.getElementById("expandAll");
+        const collapseAllBtn = document.getElementById("collapseAll");
+
+        expandAllBtn.addEventListener("click", () => {
+            sections.forEach(section => {
+                section.classList.remove("collapsed");
+                section.querySelector(".section-body").style.display = "block";
+            });
+        });
+
+        collapseAllBtn.addEventListener("click", () => {
+            sections.forEach(section => {
+                section.classList.add("collapsed");
+                section.querySelector(".section-body").style.display = "none";
+            });
+        });
+
+        // Back to top visibility + behavior
+        const backToTopBtn = document.getElementById("backToTop");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 250) {
+                backToTopBtn.style.display = "flex";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        });
+
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Learn - Sugarcane Varieties</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f2 url('https://www.transparenttextures.com/patterns/wood-pattern.png') repeat;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .back-arrow {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            font-size: 1rem;
+            color: #064420;
+            background-color: #ffbb00;
+            padding: 7px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, color 0.3s ease;
+            z-index: 10;
+        }
+        
+        .back-arrow:hover {
+            background-color: rgb(0, 102, 34);
+            color: white;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #064420;
+            margin: 70px 0 35px;
+            font-size: 2rem;
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .card {
+            width: 360px;
+            max-width: 100%;
+            background: linear-gradient(135deg, #1b4332, #2d6a4f, #40916c);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+        
+        .card img {
+            width: calc(100% - 24px);
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin: 12px;
+        }
+        
+        .card-content {
+            padding: 20px 22px 10px;
+            color: white;
+            text-align: left;
+        }
+        
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #ffdd00;
+        }
+        
+        .card-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .get-started-btn {
+            display: block;
+            margin: 0 auto 22px;
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, #f12f04, #363b39);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #00ffcc;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite;
+            width: fit-content;
+            max-width: 90%;
+        }
+        
+        .get-started-btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 25px #00ffcc;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px #00ffcc;
+            }
+            50% {
+                box-shadow: 0 0 20px #00ffcc;
+            }
+            100% {
+                box-shadow: 0 0 10px #00ffcc;
+            }
+        }
+        /* Tablet-ish */
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+            h1 {
+                margin: 65px 0 30px;
+                font-size: 1.7rem;
+            }
+            .cards-container {
+                gap: 20px;
+            }
+            .card {
+                width: 320px;
+            }
+            .card-content {
+                padding: 18px 18px 8px;
+            }
+        }
+        /* Common phones (many Vivo, 360–480px) */
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 14px;
+            }
+            .back-arrow {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+                top: 12px;
+                left: 12px;
+            }
+            h1 {
+                margin: 60px 0 25px;
+                font-size: 1.5rem;
+            }
+            .cards-container {
+                gap: 18px;
+            }
+            .card {
+                width: 100%;
+            }
+            .card img {
+                width: calc(100% - 20px);
+                margin: 10px;
+                height: 200px;
+            }
+            .card-content h3 {
+                font-size: 1.2rem;
+            }
+            .card-content p {
+                font-size: 0.9rem;
+            }
+            .get-started-btn {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+        }
+        /* Extra small phones */
+        
+        @media (max-width: 360px) {
+            body {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 1.3rem;
+                margin: 55px 0 20px;
+            }
+            .card {
+                border-radius: 16px;
+            }
+            .card img {
+                height: 180px;
+            }
+            .card-content {
+                padding: 14px 14px 6px;
+            }
+            .card-content h3 {
+                font-size: 1.05rem;
+            }
+            .card-content p {
+                font-size: 0.85rem;
+            }
+            .get-started-btn {
+                font-size: 0.85rem;
+                margin-bottom: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="agrilearn.html" class="back-arrow">← Back</a>
+    <h1>🌾 Sugarcane Varieties in India</h1>
+
+    <div class="cards-container">
+
+        <!-- 1. CO 18009 -->
+        <div class="card">
+            <img src="sugarcane1.jpg" alt="CO 18009 Sugarcane">
+            <div class="card-content">
+                <h3>CO 18009</h3>
+                <p><strong>Type:</strong> Hybrid / Commercial Variety</p>
+                <p><strong>Where it is grown:</strong> Widely cultivated in Tamil Nadu and adopted in Karnataka & Andhra Pradesh.</p>
+                <p><strong>About:</strong> High-yielding sugarcane hybrid released by TNAU. Mid-late maturing with robust cane growth and thick stalks.</p>
+            </div>
+            <a href="CO18009.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 2. CO 11015 (Atulya) -->
+        <div class="card">
+            <img src="surgarcane2.jpg" alt="CO 11015 Sugarcane">
+            <div class="card-content">
+                <h3>CO 11015 (Atulya)</h3>
+                <p><strong>Type:</strong> Hybrid / Open-pollinated</p>
+                <p><strong>Where it is grown:</strong> Tamil Nadu, Andhra Pradesh, Telangana, Kerala, Karnataka, Gujarat, Maharashtra, MP.</p>
+                <p><strong>About:</strong> Early-maturing, high-yielding clone developed by ICAR–SBI, Coimbatore. Tall canes with wax-coated stalks, suited to drought-prone areas.</p>
+            </div>
+            <a href="CO11015.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 3. Filipino Black Sugarcane -->
+        <div class="card">
+            <img src="surgarcane3.jpg" alt="Filipino Black Sugarcane">
+            <div class="card-content">
+                <h3>Filipino Black Sugarcane</h3>
+                <p><strong>Type:</strong> Traditional / Exotic Commercial Variety</p>
+                <p><strong>Where it is grown:</strong> Origin: Philippines; also in Bangladesh and small-scale gardens in India.</p>
+                <p><strong>About:</strong> Distinctive dark brown to black culms. Tall (12–20 ft), soft stalks with high juice content. Popular for chewing & juice production.</p>
+            </div>
+            <a href="FilipinoBlack.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify OTP</title>
+    <link rel="icon" type="image/png" href="verifyotpfavi.png" />
+
+    <!-- Firebase v8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background: url("bg.jpg") center center / cover no-repeat fixed;
+            padding: 16px;
+        }
+        
+        .otp-container {
+            display: grid;
+            gap: 15px;
+            background-color: #ffffff;
+            padding: 32px 24px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            color: #2e7d32;
+            animation: fadeIn 1s ease-out;
+            border: 2px solid #9e9e9e;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .otp-container h2 {
+            margin: 0;
+            font-size: 22px;
+            color: #1b5e20;
+        }
+        
+        .otp-container p {
+            margin: 4px 0 8px;
+            font-size: 14px;
+            color: #388e3c;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #20d026;
+            border-radius: 10px;
+            font-size: 16px;
+            text-align: center;
+            background: #eaf5d1;
+            color: #333;
+            outline: none;
+            transition: box-shadow 0.3s ease-in-out, border-color 0.2s;
+        }
+        
+        input[type="text"]:focus {
+            box-shadow: 0 0 10px rgba(16, 16, 15, 0.6);
+            border-color: #1b5e20;
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #388e3c;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            background-color: #2e7d32;
+            transform: scale(1.03);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+        }
+        
+        #recaptcha-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+        }
+        
+        .error-message {
+            font-size: 13px;
+            color: #d32f2f;
+            margin-top: -8px;
+            margin-bottom: 3px;
+            text-align: left;
+            padding-left: 5px;
+        }
+        
+        .success-popup {
+            margin-top: 10px;
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 10px;
+            padding: 12px 14px;
+            text-align: center;
+            animation: popupFade 0.5s ease-out;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
+        
+        .success-popup h3 {
+            margin: 0;
+            font-size: 15px;
+            color: #2e7d32;
+        }
+        
+        .success-popup .checkmark {
+            font-size: 22px;
+            color: #4caf50;
+            margin-bottom: 4px;
+        }
+        
+        @keyframes popupFade {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        /* Medium screens (tablets / small laptops) */
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 14px;
+                background-attachment: scroll;
+            }
+            .otp-container {
+                padding: 28px 22px;
+                max-width: 340px;
+            }
+            .otp-container h2 {
+                font-size: 20px;
+            }
+        }
+        /* Common phones (including many Vivo models, 360–480px) */
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+            .otp-container {
+                padding: 24px 18px;
+                border-radius: 18px;
+                max-width: 100%;
+            }
+            .otp-container h2 {
+                font-size: 19px;
+            }
+            .otp-container p {
+                font-size: 13px;
+            }
+            input[type="text"] {
+                font-size: 15px;
+            }
+            button {
+                font-size: 15px;
+                padding: 12px;
+            }
+            /* Move reCAPTCHA so it doesn't clash with soft keyboard */
+            #recaptcha-container {
+                position: static;
+                margin-top: 10px;
+            }
+        }
+        /* Extra small / older phones */
+        
+        @media (max-width: 360px) {
+            body {
+                padding: 10px;
+            }
+            .otp-container {
+                padding: 20px 14px;
+                border-radius: 16px;
+            }
+            .otp-container h2 {
+                font-size: 18px;
+            }
+            .otp-container p {
+                font-size: 12px;
+            }
+            .success-popup {
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="otp-container">
+        <h2>Verify Your Number</h2>
+        <p>Enter your mobile number and verify with OTP</p>
+
+        <input type="text" id="phoneNumber" placeholder="Enter the Mobile number" maxlength="10" />
+        <div id="phoneError" class="error-message"></div>
+        <button id="sendOtpBtn">Send OTP</button>
+
+        <input type="text" id="otp" placeholder="Enter OTP" maxlength="6" />
+        <div id="otpError" class="error-message"></div>
+        <button id="verifyOtpBtn">Verify OTP</button>
+
+        <div id="popupMessage"></div>
+
+        <!-- On very small screens recaptcha will fall here (due to media query) -->
+        <div id="recaptcha-container"></div>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDdhn8AWDhwFn5qW19BJbygLdGzPoosE7U",
+            authDomain: "login-8b034.firebaseapp.com",
+            projectId: "login-8b034",
+            storageBucket: "login-8b034.appspot.com",
+            messagingSenderId: "301689381610",
+            appId: "1:301689381610:web:c710d324c284de45652d93"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        function clearErrors() {
+            document.getElementById("phoneError").textContent = "";
+            document.getElementById("otpError").textContent = "";
+        }
+
+        function showPopup(message) {
+            const popupContainer = document.getElementById("popupMessage");
+            popupContainer.innerHTML = `
+                <div class="success-popup">
+                    <div class="checkmark">✔️</div>
+                    <h3>${message}</h3>
+                </div>
+            `;
+        }
+
+        function showSuccessPopup() {
+            showPopup("OTP Verified Successfully!");
+
+            setTimeout(() => {
+                showPopup("👋 Redirecting to Home Page...");
+            }, 1500);
+
+            setTimeout(() => {
+                localStorage.setItem(
+                    "welcomeMsg",
+                    "Welcome to AgriDiagnonis 🌾 Empowering farmers with smart insights!"
+                );
+                localStorage.removeItem("phoneNumber");
+                localStorage.removeItem("otp");
+                window.location.href = "home.html";
+            }, 3000);
+        }
+
+        window.onload = function() {
+            window.recaptchaverifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
+                size: "invisible",
+                callback: function() {}
+            });
+            recaptchaverifier.render();
+
+            // Restore saved inputs
+            if (localStorage.getItem("phoneNumber")) {
+                document.getElementById("phoneNumber").value =
+                    localStorage.getItem("phoneNumber");
+            }
+            if (localStorage.getItem("otp")) {
+                document.getElementById("otp").value =
+                    localStorage.getItem("otp");
+            }
+
+            // Save input changes
+            document.getElementById("phoneNumber").addEventListener("input", function() {
+                this.value = this.value.replace(/\D/g, "");
+                localStorage.setItem("phoneNumber", this.value);
+            });
+
+            document.getElementById("otp").addEventListener("input", function() {
+                this.value = this.value.replace(/\D/g, "");
+                localStorage.setItem("otp", this.value);
+            });
+
+            // Prevent accidental refresh/back
+            window.addEventListener("beforeunload", function(e) {
+                e.preventDefault();
+                e.returnValue = "";
+            });
+        };
+
+        document.getElementById("sendOtpBtn").addEventListener("click", () => {
+            clearErrors();
+            const phoneNumber = document.getElementById("phoneNumber").value;
+            const fullNumber = "+91" + phoneNumber;
+
+            if (!/^\d{10}$/.test(phoneNumber)) {
+                document.getElementById("phoneError").textContent =
+                    "⚠️ Please enter a valid 10-digit mobile number.";
+                return;
+            }
+
+            firebase.auth().signInWithPhoneNumber(fullNumber, window.recaptchaverifier)
+                .then(confirmationResult => {
+                    window.confirmationResult = confirmationResult;
+                    showPopup("📩 OTP Sent Successfully!");
+                })
+                .catch(err => {
+                    document.getElementById("phoneError").textContent = "❌ " + err.message;
+                });
+        });
+
+        document.getElementById("verifyOtpBtn").addEventListener("click", () => {
+            clearErrors();
+            const otp = document.getElementById("otp").value;
+
+            if (!otp) {
+                document.getElementById("otpError").textContent =
+                    "⚠️ Please enter the OTP received on your phone.";
+                return;
+            }
+
+            if (!/^\d{6}$/.test(otp)) {
+                document.getElementById("otpError").textContent =
+                    "⚠️ Please enter a valid 6-digit OTP.";
+                return;
+            }
+
+            if (!window.confirmationResult) {
+                document.getElementById("otpError").textContent =
+                    "❌ OTP not sent yet. Please request a new OTP.";
+                return;
+            }
+
+            window.confirmationResult.confirm(otp)
+                .then(() => {
+                    showSuccessPopup();
+                })
+                .catch(() => {
+                    document.getElementById("otpError").textContent =
+                        "❌ Invalid OTP. Please try again.";
+                });
+        });
+    </script>
+</body>
+
+</html>

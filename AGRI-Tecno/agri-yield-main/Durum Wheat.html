@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Durum Wheat Cultivation Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom right, #f2f5f2, #e2f0d9);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        header {
+            background-color: #064420;
+            color: white;
+            padding: 20px 16px;
+            text-align: center;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        /* Translator */
+        
+        .translator-container {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(2, 45, 21, 0.98);
+            padding: 6px 10px;
+            border-radius: 26px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+            z-index: 9999;
+        }
+        
+        .translator-container i {
+            font-size: 1.15rem;
+            color: #00e6e6;
+            margin-left: 2px;
+        }
+        /* Ensure the injected Google UI is visible if page CSS hides selects */
+        
+        .goog-te-gadget,
+        .goog-te-gadget-simple {
+            display: inline-block !important;
+            line-height: 1 !important;
+            font-size: 0.9rem !important;
+            color: #fff !important;
+        }
+        
+        .goog-te-combo {
+            display: inline-block !important;
+            border-radius: 6px !important;
+            padding: 4px 6px !important;
+            font-size: 0.9rem !important;
+            border: none !important;
+            outline: none !important;
+            color: #064420 !important;
+        }
+        /* Hide the translate top banner if Google injects it (cleaner). */
+        
+        .goog-te-banner-frame.skiptranslate,
+        .goog-te-balloon-frame {
+            display: none !important;
+        }
+        /* Fallback select (shows when widget fails to load) */
+        
+        #translatorFallback {
+            display: none;
+        }
+        
+        #translatorFallback select {
+            border-radius: 6px;
+            padding: 4px 6px;
+            font-size: 0.9rem;
+            border: none;
+            outline: none;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px 30px;
+        }
+        
+        .section {
+            background: white;
+            border-left: 6px solid #00b894;
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .section h2 {
+            color: #064420;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+        }
+        
+        .section p,
+        .section ul {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .back-btn {
+            display: block;
+            margin: 40px auto 0;
+            padding: 12px 24px;
+            background: #00b894;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #00b894;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            width: fit-content;
+        }
+        
+        .back-btn:hover {
+            background: #019875;
+        }
+        
+        .translator-note {
+            text-align: center;
+            font-size: 13px;
+            color: #f2f9f2;
+            margin-top: 6px;
+        }
+        /* ======= RESPONSIVE BREAKPOINTS ======= */
+        
+        @media (max-width: 800px) {
+            header {
+                padding: 18px 12px 54px;
+                font-size: 1.6rem;
+            }
+            .container {
+                width: 100%;
+                margin: 20px auto 30px;
+                padding: 0 16px 24px;
+            }
+            .section {
+                padding: 16px 18px;
+                margin-bottom: 20px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            header {
+                font-size: 1.4rem;
+                padding: 16px 10px 60px;
+            }
+            /* Translator below title on small screens to avoid overlap */
+            .translator-container {
+                position: static;
+                margin: 8px auto 0;
+                justify-content: center;
+            }
+            .translator-note {
+                padding: 0 12px 6px;
+            }
+            .container {
+                padding: 0 12px 22px;
+            }
+            .section h2 {
+                font-size: 1.2rem;
+            }
+            .section {
+                padding: 14px 14px;
+            }
+            .back-btn {
+                margin-top: 28px;
+                padding: 10px 20px;
+                font-size: 0.95rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            header {
+                font-size: 1.2rem;
+                padding: 14px 8px 60px;
+            }
+            .container {
+                padding: 0 10px 20px;
+            }
+            .section {
+                padding: 12px 10px;
+                border-left-width: 4px;
+            }
+            .section h2 {
+                font-size: 1.1rem;
+            }
+            .section p,
+            .section ul {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        🌾 Triticum Durum Wheat Cultivation Guide
+
+        <!-- Translator container -->
+        <div class="translator-container" title="Translate this page">
+            <i class="fa fa-globe" aria-hidden="true"></i>
+            <!-- Google widget will be injected here -->
+            <div id="google_translate_element" aria-hidden="true"></div>
+
+            <!-- Fallback: opens Google Translate in a new tab if the widget is blocked -->
+            <div id="translatorFallback" aria-hidden="false">
+                <select id="translatorFallbackSelect" aria-label="Translate page (fallback)">
+                    <option value="">Translate</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                    <option value="ml">മലയാളം (Malayalam)</option>
+                    <option value="mr">मराठी (Marathi)</option>
+                    <option value="bn">বাংলা (Bengali)</option>
+                    <option value="gu">ગુજરાતી (Gujarati)</option>
+                    <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                    <option value="ur">اردو (Urdu)</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+        </div>
+        <div class="translator-note" id="translatorStatus" aria-live="polite" style="display:none">
+            Translator is loading… if it doesn't appear please check console / try the fallback selector.
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="section">
+            <h2>1. Land and Soil Preparation</h2>
+            <p>Land should be ploughed 2–3 times with a tractor or country plough to achieve fine tilth.</p>
+            <p>One harrowing followed by leveling is recommended.</p>
+            <p>Raised beds or flat beds can be used depending on irrigation facility.</p>
+            <p>Proper drainage is important since durum is sensitive to waterlogging.</p>
+        </div>
+
+        <div class="section">
+            <h2>2. Soil Type and pH</h2>
+            <p>Prefers well-drained loamy to clay-loam soils.</p>
+            <p>Sandy loam is also suitable but with good fertility.</p>
+            <p>Soil pH: 6.5 – 8.0 (neutral to slightly alkaline).</p>
+        </div>
+
+        <div class="section">
+            <h2>3. Climate Requirements</h2>
+            <p>Requires cool and dry climate during growth.</p>
+            <p>Best grown in rabi season (Nov–April).</p>
+            <p>Optimum temperature:</p>
+            <ul>
+                <li>Germination → 20–25°C</li>
+                <li>Growth → 15–22°C</li>
+                <li>Grain filling → 25–30°C (avoid high temp &gt;32°C)</li>
+            </ul>
+            <p>Requires bright sunshine at maturity for amber grain color.</p>
+        </div>
+
+        <div class="section">
+            <h2>4. Seed Variety and Treatment</h2>
+            <p>Popular varieties: HI-8498 (Malav Shakti), HI-8663 (Malav Kranti), PDW-233, PDW-291.</p>
+            <p>Seed rate: 100–120 kg/ha.</p>
+            <p>Seed treatment: Treat seeds with Carbendazim @ 2 g/kg or Trichoderma @ 4 g/kg to avoid seed-borne diseases.</p>
+        </div>
+
+        <div class="section">
+            <h2>5. Sowing Method and Spacing</h2>
+            <p>Best sowing time: Mid-November to early December.</p>
+            <p>Method: Drill sowing preferred over broadcasting.</p>
+            <p>Row spacing: 22.5 cm – 25 cm.</p>
+            <p>Depth of sowing: 5–6 cm.</p>
+        </div>
+
+        <div class="section">
+            <h2>6. Fertilizer Schedule</h2>
+            <p>General recommendation: N:P:K = 120:60:40 kg/ha.</p>
+            <p>Apply half Nitrogen + full P &amp; K as basal dose at sowing.</p>
+            <p>Remaining Nitrogen applied in 2 splits:</p>
+            <ul>
+                <li>1st at first irrigation (crown root initiation stage – 20–25 DAS)</li>
+                <li>2nd at booting stage (50–55 DAS)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>7. Irrigation Management</h2>
+            <p>Critical irrigation stages:</p>
+            <ul>
+                <li>Crown root initiation (20–25 DAS)</li>
+                <li>Tillering stage (40–45 DAS)</li>
+                <li>Jointing stage (60–65 DAS)</li>
+                <li>Flowering (75–80 DAS)</li>
+                <li>Grain filling / milk stage (100–105 DAS)</li>
+            </ul>
+            <p>Usually, 5–6 irrigations are sufficient depending on soil and rainfall.</p>
+        </div>
+
+        <div class="section">
+            <h2>8. Weed and Pest Control</h2>
+            <p>Common weeds: Phalaris minor, Chenopodium album, Melilotus alba.</p>
+            <p>Weed management:</p>
+            <ul>
+                <li>1 hand weeding at 30 DAS, or</li>
+                <li>Apply Isoproturon @ 1 kg/ha or Clodinafop @ 60 g/ha (post-emergence)</li>
+            </ul>
+            <p>Pests &amp; Diseases:</p>
+            <ul>
+                <li>Aphids → control with Imidacloprid @ 0.3 ml/L</li>
+                <li>Rust diseases (yellow &amp; brown rust) → spray Propiconazole @ 0.1%</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>9. Harvesting Time and Yield</h2>
+            <p>Harvest when grains are hard, golden amber color, and moisture content ~12–14%.</p>
+            <p>Avoid delay in harvesting as it causes grain shattering.</p>
+            <p>Average yield: 30–40 quintals/ha (3–4 tons/ha).</p>
+            <p>Under improved practices: 50 quintals/ha possible.</p>
+        </div>
+
+        <div class="section">
+            <h2>10. Post-Harvest Handling</h2>
+            <p>Clean grains to remove chaff and weed seeds.</p>
+            <p>Dry grains in sun to 10–12% moisture before storage.</p>
+            <p>Store in gunny bags or silos under cool and dry conditions.</p>
+            <p>Durum wheat is valued for pasta, macaroni, semolina (suji), and noodles.</p>
+        </div>
+
+        <a href="wheat.html" class="back-btn">← Back to Home</a>
+
+    </div>
+
+    <!-- Font Awesome for Globe Icon -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <!-- Translator loader + fallback logic -->
+    <script>
+        (function() {
+            const statusEl = document.getElementById('translatorStatus');
+            const fallbackBox = document.getElementById('translatorFallback');
+            const fallbackSelect = document.getElementById('translatorFallbackSelect');
+
+            // Show loading status
+            statusEl.style.display = 'block';
+            statusEl.textContent = 'Translator is loading…';
+
+            // Fallback behavior: open Google Translate for the current page in a new tab
+            fallbackSelect.addEventListener('change', function() {
+                const lang = this.value;
+                if (!lang) return;
+                const url = 'https://translate.google.com/translate?sl=auto&tl=' +
+                    encodeURIComponent(lang) +
+                    '&u=' + encodeURIComponent(location.href);
+                window.open(url, '_blank', 'noopener');
+                this.value = '';
+            });
+
+            // Add Google Translate script dynamically so we can detect load errors
+            window.googleTranslateElementInit = function() {
+                try {
+                    new google.translate.TranslateElement({
+                        pageLanguage: 'en',
+                        includedLanguages: 'en,hi,ta,te,kn,ml,mr,bn,gu,pa,ur',
+                        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+                        autoDisplay: false
+                    }, 'google_translate_element');
+
+                    // Hide fallback if it was visible
+                    fallbackBox.style.display = 'none';
+                    statusEl.textContent = 'Translator loaded — choose a language.';
+                    console.info('Google Translate initialized.');
+                } catch (e) {
+                    console.warn('Google Translate initialization failed:', e);
+                    showFallback('Initialization failed');
+                }
+            };
+
+            function showFallback(reason) {
+                console.warn('Showing translation fallback:', reason);
+                // Show fallback UI
+                fallbackBox.style.display = 'inline-block';
+                statusEl.textContent = 'Translate: widget blocked or not available — use fallback selector.';
+            }
+
+            // Append the script and detect load failures
+            const s = document.createElement('script');
+            s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            s.async = true;
+            s.defer = true;
+            s.onerror = function() {
+                showFallback('Network or blocked by extension (script error).');
+            };
+            // If the page is loaded from file:// the script may fail silently — detect that after timeout
+            const fallbackTimeout = setTimeout(function() {
+                // If google hasn't initialized by now, show fallback
+                if (!window.google || !window.google.translate) {
+                    showFallback('Timeout: script not executed (maybe opened via file:// or blocked).');
+                }
+            }, 2500);
+
+            s.onload = function() {
+                clearTimeout(fallbackTimeout);
+            };
+
+            document.body.appendChild(s);
+        })();
+    </script>
+
+    <!-- Helpful note for debugging -->
+    <script>
+        (function() {
+            if (location.protocol === 'file:') {
+                console.warn('You are viewing the page via file:// — Google Translate widget often requires http(s). Try serving the file with a local server, e.g.:');
+                console.warn('Python 3:  python -m http.server 8000  (then open http://localhost:8000)');
+                const statusEl = document.getElementById('translatorStatus');
+                if (statusEl) statusEl.textContent =
+                    'You are viewing this file locally (file://). Serve via http(s) to enable the Google Translate widget, or use the fallback selector.';
+            }
+        })();
+    </script>
+
+</body>
+
+</html>

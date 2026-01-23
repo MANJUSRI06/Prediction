@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Learn - Banana Varieties</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f2 url('https://www.transparenttextures.com/patterns/wood-pattern.png') repeat;
+            margin: 0;
+            padding: 20px;
+            color: #033016;
+        }
+        
+        .back-arrow {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            font-size: 0.95rem;
+            color: #064420;
+            background-color: #ffbb00;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+            z-index: 998;
+        }
+        
+        .back-arrow:hover {
+            background-color: #006622;
+            color: white;
+            transform: translateY(-1px);
+        }
+        /* Translator box */
+        
+        #google_translate_element {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 999;
+            background: #ffeb3b;
+            padding: 6px 12px;
+            border-radius: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        
+        body {
+            top: 0 !important;
+        }
+        
+        .goog-logo-link,
+        .goog-te-gadget span {
+            display: none !important;
+        }
+        
+        .goog-te-combo {
+            padding: 4px 8px;
+            border-radius: 16px;
+            border: 1px solid #064420;
+            font-size: 0.8rem;
+            outline: none;
+            cursor: pointer;
+        }
+        /* Wrapper for heading + cards */
+        
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 70px;
+        }
+        
+        h1 {
+            margin: 0 0 30px;
+            font-size: 2rem;
+            text-align: center;
+            color: #064420;
+        }
+        
+        .info-bar {
+            max-width: 1200px;
+            margin: 0 auto 10px;
+            font-size: 0.85rem;
+            color: #355b39;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 6px 10px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+        }
+        
+        .card {
+            width: 360px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .card:focus-within,
+        .card:focus {
+            outline: 2px solid #ffeb3b;
+            outline-offset: 3px;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+        
+        .card img {
+            width: calc(100% - 24px);
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin: 12px;
+        }
+        
+        .card-content {
+            padding: 16px 22px 8px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .card-content h3 {
+            font-size: 1.3rem;
+            margin: 0 0 4px;
+        }
+        
+        .card-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .get-started-btn {
+            display: block;
+            margin: 14px auto 20px;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: fit-content;
+        }
+        
+        .get-started-btn:hover {
+            transform: scale(1.07);
+            box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
+        }
+        
+        .rasthali {
+            background: linear-gradient(135deg, #242103, #876b0c);
+            color: #fff;
+        }
+        
+        .rasthali button {
+            background: #fbc02d;
+            color: #3e2723;
+        }
+        
+        .red-banana {
+            background: linear-gradient(135deg, #491302, #9f3313);
+            color: #fff;
+        }
+        
+        .red-banana button {
+            background: #e64a19;
+        }
+        
+        .thenvalai {
+            background: linear-gradient(135deg, #1d3403, #3a6907);
+            color: #fff;
+        }
+        
+        .thenvalai button {
+            background: #558b2f;
+        }
+        /* Back to top button */
+        
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 18px;
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: none;
+            background: #064420;
+            color: #fff;
+            font-size: 0.8rem;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+            display: none;
+            align-items: center;
+            gap: 6px;
+            z-index: 900;
+        }
+        
+        #backToTop:hover {
+            background: #006622;
+        }
+        /* RESPONSIVE */
+        
+        @media (max-width: 992px) {
+            .cards-container {
+                gap: 20px;
+            }
+            .card {
+                width: 320px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 16px 12px;
+            }
+            .content-wrapper {
+                padding-top: 80px;
+            }
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 20px;
+            }
+            .card {
+                width: 95%;
+                max-width: 380px;
+            }
+            #google_translate_element {
+                top: 10px;
+                right: 10px;
+                padding: 4px 8px;
+            }
+            .back-arrow {
+                top: 10px;
+                left: 10px;
+                padding: 6px 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 14px 8px;
+            }
+            h1 {
+                font-size: 1.4rem;
+            }
+            .card-content h3 {
+                font-size: 1.1rem;
+            }
+            .card-content p {
+                font-size: 0.9rem;
+            }
+            .card img {
+                height: 190px;
+            }
+            #google_translate_element {
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+            }
+            #backToTop {
+                bottom: 14px;
+                right: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="agrilearn.html" class="back-arrow">← Back</a>
+
+    <!-- Google Translate -->
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en'
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <div class="content-wrapper">
+        <h1>🍌 Banana Varieties in India</h1>
+
+        <div class="info-bar" id="infoBar">
+            Tip: Tap any card to open that variety’s cultivation guide.
+        </div>
+
+        <div class="cards-container">
+
+            <!-- 1. Rasthali Banana -->
+            <div class="card rasthali" data-target="Rasthali.html" tabindex="0">
+                <img src="banana1.jpg" alt="Rasthali Banana">
+                <div class="card-content">
+                    <h3>🍌 Rasthali (Silk Banana / Malbhog)</h3>
+                    <p><strong>Type:</strong> Traditional / Local Variety</p>
+                    <p><strong>Where it is grown:</strong> Tamil Nadu (Thanjavur, Trichy, Coimbatore, Salem, Erode, Tirunelveli), also Andhra Pradesh, Karnataka, Kerala.</p>
+                    <p><strong>About:</strong> Premium dessert banana famous for flavor and texture. Fruits are thin-skinned, creamy-white pulp.</p>
+                </div>
+                <a href="Rasthali.html" style="text-decoration: none;">
+                    <button class="get-started-btn">Explore More</button>
+                </a>
+            </div>
+
+            <!-- 2. Red Banana -->
+            <div class="card red-banana" data-target="RedBanana.html" tabindex="0">
+                <img src="banana2.jpg" alt="Red Banana">
+                <div class="card-content">
+                    <h3>🍌 Red Banana (Sevvazhai / Red Dacca)</h3>
+                    <p><strong>Type:</strong> Traditional / Local Variety</p>
+                    <p><strong>Where it is grown:</strong> Tamil Nadu (Tirunelveli, Kanyakumari, Trichy), also Kerala, Andhra Pradesh, Karnataka.</p>
+                    <p><strong>About:</strong> Tall plant with reddish pseudostem. Fruits have reddish-purple skin. Rich in Vitamin C, potassium, and beta-carotene.</p>
+                </div>
+                <a href="RedBanana.html" style="text-decoration: none;">
+                    <button class="get-started-btn">Explore More</button>
+                </a>
+            </div>
+
+            <!-- 3. Thenvalai Banana -->
+            <div class="card thenvalai" data-target="Thenvalai.html" tabindex="0">
+                <img src="banana3.jpg" alt="Thenvalai Banana">
+                <div class="card-content">
+                    <h3>🍌 Thenvalai (Honey Banana)</h3>
+                    <p><strong>Type:</strong> Traditional / Local Variety</p>
+                    <p><strong>Where it is grown:</strong> Tamil Nadu (Thanjavur, Trichy, Salem, Erode), also Kerala and Karnataka.</p>
+                    <p><strong>About:</strong> Medium-tall variety, long fruits, yellow when ripe. Pulp is sweet, soft, aromatic – called "Honey Banana" for its taste.</p>
+                </div>
+                <a href="Thenvalai.html" style="text-decoration: none;">
+                    <button class="get-started-btn">Explore More</button>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="backToTop">⬆ Top</button>
+
+    <script>
+        // Make entire card clickable
+        document.querySelectorAll('.card').forEach(card => {
+            const target = card.getAttribute('data-target');
+
+            card.addEventListener('click', (e) => {
+                // Ignore clicks on inner <a> (button)
+                if (e.target.tagName.toLowerCase() === 'button' || e.target.tagName.toLowerCase() === 'a') return;
+                if (target) window.location.href = target;
+            });
+
+            // Keyboard accessibility
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    if (target) window.location.href = target;
+                }
+            });
+        });
+
+        // Info bar hover/tap text
+        const infoBar = document.getElementById('infoBar');
+
+        document.querySelectorAll('.card').forEach(card => {
+            const title = card.querySelector('h3') ? .innerText || 'this variety';
+            card.addEventListener('mouseenter', () => {
+                infoBar.textContent = `You are viewing: ${title}`;
+            });
+            card.addEventListener('focus', () => {
+                infoBar.textContent = `You are viewing: ${title}`;
+            }, true);
+            card.addEventListener('mouseleave', () => {
+                infoBar.textContent = 'Tip: Tap any card to open that variety’s cultivation guide.';
+            });
+            card.addEventListener('blur', () => {
+                infoBar.textContent = 'Tip: Tap any card to open that variety’s cultivation guide.';
+            }, true);
+        });
+
+        // Back to top button visibility/behavior
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 220) {
+                backToTopBtn.style.display = 'flex';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+</body>
+
+</html>

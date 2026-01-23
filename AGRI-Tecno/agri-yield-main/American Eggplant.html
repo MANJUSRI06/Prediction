@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌱 American Eggplant Cultivation Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom right, #f9f9f9, #eef7f0);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        header {
+            background-color: #4a148c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 30px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .tool-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .tool-btn {
+            border: none;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: #f3e5f5;
+            color: #4a148c;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .tool-btn:hover {
+            background: #e1bee7;
+        }
+        
+        .section {
+            background: white;
+            border-left: 6px solid #6a1b9a;
+            border-radius: 8px;
+            padding: 0;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            cursor: pointer;
+            background: #f3e5f5;
+        }
+        
+        .section-header:focus {
+            outline: 2px solid #6a1b9a;
+            outline-offset: 2px;
+        }
+        
+        .section h2 {
+            color: #4a148c;
+            margin: 0;
+            font-size: 1.4rem;
+        }
+        
+        .toggle-icon {
+            font-size: 1rem;
+            color: #4a148c;
+            transition: transform 0.25s ease;
+        }
+        
+        .section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .section-body {
+            padding: 14px 22px 18px;
+            border-top: 1px solid #f5f5f5;
+        }
+        
+        .section p,
+        .section ul {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        ul {
+            padding-left: 18px;
+            margin: 0;
+        }
+        
+        ul li {
+            margin-bottom: 6px;
+        }
+        
+        .back-btn {
+            display: block;
+            margin: 35px auto 0;
+            padding: 12px 24px;
+            background: #6a1b9a;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #6a1b9a;
+            transition: background 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            width: fit-content;
+        }
+        
+        .back-btn:hover {
+            background: #4a148c;
+            transform: scale(1.05);
+        }
+        /* Floating back-to-top button */
+        
+        #backToTop {
+            position: fixed;
+            bottom: 22px;
+            right: 20px;
+            padding: 10px 14px;
+            border-radius: 50px;
+            border: none;
+            background: #4a148c;
+            color: #fff;
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            display: none;
+            align-items: center;
+            gap: 6px;
+            z-index: 1500;
+        }
+        
+        #backToTop:hover {
+            background: #6a1b9a;
+        }
+        /* 🌍 Google Translate Dropdown */
+        
+        #google_translate_element {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+            background: #ffeb3b;
+            padding: 8px 14px;
+            border-radius: 30px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
+        /* Hide Google top banner */
+        
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        
+        body {
+            top: 0px !important;
+        }
+        /* Hide Google branding */
+        
+        .goog-logo-link,
+        .goog-te-gadget span {
+            display: none !important;
+        }
+        /* Dropdown styling */
+        
+        .goog-te-combo {
+            padding: 6px 10px;
+            border: 2px solid #4a148c;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            background: white;
+            color: #4a148c;
+            cursor: pointer;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        .goog-te-combo:hover {
+            border-color: #ff9800;
+            box-shadow: 0 0 8px rgba(255, 152, 0, 0.6);
+        }
+        /* ======= RESPONSIVE TWEAKS ======= */
+        
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.4rem;
+                padding: 14px 8px;
+            }
+            .container {
+                margin: 20px auto 35px;
+                padding: 0 14px;
+            }
+            .section-header {
+                padding: 12px 14px;
+            }
+            .section-body {
+                padding: 10px 14px 14px;
+            }
+            .section h2 {
+                font-size: 1.1rem;
+            }
+            .back-btn {
+                width: 100%;
+                max-width: 320px;
+            }
+            #google_translate_element {
+                top: 10px;
+                right: 10px;
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                font-size: 1.2rem;
+            }
+            .container {
+                padding: 0 10px;
+            }
+            .section {
+                border-left-width: 4px;
+            }
+            .section h2 {
+                font-size: 1rem;
+            }
+            ul li {
+                font-size: 0.9rem;
+            }
+            #google_translate_element {
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                top: 8px;
+            }
+            #backToTop {
+                bottom: 16px;
+                right: 14px;
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 🌍 Google Translate Dropdown -->
+    <div id="google_translate_element"></div>
+
+    <header>🌱 American Eggplant Cultivation Guide</header>
+
+    <div class="container">
+
+        <div class="tool-row">
+            <button id="expandAll" class="tool-btn">🔽 Expand all</button>
+            <button id="collapseAll" class="tool-btn">🔼 Collapse all</button>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>1. Land and Soil Preparation</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Select well-drained fertile land with good organic content. Eggplant prefers loamy soils enriched with compost.</p>
+                <p>Deep plough the land 2–3 times to break clods and ensure fine tilth. Remove weeds and previous crop residues.</p>
+                <p>Apply 20–25 tons of well-decomposed farmyard manure (FYM) or compost per hectare during land preparation.</p>
+                <p>Raised beds or ridges and furrows are recommended to avoid water stagnation, which can damage roots.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>2. Soil Type and pH</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Best suited for sandy loam to clay loam soils with high fertility.</p>
+                <p>Soil pH requirement: 5.5 – 6.8 (slightly acidic to neutral).</p>
+                <p>Avoid saline or highly alkaline soils. If soil is acidic, apply lime before sowing.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>3. Climate Requirements</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Grows best in warm and frost-free climates.</p>
+                <p>Optimal temperature: 22–30°C for germination and vegetative growth.</p>
+                <p>Sensitive to extreme cold (below 15°C) and extreme heat (above 35°C).</p>
+                <p>Requires 6–8 hours of direct sunlight daily for proper fruit set.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>4. Seed Variety and Treatment</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p><b>Popular American varieties:</b> Black Beauty, Florida High Bush, Early Long Purple, Black Bell, Dusky, Classic Hybrid.</p>
+                <p>Seed rate: 300–400 g per acre (for nursery).</p>
+                <p>Treat seeds with <i>Trichoderma viride</i> (4 g/kg) or carbendazim (2 g/kg) to prevent seed-borne diseases.</p>
+                <p>Priming seeds in warm water (50°C for 30 minutes) improves germination.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>5. Sowing Method and Spacing</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Seeds are first raised in a nursery bed. Transplanting is done at 4–5 weeks when seedlings are 12–15 cm tall.</p>
+                <p>Prepare nursery beds of 1 m width and convenient length, enriched with FYM and sand.</p>
+                <p><b>Spacing for transplanting:</b></p>
+                <ul>
+                    <li>Row-to-row: 60–75 cm</li>
+                    <li>Plant-to-plant: 45–60 cm</li>
+                </ul>
+                <p>Recommended plant population: 8,000–10,000 plants per acre.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>6. Fertilizer Schedule</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Apply FYM/compost 20–25 tons per hectare as basal.</p>
+                <p><b>Fertilizer dose per hectare:</b> NPK: 120:80:60 kg</p>
+                <p><b>Application:</b></p>
+                <ul>
+                    <li>Apply full P and K + ¼ N as basal dose.</li>
+                    <li>Remaining N in 3 equal splits: 30, 60, and 90 days after transplanting.</li>
+                </ul>
+                <p>Foliar spray of micronutrients like boron, zinc, and magnesium improves fruit set and quality.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>7. Irrigation Management</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Requires moderate but regular irrigation.</p>
+                <p>Irrigate immediately after transplanting, then once every 7–10 days (more frequently in sandy soils or summer).</p>
+                <p>Avoid over-irrigation as it encourages wilt and root rot.</p>
+                <p>Drip irrigation with mulching conserves water and reduces weeds.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>8. Weed and Pest Control</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Manual weeding at 20 and 40 days after transplanting is essential. Mulching (organic or plastic) reduces weed growth.</p>
+                <p><b>Major pests:</b></p>
+                <ul>
+                    <li>Shoot and fruit borer – use pheromone traps, neem oil sprays, or biocontrol (Trichogramma).</li>
+                    <li>Aphids and whiteflies – control with neem oil, imidacloprid, or yellow sticky traps.</li>
+                </ul>
+                <p><b>Major diseases:</b></p>
+                <ul>
+                    <li>Bacterial wilt – avoid waterlogging, use resistant varieties.</li>
+                    <li>Phomopsis blight and leaf spot – spray carbendazim or mancozeb.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>9. Harvesting Time and Yield</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>First harvest: 60–70 days after transplanting depending on variety.</p>
+                <p>Fruits should be harvested when they are shiny, firm, and immature (before seeds harden).</p>
+                <p>Harvest at 7–10 day intervals to promote continuous flowering and fruiting.</p>
+                <p><b>Yield potential:</b></p>
+                <ul>
+                    <li>20–25 tons per hectare under good management.</li>
+                    <li>Hybrids may yield up to 35–40 tons per hectare.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header" tabindex="0">
+                <h2>10. Post-Harvest Handling</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Handle fruits carefully to avoid bruising.</p>
+                <p>Sort and grade fruits based on size, color, and quality.</p>
+                <p>Store at 10–12°C with 90–95% relative humidity to extend shelf life (up to 7–10 days).</p>
+                <p>Can be transported in ventilated crates or bamboo baskets lined with paper.</p>
+            </div>
+        </div>
+
+        <a href="brinjal.html" class="back-btn">← Back to Home</a>
+    </div>
+
+    <!-- Floating Back to Top Button -->
+    <button id="backToTop">⬆ Top</button>
+
+    <!-- 🌍 Google Translate Script + persistence -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,ta,te,ml,kn,gu,mr,bn,pa,ur,fr,de,es,zh-CN,ja',
+                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+            }, 'google_translate_element');
+        }
+
+        // Restore selected language on reload
+        window.addEventListener("load", function() {
+            const lang = localStorage.getItem("selectedLang");
+            if (lang) {
+                const interval = setInterval(() => {
+                    const select = document.querySelector(".goog-te-combo");
+                    if (select) {
+                        select.value = lang;
+                        select.dispatchEvent(new Event("change"));
+                        clearInterval(interval);
+                    }
+                }, 500);
+            }
+        });
+
+        // Save language when user changes it
+        document.addEventListener("change", function(e) {
+            if (e.target.classList.contains("goog-te-combo")) {
+                localStorage.setItem("selectedLang", e.target.value);
+            }
+        });
+
+        // ====== INTERACTIVITY: COLLAPSIBLE SECTIONS + TOOLS ======
+        const sections = document.querySelectorAll(".section");
+
+        function toggleSection(section) {
+            section.classList.toggle("collapsed");
+            const body = section.querySelector(".section-body");
+            if (section.classList.contains("collapsed")) {
+                body.style.display = "none";
+            } else {
+                body.style.display = "block";
+            }
+        }
+
+        sections.forEach(section => {
+            const header = section.querySelector(".section-header");
+            const body = section.querySelector(".section-body");
+            // Default: expanded
+            body.style.display = "block";
+
+            header.addEventListener("click", () => toggleSection(section));
+
+            header.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleSection(section);
+                }
+            });
+        });
+
+        const expandAllBtn = document.getElementById("expandAll");
+        const collapseAllBtn = document.getElementById("collapseAll");
+
+        expandAllBtn.addEventListener("click", () => {
+            sections.forEach(section => {
+                section.classList.remove("collapsed");
+                section.querySelector(".section-body").style.display = "block";
+            });
+        });
+
+        collapseAllBtn.addEventListener("click", () => {
+            sections.forEach(section => {
+                section.classList.add("collapsed");
+                section.querySelector(".section-body").style.display = "none";
+            });
+        });
+
+        // Back to top visibility + behavior
+        const backToTopBtn = document.getElementById("backToTop");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 250) {
+                backToTopBtn.style.display = "flex";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        });
+
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+
+</html>

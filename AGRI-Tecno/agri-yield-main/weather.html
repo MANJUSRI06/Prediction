@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌾 Odisha Agri Weather – Smart Farmer</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="navbar.css" />
+
+    <style>
+         :root {
+            --bg-main: linear-gradient(135deg, #e4f7df, #bfeec3, #7fd667);
+            --hero-card: linear-gradient(135deg, #e7f8e7, #dff4e4);
+            --card-bg: #ffffff;
+            --accent: #1f8b3b;
+            --accent-soft: #47b15f;
+            --text-main: #064e3b;
+            --text-muted: #4b5563;
+            --green: #22c55e;
+            --green-dark: #15803d;
+            --chip-bg: #e0f2f1;
+            --chip-text: #115e59;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+        
+        img {
+            max-width: 100%;
+        }
+        /* Google Translate cleanup */
+        
+        #google_translate_element {
+            display: inline-block;
+        }
+        
+        .goog-logo-link,
+        .goog-te-gadget span,
+        .goog-te-banner-frame,
+        #goog-gt-tt {
+            display: none !important;
+        }
+        
+        .goog-te-gadget {
+            font-size: 0 !important;
+        }
+        
+        .goog-te-combo {
+            background: transparent;
+            border: none;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        
+        
+        select,
+        button {
+            padding: 7px 10px;
+            border-radius: 999px;
+            border: 1px solid #a7f3d0;
+            font-size: 13px;
+        }
+        
+        .btn-main {
+            background: var(--green);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.25s ease;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.5);
+        }
+        
+        .btn-main i {
+            font-size: 0.85rem;
+        }
+        
+        .btn-main:hover {
+            background: var(--green-dark);
+            transform: translateY(-1px);
+        }
+        
+        .btn-main:active {
+            transform: translateY(0);
+        }
+        /* ==================== HERO ==================== */
+        
+        .hero-wrap {
+            max-width: 1200px;
+            margin: 20px auto 40px;
+            padding: 0 16px 20px;
+        }
+        
+        .hero-heading {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .hero-pill {
+            display: inline-block;
+            background: #15803d;
+            color: #ffffff;
+            padding: 6px 18px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 1.4rem;
+            box-shadow: 0 6px 18px rgba(22, 163, 74, 0.4);
+            margin-right: 8px;
+        }
+        
+        .hero-title-rest {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #064e3b;
+        }
+        
+        .hero-subtitle {
+            margin-top: 8px;
+            font-size: 0.95rem;
+            color: #166534;
+        }
+        
+        .hero-card {
+            background: var(--hero-card);
+            border-radius: 26px;
+            padding: 18px 20px 22px;
+            box-shadow: 0 18px 45px rgba(22, 101, 52, 0.25);
+            border: 1px solid #bbf7d0;
+        }
+        /* ========= State & District selector ========= */
+        
+        .location-section {
+            background: linear-gradient(135deg, #dff6df, #c8f2d6);
+            border-radius: 18px;
+            padding: 14px 16px 16px;
+            border: 1px solid #bbf7d0;
+            margin-bottom: 16px;
+        }
+        
+        .location-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .location-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .location-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            background: #065f46;
+            color: #ecfdf5;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+        
+        .location-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #065f46;
+        }
+        
+        .location-subtitle {
+            font-size: 0.8rem;
+            color: #166534;
+        }
+        
+        .location-tip {
+            font-size: 0.78rem;
+            color: #166534;
+            opacity: 0.9;
+            text-align: right;
+        }
+        
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .location-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .location-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #166534;
+        }
+        
+        .location-label i {
+            margin-right: 4px;
+        }
+        
+        .location-select {
+            width: 100%;
+            padding: 6px 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            color: #000;
+            background: #fff;
+            outline: none;
+        }
+        
+        .location-select:focus {
+            border-color: #007bff;
+            box-shadow: none;
+        }
+        
+        .location-helper {
+            margin-top: 6px;
+            font-size: 0.8rem;
+            color: #14532d;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .location-helper i {
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 720px) {
+            .location-grid {
+                grid-template-columns: 1fr;
+            }
+            .location-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .location-tip {
+                text-align: left;
+            }
+        }
+        /* ===== rest of hero ===== */
+        
+        .hero-top-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        
+        .hero-field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 200px;
+            flex: 1;
+        }
+        
+        .hero-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #166534;
+        }
+        
+        .hero-hint {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+        
+        .status-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: var(--chip-bg);
+            color: var(--chip-text);
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+        
+        .status-chip i {
+            font-size: 0.65rem;
+        }
+        
+        .hero-grid-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 16px;
+            margin-top: 12px;
+        }
+        
+        .hero-grid-bottom {
+            display: grid;
+            grid-template-columns: 1.4fr 1.6fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        @media (max-width: 900px) {
+            .hero-grid-main,
+            .hero-grid-bottom {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            box-shadow: 0 4px 16px rgba(15, 118, 110, 0.18);
+            padding: 14px 16px 16px;
+        }
+        
+        .card h3 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+            color: #166534;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .card h3 i {
+            font-size: 0.95rem;
+        }
+        
+        .current-main {
+            font-size: 2.3rem;
+            font-weight: 700;
+            margin: 4px 0;
+            color: #022c22;
+        }
+        
+        .current-city {
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+        
+        .updated-time {
+            font-size: 0.78rem;
+            color: #6b7280;
+            margin-top: 3px;
+        }
+        
+        .metrics {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            gap: 6px 12px;
+        }
+        
+        .metrics div {
+            font-size: 0.85rem;
+            color: #374151;
+        }
+        
+        .agri-metrics {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .agri-metrics div {
+            background: #ecfdf3;
+            border-radius: 12px;
+            padding: 10px;
+            flex: 1;
+            text-align: center;
+            border: 1px solid #bbf7d0;
+            color: #065f46;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        .hourly {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 6px 2px 2px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .hour-card {
+            min-width: 80px;
+            background: #ecfdf5;
+            border-radius: 10px;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 8px rgba(15, 118, 110, 0.2);
+            color: #064e3b;
+        }
+        
+        .hour-card img {
+            margin: 4px 0;
+        }
+        
+        .forecast-day {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px dashed #d1fae5;
+            font-size: 0.85rem;
+            color: #065f46;
+            gap: 10px;
+        }
+        
+        .forecast-day:last-child {
+            border: none;
+        }
+        
+        .loading-text {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+        /* ============ MOBILE TUNING (Vivo / common phones) ============ */
+        
+        @media (max-width: 768px) {
+            .hero-wrap {
+                padding: 0 12px 18px;
+            }
+            .hero-card {
+                padding: 16px 14px 18px;
+            }
+            .card {
+                padding: 12px 12px 14px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding-bottom: 10px;
+            }
+            .hero-heading {
+                margin-bottom: 16px;
+            }
+            .hero-pill {
+                font-size: 1.2rem;
+                padding: 5px 14px;
+                box-shadow: 0 4px 12px rgba(22, 163, 74, 0.35);
+            }
+            .hero-title-rest {
+                font-size: 1.5rem;
+                display: block;
+                margin-top: 6px;
+            }
+            .hero-subtitle {
+                font-size: 0.85rem;
+            }
+            .hero-top-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+            .status-chip {
+                margin-left: 0;
+                align-self: flex-start;
+            }
+            .metrics div {
+                font-size: 0.8rem;
+            }
+            .agri-metrics div {
+                font-size: 0.8rem;
+                padding: 8px;
+            }
+        }
+        
+            .nav-right {
+                gap: 6px;
+            }
+            .hero-wrap {
+                margin-top: 14px;
+                padding: 0 10px 16px;
+            }
+            .hero-pill {
+                font-size: 1.05rem;
+            }
+            .hero-title-rest {
+                font-size: 1.3rem;
+            }
+            .location-section {
+                padding: 12px 12px 13px;
+            }
+            .location-label {
+                font-size: 0.75rem;
+            }
+            .location-select {
+                font-size: 13px;
+            }
+            .card h3 {
+                font-size: 0.95rem;
+            }
+            .current-main {
+                font-size: 2rem;
+            }
+            .current-city {
+                font-size: 0.85rem;
+            }
+            .updated-time {
+                font-size: 0.72rem;
+            }
+            .forecast-day {
+                font-size: 0.8rem;
+            }
+        }
+        
+            .hero-pill {
+                font-size: 0.98rem;
+                padding: 4px 12px;
+            }
+            .hero-title-rest {
+                font-size: 1.2rem;
+            }
+            .hero-subtitle {
+                font-size: 0.8rem;
+            }
+            .hero-card {
+                border-radius: 20px;
+                padding: 12px 10px 14px;
+            }
+            .card {
+                border-radius: 14px;
+                padding: 10px 10px 12px;
+            }
+            .metrics div {
+                font-size: 0.76rem;
+            }
+            .agri-metrics div {
+                font-size: 0.75rem;
+            }
+            .hour-card {
+                min-width: 70px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-leaf animated-leaf"></i> AgriCare
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <ul class="nav-links">
+            <li><a href="home.html" target="_self">Home</a></li>
+            <li><a href="https://prediction-final.vercel.app/" target="_self">Yield Prediction</a></li>
+            <li><a href="diagno.html" target="_self">Diagnose</a></li>
+            <li><a href="agrilearn.html" target="_self">AgriLearn</a></li>
+            <li><a href="map.html" target="_self">Fertilizer</a></li>
+            <li class="active"><a href="weather.html" target="_self">Weather</a></li>
+            <li><a href="dasboard.html" target="_self">Sales Prediction</a></li>
+            <li><a href="government.html" target="_self">Government Schema</a></li>
+            <li><a href="contact.html" target="_self">Contact Us</a></li>
+            <li class="translate-item">
+                <div id="google_translate_element"></div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- ============== HERO / MAIN ================= -->
+    <main class="hero-wrap">
+        <section class="hero-heading">
+            <h1 style="margin:0;">
+                <span class="hero-pill">Smart Farmer</span>
+                <span class="hero-title-rest">Odisha Agri Weather</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Choose your district in Odisha to see crop-friendly weather, hourly updates, and a 7-day forecast in one professional dashboard.
+            </p>
+        </section>
+
+        <section class="hero-card">
+            <!-- State & District selector -->
+            <div class="location-section">
+                <div class="location-header">
+                    <div class="location-title-wrap">
+                        <span class="location-icon">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </span>
+                        <div>
+                            <div class="location-title">Select Your State &amp; District</div>
+                            <div class="location-subtitle">Start by choosing your state.</div>
+                        </div>
+                    </div>
+                    <div class="location-tip">
+                        Tips: Pick state → district, or directly choose your Odisha district.
+                    </div>
+                </div>
+
+                <div class="location-grid">
+                    <div class="location-field">
+                        <label class="location-label">
+                            <i class="fa-solid fa-flag"></i> STATE / UT
+                        </label>
+                        <select id="stateSelect" class="location-select">
+                            <option value="">-- Select State / UT --</option>
+                            <option value="Odisha" selected>Odisha</option>
+                        </select>
+                    </div>
+
+                    <div class="location-field">
+                        <label class="location-label">
+                            <i class="fa-solid fa-location-dot"></i> DISTRICT
+                        </label>
+                        <select id="districtSelect" class="location-select">
+                            <option value="">-- Select District --</option>
+                            <option value="Angul">Angul</option>
+                            <option value="Balangir">Balangir</option>
+                            <option value="Balasore">Balasore</option>
+                            <option value="Bargarh">Bargarh</option>
+                            <option value="Bhadrak">Bhadrak</option>
+                            <option value="Boudh">Boudh</option>
+                            <option value="Cuttack">Cuttack</option>
+                            <option value="Deogarh">Deogarh</option>
+                            <option value="Dhenkanal">Dhenkanal</option>
+                            <option value="Gajapati">Gajapati</option>
+                            <option value="Ganjam">Ganjam</option>
+                            <option value="Jagatsinghpur">Jagatsinghpur</option>
+                            <option value="Jajpur">Jajpur</option>
+                            <option value="Jharsuguda">Jharsuguda</option>
+                            <option value="Kalahandi">Kalahandi</option>
+                            <option value="Kandhamal">Kandhamal</option>
+                            <option value="Kendrapara">Kendrapara</option>
+                            <option value="Keonjhar">Keonjhar</option>
+                            <option value="Khordha">Khordha</option>
+                            <option value="Koraput">Koraput</option>
+                            <option value="Malkangiri">Malkangiri</option>
+                            <option value="Mayurbhanj">Mayurbhanj</option>
+                            <option value="Nabarangpur">Nabarangpur</option>
+                            <option value="Nayagarh">Nayagarh</option>
+                            <option value="Nuapada">Nuapada</option>
+                            <option value="Puri">Puri</option>
+                            <option value="Rayagada">Rayagada</option>
+                            <option value="Sambalpur">Sambalpur</option>
+                            <option value="Subarnapur">Subarnapur</option>
+                            <option value="Sundargarh">Sundargarh</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="location-helper">
+                    <i class="fa-regular fa-lightbulb"></i>
+                    <span>Start by choosing your state, then pick the district to update the weather dashboard.</span>
+                </div>
+            </div>
+
+            <!-- hero top row -->
+            <div class="hero-top-row">
+                <div class="hero-field-group">
+                    <span class="hero-label">District</span>
+                    <span class="hero-hint">
+                        Use the selector above and click <strong>Get Weather</strong>.
+                    </span>
+                </div>
+
+                <button class="btn-main" id="getWeatherBtn">
+                    <i class="fa-solid fa-rotate"></i> Get Weather
+                </button>
+                <div class="status-chip">
+                    <i class="fa-solid fa-circle"></i>
+                    <span id="statusText">Idle</span>
+                </div>
+            </div>
+
+            <!-- main content: current + agri -->
+            <div class="hero-grid-main">
+                <div class="card" id="current">
+                    <h3><i class="fa-solid fa-gauge-high"></i> Current Conditions</h3>
+                    <div class="current-main" id="temperature">--°C</div>
+                    <div class="current-city" id="cityLabel">
+                        Select a district in Odisha and click "Get Weather"
+                    </div>
+                    <div id="condition">---</div>
+                    <div class="updated-time" id="updatedTime">Last updated: --</div>
+
+                    <div class="metrics">
+                        <div>🌅 Sunrise: <span id="sunrise">--</span></div>
+                        <div>🌇 Sunset: <span id="sunset">--</span></div>
+                        <div>💧 Humidity: <span id="humidity">--</span>%</div>
+                        <div>🌬 Wind: <span id="wind">--</span> km/h</div>
+                        <div>👁 Visibility: <span id="visibility">--</span> km</span>
+                        </div>
+                        <div>🔆 UV Index: <span id="uv">--</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-seedling"></i> Agricultural Metrics</h3>
+                    <div class="agri-metrics">
+                        <div>🌡 Soil Temp: <span id="soil">22</span>°C</div>
+                        <div>⚖ Pressure: <span id="pressure">--</span> hPa</div>
+                        <div>🌱 Growing: <span id="growth">Excellent</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- bottom row: hourly + 7 day -->
+            <div class="hero-grid-bottom">
+                <div class="card">
+                    <h3><i class="fa-solid fa-clock"></i> Today's Hourly Forecast</h3>
+                    <div class="hourly" id="hourly">
+                        <span class="loading-text">No data yet. Fetch weather to see hourly forecast.</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-calendar-week"></i> 7-Day Forecast</h3>
+                    <div id="forecast">
+                        <span class="loading-text">No data yet. Fetch weather to see the 7-day trend.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============== GOOGLE TRANSLATE SCRIPT ============= -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: [
+                        'en', 'hi', 'bn', 'te', 'mr', 'ta', 'gu', 'ur',
+                        'kn', 'ml', 'pa', 'or', 'as', 'ne', 'sd', 'sa'
+                    ].join(','),
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                },
+                'google_translate_element'
+            );
+        }
+
+        // Restore selected language on reload
+        window.addEventListener("load", function() {
+            const lang = localStorage.getItem("selectedLang");
+            if (lang) {
+                const interval = setInterval(() => {
+                    const select = document.querySelector(".goog-te-combo");
+                    if (select) {
+                        select.value = lang;
+                        select.dispatchEvent(new Event("change"));
+                        clearInterval(interval);
+                    }
+                }, 500);
+            }
+        });
+
+        // Persist language whenever user changes it
+        document.addEventListener("change", function(e) {
+            if (e.target.classList.contains("goog-te-combo")) {
+                localStorage.setItem("selectedLang", e.target.value);
+            }
+        });
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- ============== WEATHER + INTERACTIVITY SCRIPT ============== -->
+    <script>
+        const API_KEY = "7c355fbc1e7349210b0cca55b1a61def";
+
+        const stateSelect = document.getElementById("stateSelect");
+        const districtSelect = document.getElementById("districtSelect");
+
+        const getWeatherBtn = document.getElementById("getWeatherBtn");
+        const statusText = document.getElementById("statusText");
+        const cityLabel = document.getElementById("cityLabel");
+        const navToggle = document.getElementById("navToggle");
+        const navLinks = document.getElementById("navLinks");
+
+        const temperatureEl = document.getElementById("temperature");
+        const conditionEl = document.getElementById("condition");
+        const sunriseEl = document.getElementById("sunrise");
+        const sunsetEl = document.getElementById("sunset");
+        const humidityEl = document.getElementById("humidity");
+        const windEl = document.getElementById("wind");
+        const visibilityEl = document.getElementById("visibility");
+        const uvEl = document.getElementById("uv");
+        const pressureEl = document.getElementById("pressure");
+        const hourlyDiv = document.getElementById("hourly");
+        const forecastDiv = document.getElementById("forecast");
+        const updatedTimeEl = document.getElementById("updatedTime");
+
+        function setStatus(text) {
+            statusText.textContent = text;
+        }
+
+        async function getWeather(city) {
+            const geoURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city},IN&limit=1&appid=${API_KEY}`;
+            const geoRes = await fetch(geoURL);
+            const geoData = await geoRes.json();
+            if (!geoData || !geoData.length) {
+                throw new Error("Location not found");
+            }
+
+            const {
+                lat,
+                lon
+            } = geoData[0];
+
+            const weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+            const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+
+            const [weatherRes, forecastRes] = await Promise.all([
+                fetch(weatherURL),
+                fetch(forecastURL),
+            ]);
+
+            const weatherData = await weatherRes.json();
+            const forecastData = await forecastRes.json();
+
+            if (!weatherRes.ok || !forecastRes.ok) {
+                throw new Error(weatherData.message || "API error");
+            }
+
+            return {
+                weatherData,
+                forecastData
+            };
+        }
+
+        async function callweather() {
+            const city = districtSelect.value;
+            if (!city) {
+                alert("Please select a district first.");
+                return;
+            }
+
+            setStatus("Loading…");
+            getWeatherBtn.disabled = true;
+            getWeatherBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading';
+
+            try {
+                const {
+                    weatherData,
+                    forecastData
+                } = await getWeather(city);
+
+                temperatureEl.textContent = weatherData.main.temp.toFixed(1) + "°C";
+                conditionEl.textContent = weatherData.weather[0].description;
+                humidityEl.textContent = weatherData.main.humidity;
+                windEl.textContent = weatherData.wind.speed;
+                pressureEl.textContent = weatherData.main.pressure;
+                sunriseEl.textContent = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-IN", {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                });
+                sunsetEl.textContent = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-IN", {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                });
+                visibilityEl.textContent = (weatherData.visibility / 1000).toFixed(1);
+                uvEl.textContent = Math.floor(Math.random() * 10); // placeholder UV
+
+                cityLabel.textContent = `District: ${city}`;
+                updatedTimeEl.textContent = "Last updated: " + new Date().toLocaleTimeString("en-IN", {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                });
+
+                // Hourly (next 6 entries)
+                hourlyDiv.innerHTML = "";
+                for (let i = 0; i < Math.min(6, forecastData.list.length); i++) {
+                    const item = forecastData.list[i];
+                    const time = new Date(item.dt * 1000).toLocaleTimeString("en-IN", {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    });
+                    const pop = Math.round(item.pop * 100);
+                    hourlyDiv.innerHTML += `
+                        <div class="hour-card">
+                            <div>${time}</div>
+                            <img src="https://openweathermap.org/img/wn/${item.weather[0].icon}.png" alt="" />
+                            <div>${item.main.temp.toFixed(1)}°C</div>
+                            <div>${pop}% rain</div>
+                        </div>`;
+                }
+
+                // Approx 7-day forecast using 3-hour steps
+                forecastDiv.innerHTML = "";
+                for (let i = 0; i < forecastData.list.length; i += 8) {
+                    const item = forecastData.list[i];
+                    const date = new Date(item.dt * 1000).toLocaleDateString("en-IN", {
+                        weekday: "long"
+                    });
+                    forecastDiv.innerHTML += `
+                        <div class="forecast-day">
+                            <span>${date}</span>
+                            <span><img src="https://openweathermap.org/img/wn/${item.weather[0].icon}.png" width="32" alt="" /></span>
+                            <span>${item.main.temp_min.toFixed(0)}° / ${item.main.temp_max.toFixed(0)}°</span>
+                        </div>`;
+                }
+
+                // simple agri growth hint
+                const temp = weatherData.main.temp;
+                const growthEl = document.getElementById("growth");
+                if (temp < 18) growthEl.textContent = "Slow (too cold)";
+                else if (temp <= 32) growthEl.textContent = "Excellent";
+                else growthEl.textContent = "Stressed (too hot)";
+
+                setStatus("Updated");
+            } catch (err) {
+                alert("Failed to load weather: " + err.message);
+                setStatus("Error");
+            } finally {
+                getWeatherBtn.disabled = false;
+                getWeatherBtn.innerHTML = '<i class="fa-solid fa-rotate"></i> Get Weather';
+            }
+        }
+
+        // State select – right now only Odisha
+        stateSelect.addEventListener("change", () => {
+            if (stateSelect.value !== "Odisha") {
+                alert("Currently only Odisha districts are supported for detailed agri weather.");
+                stateSelect.value = "Odisha";
+            }
+        });
+
+        // Buttons
+        getWeatherBtn.addEventListener("click", callweather);
+
+        // Mobile nav toggle
+        if (navToggle && navLinks) {
+            navToggle.addEventListener("click", () => {
+                navLinks.classList.toggle("open");
+            });
+            navLinks.querySelectorAll("a").forEach(a => {
+                a.addEventListener("click", () => {
+                    navLinks.classList.remove("open");
+                });
+            });
+        }
+    </script>
+    <script src="navbar.js"></script>
+</body>
+
+</html>

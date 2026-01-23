@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Learn - Jackfruit Varieties</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f2 url('https://www.transparenttextures.com/patterns/wood-pattern.png') repeat;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .back-arrow {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            font-size: 1rem;
+            color: #064420;
+            background-color: #ffbb00;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            z-index: 10;
+        }
+        
+        .back-arrow:hover {
+            background-color: rgb(0, 102, 34);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #064420;
+            margin: 80px 0 40px;
+            font-size: 2rem;
+            padding: 0 8px;
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+        }
+        
+        .card {
+            width: 100%;
+            max-width: 360px;
+            background: #111;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+        
+        .card img {
+            width: calc(100% - 24px);
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin: 12px;
+        }
+        
+        .card-content {
+            padding: 20px 22px 10px;
+            color: white;
+            text-align: left;
+        }
+        
+        .card-content h3 {
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+            color: #00e6e6;
+        }
+        
+        .card-content p {
+            font-size: 0.98rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .get-started-btn {
+            display: block;
+            margin: 0 auto 20px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, #00e6e6, #00ff99);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #00ffcc;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite;
+            text-align: center;
+            width: 80%;
+            max-width: 260px;
+        }
+        
+        .get-started-btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 25px #00ffcc;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px #00ffcc;
+            }
+            50% {
+                box-shadow: 0 0 20px #00ffcc;
+            }
+            100% {
+                box-shadow: 0 0 10px #00ffcc;
+            }
+        }
+        /* ====== RESPONSIVE BREAKPOINTS ====== */
+        /* Tablets / small laptops */
+        
+        @media (max-width: 1024px) {
+            body {
+                padding: 16px;
+            }
+            h1 {
+                margin-top: 70px;
+            }
+        }
+        /* Large phones / small tablets */
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 14px;
+            }
+            h1 {
+                margin-top: 70px;
+                margin-bottom: 32px;
+                font-size: 1.7rem;
+            }
+            .card-content h3 {
+                font-size: 1.25rem;
+            }
+            .card-content p {
+                font-size: 0.95rem;
+            }
+            .back-arrow {
+                font-size: 0.95rem;
+                padding: 7px 14px;
+            }
+        }
+        /* Phones */
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 12px 10px 20px;
+            }
+            h1 {
+                margin-top: 64px;
+                margin-bottom: 28px;
+                font-size: 1.5rem;
+            }
+            .cards-container {
+                gap: 18px;
+            }
+            .card img {
+                height: 190px;
+            }
+            .card-content {
+                padding: 16px 18px 8px;
+            }
+            .card-content h3 {
+                font-size: 1.15rem;
+            }
+            .card-content p {
+                font-size: 0.9rem;
+            }
+            .get-started-btn {
+                width: 85%;
+                font-size: 0.95rem;
+                padding: 10px 20px;
+            }
+            .back-arrow {
+                top: 10px;
+                left: 10px;
+            }
+        }
+        /* Very small phones (<= 360px) */
+        
+        @media (max-width: 360px) {
+            h1 {
+                margin-top: 60px;
+                font-size: 1.35rem;
+            }
+            .card img {
+                height: 170px;
+            }
+            .card-content h3 {
+                font-size: 1.05rem;
+            }
+            .card-content p {
+                font-size: 0.88rem;
+            }
+            .get-started-btn {
+                font-size: 0.9rem;
+                padding: 9px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="agrilearn.html" class="back-arrow">← Back</a>
+    <h1>🌳 Jackfruit Varieties in India</h1>
+
+    <div class="cards-container">
+
+        <!-- 1. Velipala Jackfruit -->
+        <div class="card">
+            <img src="jack1.jpg" alt="Velipala Jackfruit">
+            <div class="card-content">
+                <h3>🌱 Velipala Jackfruit</h3>
+                <p><strong>Type:</strong> Traditional / Local</p>
+                <p><strong>Where it is grown:</strong> Mostly in Tamil Nadu (Salem, Dharmapuri, Krishnagiri, Erode districts) and parts of Kerala & Karnataka.</p>
+                <p><strong>About:</strong> The Velipala jackfruit is a traditional variety known for its large-sized fruits and sweet golden-yellow bulbs. The tree is medium to tall with a strong canopy, suitable for rainfed as well as irrigated conditions.</p>
+            </div>
+            <a href="Velipala Jackfruit.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 2. Panruti Jackfruit -->
+        <div class="card">
+            <img src="jack2.jpg" alt="Panruti Jackfruit">
+            <div class="card-content">
+                <h3>🌱 Panruti Jackfruit</h3>
+                <p><strong>Type:</strong> Traditional / Local (GI-tagged variety)</p>
+                <p><strong>Where it is grown:</strong> Exclusively grown in Panruti, Cuddalore District, Tamil Nadu, and surrounding areas.</p>
+                <p><strong>About:</strong> The Panruti jackfruit is world-famous for its unique sweetness, aroma, and year-round fruiting ability. The trees are medium to tall and produce fruits multiple times a year due to the region’s climate.</p>
+            </div>
+            <a href="Panruti Jackfruit.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 3. Hybrid Jackfruit -->
+        <div class="card">
+            <img src="jack3.jpg" alt="Hybrid Jackfruit">
+            <div class="card-content">
+                <h3>🌱 Hybrid Jackfruit</h3>
+                <p><strong>Type:</strong> Hybrid</p>
+                <p><strong>Where it is grown:</strong> Cultivated in several states of India – mainly Kerala, Karnataka, Tamil Nadu, and Andhra Pradesh – through research station releases and farmer-level adoption.</p>
+                <p><strong>About:</strong> Hybrid jackfruit is developed by crossing high-yielding local varieties to combine the best traits. The trees are medium-sized, start bearing early, and produce fruits with uniform quality.</p>
+            </div>
+            <a href="Hybrid Jackfruit.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

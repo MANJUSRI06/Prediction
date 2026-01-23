@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link rel="icon" type="image/png" href="verifyotpfavi.png" />
+
+    <!-- Firebase v8 SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            overflow-y: auto;
+            /* allow scroll on small screens */
+            position: relative;
+            background: transparent;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url("/agribg.JPG") no-repeat center center / cover;
+            z-index: -1;
+        }
+        /* Google Translate Box */
+        
+        #google_translate_element {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            z-index: 1000;
+            background: #fff;
+            padding: 4px 8px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .goog-logo-link,
+        .goog-te-gadget span,
+        .goog-te-banner-frame,
+        #goog-gt-tt {
+            display: none !important;
+        }
+        
+        .goog-te-gadget {
+            font-size: 0 !important;
+        }
+        
+        .goog-te-combo {
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 13px;
+            font-family: "Poppins", sans-serif;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .goog-te-combo:hover,
+        .goog-te-combo:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 6px rgba(46, 125, 50, 0.3);
+        }
+        /* Login Box */
+        
+        .login-container {
+            background: #fff;
+            border-radius: 15px;
+            padding: 40px 30px;
+            width: 400px;
+            max-width: 100%;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .icon {
+            position: relative;
+            display: inline-block;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .icon img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: block;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            animation: floatLogo 4s ease-in-out infinite;
+        }
+        
+        .icon::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.6) 60%, rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+            60%,
+            100% {
+                left: 120%;
+            }
+        }
+        
+        @keyframes floatLogo {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+        
+        h2 {
+            margin: 10px 0;
+            color: #333;
+            font-size: 1.6rem;
+        }
+        
+        p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all .3s ease;
+            text-decoration: none;
+            color: #fff;
+        }
+        /* Google button (Firebase popup) */
+        
+        #btnGoogle {
+            background: linear-gradient(90deg, #004e28, #003225);
+            border: none;
+        }
+        
+        #btnGoogle:hover {
+            background: linear-gradient(90deg, #159b00, #008800);
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgb(255, 255, 255);
+        }
+        /* Mobile */
+        
+        #btnMobile {
+            background: linear-gradient(90deg, #005604, #002902);
+            border: none;
+        }
+        
+        #btnMobile:hover {
+            background: linear-gradient(90deg, #009207, #008707);
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, .5);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #ddd;
+            margin: 0 10px;
+        }
+        
+        #loginBtn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #00930a, #e5da02);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .3s ease;
+        }
+        
+        #loginBtn:hover {
+            background: linear-gradient(90deg, #00a408, #2e7d32);
+            transform: scale(1.03);
+            box-shadow: 0 4px 15px rgba(3, 161, 11, .5);
+        }
+        /* ================= RESPONSIVE ================= */
+        /* Tablets / small laptops */
+        
+        @media (max-width: 900px) {
+            body {
+                padding: 12px;
+            }
+            .login-container {
+                width: 100%;
+                max-width: 420px;
+                padding: 32px 24px;
+            }
+        }
+        /* Large phones / small tablets */
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+            }
+            .login-container {
+                margin-top: 70px;
+                width: 100%;
+                max-width: 360px;
+                padding: 26px 20px;
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+            }
+            h2 {
+                font-size: 1.4rem;
+            }
+            p {
+                font-size: 13px;
+                margin-bottom: 18px;
+            }
+            .social-btn {
+                font-size: 14px;
+                padding: 12px;
+            }
+            #loginBtn {
+                font-size: 14px;
+                padding: 12px;
+            }
+            /* Shrink translate, keep top-right but tighter */
+            #google_translate_element {
+                top: 10px;
+                right: 10px;
+                padding: 2px 6px;
+            }
+            .goog-te-combo {
+                font-size: 12px;
+                padding: 4px 6px;
+            }
+        }
+        /* Small phones */
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            .login-container {
+                margin-top: 80px;
+                max-width: 100%;
+                padding: 22px 16px;
+                border-radius: 12px;
+            }
+            .icon img {
+                width: 70px;
+                height: 70px;
+            }
+            h2 {
+                font-size: 1.25rem;
+            }
+            p {
+                font-size: 12px;
+            }
+            .social-btn {
+                font-size: 13px;
+                padding: 10px;
+            }
+            #loginBtn {
+                font-size: 13px;
+                padding: 10px;
+            }
+            /* On very small devices, move translate above card, centered */
+            #google_translate_element {
+                position: fixed;
+                top: 6px;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                padding: 2px 6px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Google Translate Widget -->
+    <div id="google_translate_element"></div>
+
+    <div class="login-container">
+        <div class="icon">
+            <img src="logo.jpg" alt="Farmer Logo" />
+        </div>
+        <h2>WELCOME</h2>
+        <p>Sign in to your account to continue</p>
+
+        <div class="button-grid">
+            <!-- Google sign-in via Firebase popup -->
+            <div class="social-btn" id="btnGoogle">
+                <i class="fab fa-google"></i> Continue with Google
+            </div>
+
+            <!-- Mobile number route -->
+            <div class="social-btn" id="btnMobile">
+                <i class="fas fa-mobile-screen"></i> Continue with Mobile Number
+            </div>
+        </div>
+
+        <div class="divider">Or</div>
+
+        <button id="loginBtn">Create Account</button>
+    </div>
+
+    <!-- Google Translate Script -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,ta,hi,ml,te,bn,kn,mr,gu,pa',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            /* ---------------- Firebase ---------------- */
+            const firebaseConfig = {
+                apiKey: "AIzaSyBKsdwBBfykxQUhojaI2Y9a6in16Q26Cow",
+                authDomain: "app-5eeb0.firebaseapp.com",
+                projectId: "app-5eeb0",
+                storageBucket: "app-5eeb0.appspot.com",
+                messagingSenderId: "527633506292",
+                appId: "1:527633506292:web:4fa6fae14acc58b5eda3a1",
+                measurementId: "G-T6D35L7D5K"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+            const auth = firebase.auth();
+
+            // Google sign-in via Firebase popup
+            document.getElementById("btnGoogle").addEventListener("click", () => {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                auth.signInWithPopup(provider)
+                    .then((result) => {
+                        const user = result.user;
+                        localStorage.setItem("welcomeMsg", `Welcome ${user.displayName} to Agri Daingo 🌱`);
+                        localStorage.setItem("userEmail", user.email || "");
+                        window.location.href = "home.html";
+                    })
+                    .catch((error) => {
+                        console.error("Firebase popup sign-in failed:", error);
+                        alert("Google Sign-In failed. Please try again.");
+                    });
+            });
+
+            // Navigate to OTP page
+            document.getElementById("btnMobile").addEventListener("click", () => {
+                window.location.href = "verifyotp.html";
+            });
+
+            // Navigate to create account page
+            document.getElementById("loginBtn").addEventListener("click", () => {
+                window.location.href = "Accdetails.html";
+            });
+
+            // Auth state logs
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    console.log("User is logged in:", {
+                        uid: user.uid,
+                        email: user.email,
+                        displayName: user.displayName
+                    });
+                } else {
+                    console.log("User is logged out");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

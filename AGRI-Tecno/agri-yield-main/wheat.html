@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Learn - Wheat Varieties</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f2 url('https://www.transparenttextures.com/patterns/wood-pattern.png') repeat;
+            padding: 20px;
+        }
+        
+        .back-arrow {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            font-size: 1rem;
+            color: #064420;
+            background-color: #ffbb00;
+            padding: 8px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            z-index: 900;
+        }
+        
+        .back-arrow:hover {
+            background-color: rgb(0, 102, 34);
+            color: white;
+            transform: translateY(-1px);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #064420;
+            margin: 70px 0 30px;
+            font-size: 1.8rem;
+            line-height: 1.3;
+            padding: 0 10px;
+        }
+        
+        .cards-container {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+        }
+        
+        .card {
+            width: 100%;
+            max-width: 360px;
+            background: #111;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+        
+        .card img {
+            width: calc(100% - 24px);
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin: 12px;
+        }
+        
+        .card-content {
+            padding: 20px 22px 10px;
+            color: white;
+            text-align: left;
+        }
+        
+        .card-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #00e6e6;
+        }
+        
+        .card-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        
+        .get-started-btn {
+            display: block;
+            margin: 12px auto 20px;
+            padding: 10px 22px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, #00e6e6, #00ff99);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #00ffcc;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite;
+            white-space: nowrap;
+        }
+        
+        .get-started-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 22px #00ffcc;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px #00ffcc;
+            }
+            50% {
+                box-shadow: 0 0 20px #00ffcc;
+            }
+            100% {
+                box-shadow: 0 0 10px #00ffcc;
+            }
+        }
+        /* Google Translate Box */
+        
+        #google_translate_element {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 1000;
+            background: #ffeb3b;
+            padding: 6px 10px;
+            border-radius: 30px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        /* Hide Google branding frame */
+        
+        .goog-te-banner-frame.skiptranslate,
+        .goog-te-gadget-icon {
+            display: none !important;
+        }
+        
+        body {
+            top: 0 !important;
+        }
+        /* Translate Dropdown Styling */
+        
+        .goog-te-combo {
+            padding: 6px 10px;
+            border: 2px solid #064420;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            background: white;
+            color: #064420;
+            cursor: pointer;
+            outline: none;
+            transition: 0.3s;
+            max-width: 140px;
+        }
+        
+        .goog-te-combo:hover {
+            border-color: #ff9800;
+            box-shadow: 0 0 8px rgba(255, 152, 0, 0.6);
+        }
+        /* Tablet */
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 16px 10px 24px;
+            }
+            h1 {
+                margin-top: 70px;
+                font-size: 1.5rem;
+            }
+            .card img {
+                height: 200px;
+            }
+            .card-content h3 {
+                font-size: 1.2rem;
+            }
+            .card-content p {
+                font-size: 0.9rem;
+            }
+            #google_translate_element {
+                padding: 4px 8px;
+                font-size: 0.8rem;
+            }
+            .back-arrow {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+        }
+        /* Small phones */
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 12px 8px 24px;
+            }
+            h1 {
+                margin-top: 72px;
+                font-size: 1.3rem;
+            }
+            .cards-container {
+                gap: 18px;
+            }
+            .card {
+                max-width: 100%;
+            }
+            .card img {
+                height: 180px;
+                margin: 10px;
+                width: calc(100% - 20px);
+            }
+            .card-content {
+                padding: 16px 16px 8px;
+            }
+            .get-started-btn {
+                font-size: 0.9rem;
+                padding: 8px 18px;
+                margin-bottom: 16px;
+            }
+            #google_translate_element {
+                top: 10px;
+                right: 10px;
+                padding: 3px 8px;
+            }
+            .goog-te-combo {
+                max-width: 120px;
+                font-size: 0.75rem;
+            }
+            .back-arrow {
+                top: 10px;
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="agrilearn.html" class="back-arrow">← Back</a>
+
+    <!-- Google Translate Dropdown -->
+    <div id="google_translate_element"></div>
+
+    <h1>🌾 Wheat Varieties in India</h1>
+
+    <div class="cards-container">
+
+        <!-- 1. Triticum aestivum -->
+        <div class="card">
+            <img src="wheat1.jpg" alt="Triticum aestivum">
+            <div class="card-content">
+                <h3>Triticum aestivum (Bread Wheat)</h3>
+                <p><strong>Type:</strong> Common bread wheat (soft/medium-hard)</p>
+                <p><strong>Where it is grown:</strong> Indo-Gangetic plains – Punjab, Haryana, Uttar Pradesh, Bihar, Madhya Pradesh, Rajasthan</p>
+                <p><strong>About:</strong> Most popular wheat in India (~90% area). Used for chapati, bread, bakery products. High yielding & adaptable to many soils and climates.</p>
+            </div>
+            <a href="breadwheat.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 2. Triticum durum -->
+        <div class="card">
+            <img src="wheat2.jpg" alt="Triticum durum">
+            <div class="card-content">
+                <h3>Triticum durum (Durum Wheat)</h3>
+                <p><strong>Type:</strong> Hard wheat, high in protein and gluten</p>
+                <p><strong>Where it is grown:</strong> Madhya Pradesh, Maharashtra, Gujarat, parts of Karnataka</p>
+                <p><strong>About:</strong> Used for pasta, macaroni, semolina (suji), noodles. Grains are amber-colored and hard. Rich in protein and suitable for industrial food processing.</p>
+            </div>
+            <a href="Durum Wheat.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 3. Triticum dicoccum -->
+        <div class="card">
+            <img src="wheat3.jpg" alt="Triticum dicoccum">
+            <div class="card-content">
+                <h3>Triticum dicoccum (Emmer Wheat)</h3>
+                <p><strong>Type:</strong> Ancient wheat variety (traditional)</p>
+                <p><strong>Where it is grown:</strong> Karnataka, Maharashtra, Tamil Nadu, Andhra Pradesh</p>
+                <p><strong>About:</strong> Nutritious, high in dietary fiber, easy to digest. Traditionally used in South India for making porridge, dosa, and health foods. Known as a “low-gluten” wheat, suitable for diabetic-friendly foods.</p>
+            </div>
+            <a href="Emmer Wheat.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,ta,te,ml,kn,gu,mr,bn,pa,ur,fr,de,es,zh-CN,ja',
+                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+
+</html>

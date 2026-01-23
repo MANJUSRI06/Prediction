@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Learn - Rice Varieties</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f2 url('https://www.transparenttextures.com/patterns/wood-pattern.png') repeat;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .back-arrow {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            font-size: 1rem;
+            color: #064420;
+            background-color: #ffbb00;
+            padding: 7px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, color 0.3s ease;
+            z-index: 10;
+        }
+        
+        .back-arrow:hover {
+            background-color: rgb(0, 102, 34);
+            color: white;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #064420;
+            margin: 70px 0 35px;
+            font-size: 2rem;
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .card {
+            width: 360px;
+            max-width: 100%;
+            background: #111;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+        
+        .card img {
+            width: calc(100% - 24px);
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin: 12px;
+        }
+        
+        .card-content {
+            padding: 20px 22px 10px;
+            color: white;
+            text-align: left;
+        }
+        
+        .card-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        
+        .card-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .get-started-btn {
+            display: block;
+            margin: 0 auto 22px;
+            padding: 11px 22px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite;
+            width: fit-content;
+            max-width: 90%;
+        }
+        
+        .get-started-btn:hover {
+            transform: scale(1.06);
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px currentColor;
+            }
+            50% {
+                box-shadow: 0 0 20px currentColor;
+            }
+            100% {
+                box-shadow: 0 0 10px currentColor;
+            }
+        }
+        /* Tablet-ish */
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+            h1 {
+                margin: 65px 0 30px;
+                font-size: 1.7rem;
+            }
+            .cards-container {
+                gap: 20px;
+            }
+            .card {
+                width: 320px;
+            }
+            .card-content {
+                padding: 18px 18px 8px;
+            }
+        }
+        /* Common phones (including many Vivo models) */
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 14px;
+            }
+            .back-arrow {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+                top: 12px;
+                left: 12px;
+            }
+            h1 {
+                margin: 60px 0 25px;
+                font-size: 1.5rem;
+            }
+            .cards-container {
+                gap: 18px;
+            }
+            .card {
+                width: 100%;
+            }
+            .card img {
+                width: calc(100% - 20px);
+                margin: 10px;
+                height: 200px;
+            }
+            .card-content h3 {
+                font-size: 1.15rem;
+            }
+            .card-content p {
+                font-size: 0.9rem;
+            }
+            .get-started-btn {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+        }
+        /* Extra small (older / very small phones) */
+        
+        @media (max-width: 360px) {
+            body {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 1.3rem;
+                margin: 55px 0 20px;
+            }
+            .card {
+                border-radius: 16px;
+            }
+            .card img {
+                height: 180px;
+            }
+            .card-content {
+                padding: 14px 14px 6px;
+            }
+            .card-content h3 {
+                font-size: 1.05rem;
+            }
+            .card-content p {
+                font-size: 0.85rem;
+            }
+            .get-started-btn {
+                font-size: 0.85rem;
+                margin-bottom: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="agrilearn.html" class="back-arrow">← Back</a>
+    <h1>🍚 Rice Varieties in India</h1>
+
+    <div class="cards-container">
+
+        <!-- 1. Basmati Rice -->
+        <div class="card">
+            <img src="rice1.jpg" alt="Basmati Rice">
+            <div class="card-content">
+                <h3 style="color:#4DB6AC;">🌾 Basmati Rice</h3>
+                <p><strong>Type:</strong> Traditional / Export Variety</p>
+                <p><strong>Where grown:</strong> Punjab, Haryana, Uttar Pradesh, parts of Tamil Nadu</p>
+                <p><strong>About:</strong> Long-grain, slender, aromatic rice.</p>
+            </div>
+            <a href="basmati.html" style="text-decoration: none;">
+                <button class="get-started-btn" style="background: linear-gradient(90deg,#4DB6AC,#009688); color:white;">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 2. Seeraga Samba Rice -->
+        <div class="card">
+            <img src="rice2.jpg" alt="Seeraga Samba Rice">
+            <div class="card-content">
+                <h3 style="color:#F57C00;">🌾 Seeraga Samba Rice</h3>
+                <p><strong>Type:</strong> Traditional / Local</p>
+                <p><strong>Where grown:</strong> Tamil Nadu (Thanjavur, Trichy, Salem)</p>
+                <p><strong>About:</strong> Small, round, fine-grain rice with unique aroma.</p>
+            </div>
+            <a href="seeraga.html" style="text-decoration: none;">
+                <button class="get-started-btn" style="background: linear-gradient(90deg,#FF8F00,#EF6C00); color:white;">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 3. Idly Rice -->
+        <div class="card">
+            <img src="rice3.jpg" alt="Idly Rice">
+            <div class="card-content">
+                <h3 style="color:#29B6F6;">🌾 Idly Rice</h3>
+                <p><strong>Type:</strong> Local / Open Pollinated</p>
+                <p><strong>Where grown:</strong> Tamil Nadu, Karnataka</p>
+                <p><strong>About:</strong> Medium-grain parboiled rice, soft after cooking.</p>
+            </div>
+            <a href="idly.html" style="text-decoration: none;">
+                <button class="get-started-btn" style="background: linear-gradient(90deg,#29B6F6,#0288D1); color:white;">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 4. Bullet Rice -->
+        <div class="card">
+            <img src="rice4.jpg" alt="Bullet Rice">
+            <div class="card-content">
+                <h3 style="color:#8D6E63;">🌾 Bullet Rice</h3>
+                <p><strong>Type:</strong> Hybrid (IR varieties like IR-20, IR-36)</p>
+                <p><strong>Where grown:</strong> Tamil Nadu, Andhra Pradesh, Karnataka</p>
+                <p><strong>About:</strong> Short, round, bullet-shaped grains.</p>
+            </div>
+            <a href="bullet.html" style="text-decoration: none;">
+                <button class="get-started-btn" style="background: linear-gradient(90deg,#8D6E63,#6D4C41); color:white;">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 5. Sona Masoori Rice -->
+        <div class="card">
+            <img src="rice5.jpg" alt="Sona Masoori Rice">
+            <div class="card-content">
+                <h3 style="color:#FFB74D;">🌾 Sona Masoori Rice</h3>
+                <p><strong>Type:</strong> Hybrid / Open Pollinated</p>
+                <p><strong>Where grown:</strong> Andhra Pradesh, Karnataka, Tamil Nadu</p>
+                <p><strong>About:</strong> Medium-grain, lightweight, aromatic rice.</p>
+            </div>
+            <a href="sona.html" style="text-decoration: none;">
+                <button class="get-started-btn" style="background: linear-gradient(90deg,#FFB74D,#FFA000); color:white;">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 6. Ponni Rice -->
+        <div class="card">
+            <img src="rice6.jpg" alt="Ponni Rice">
+            <div class="card-content">
+                <h3 style="color:#66BB6A;">🌾 Ponni Rice</h3>
+                <p><strong>Type:</strong> Hybrid / Local</p>
+                <p><strong>Where grown:</strong> Tamil Nadu (Cauvery Delta districts – Trichy, Thanjavur)</p>
+                <p><strong>About:</strong> Medium-grain rice, soft and fluffy after cooking.</p>
+            </div>
+            <a href="ponni.html" style="text-decoration: none;">
+                <button class="get-started-btn" style="background: linear-gradient(90deg,#66BB6A,#388E3C); color:white;">Explore More</button>
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

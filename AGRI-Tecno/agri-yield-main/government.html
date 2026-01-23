@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Odisha Agriculture Schemes – Flip Animation + 3D Tilt + Videos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="navbar.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        /* Background Video */
+        
+        #myVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        /* Overlay */
+        
+        .overlay {
+            width: 100%;
+            min-height: 100vh;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 30px;
+            position: relative;
+        }
+        /* Heading */
+        
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+            margin-top: 40px;
+            font-size: 32px;
+            font-family: Poppins, sans-serif;
+        }
+        /* Search + Filter Row */
+        
+        .filters {
+            max-width: 1100px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            gap: 15px;
+        }
+        
+        input,
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 6px;
+            outline: none;
+            border: none;
+            flex: 1;
+        }
+        /* Grid */
+        
+        .grid-container {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            align-items: start;
+        }
+        /* FLIP CARD CONTAINER */
+        
+        .card {
+            width: 100%;
+            max-width: 330px;
+            height: 220px;
+            perspective: 1200px;
+            transform-style: preserve-3d;
+            transition: transform 0.25s ease-out;
+            margin: 0 auto;
+        }
+        /* 3D TILT */
+        
+        .card:hover {
+            transform: rotateX(6deg) rotateY(-6deg) scale(1.03);
+        }
+        /* INNER CARD */
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(.2, 1, .22, 1);
+            border-radius: 14px;
+        }
+        /* FLIP ON HOVER */
+        
+        .card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+        /* Front & Back Common */
+        
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+            backface-visibility: hidden;
+        }
+        /* FRONT SIDE */
+        
+        .card-front {
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-front img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .card-front .scheme-header {
+            background: #d8f3dc;
+            padding: 8px 12px;
+            font-weight: bold;
+            border-left: 6px solid #1B5E20;
+            text-align: center;
+            font-size: 16px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* BACK SIDE */
+        
+        .card-back {
+            background: #0b4c1f;
+            transform: rotateY(180deg);
+            font-size: 14px;
+            color: white;
+        }
+        
+        .back-content {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        
+        .desc {
+            max-height: 80px;
+            overflow: hidden;
+            font-size: 13px;
+        }
+        /* buttons */
+        
+        .buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .explore-btn,
+        .watch-btn {
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        
+        .explore-btn {
+            background: #34d399;
+            color: black;
+            font-weight: 700;
+        }
+        
+        .watch-btn {
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+        }
+        /* Modal Video */
+        
+        #videoModal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            background: rgba(0, 0, 0, 0.75);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 10px;
+        }
+        
+        .video-box {
+            width: 100%;
+            max-width: 900px;
+            background: black;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .video-box iframe {
+            width: 100%;
+            height: 500px;
+        }
+        
+        .close-video {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: red;
+            color: white;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            border: none;
+        }
+        /* ================== RESPONSIVE ================== */
+        
+        @media (max-width: 992px) {
+            .overlay {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 28px;
+                margin-top: 45px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .overlay {
+                padding: 16px;
+            }
+            h1 {
+                font-size: 24px;
+                margin-top: 50px;
+                margin-bottom: 18px;
+                padding: 0 10px;
+            }
+            .filters {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+            input,
+            select {
+                width: 100%;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .card {
+                max-width: 100%;
+                height: 220px;
+            }
+            .video-box iframe {
+                height: 320px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .overlay {
+                padding: 12px;
+            }
+            h1 {
+                font-size: 20px;
+                margin-top: 55px;
+                margin-bottom: 15px;
+            }
+            .card {
+                height: 230px;
+            }
+            .back-content {
+                padding: 8px;
+            }
+            .desc {
+                max-height: 70px;
+                font-size: 12px;
+            }
+            .explore-btn,
+            .watch-btn {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+            .video-box iframe {
+                height: 260px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- background video -->
+    <video autoplay muted loop id="myVideo">
+        <source src="bgvedio.mp4" type="video/mp4">
+    </video>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-leaf animated-leaf"></i> AgriCare
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <ul class="nav-links">
+            <li><a href="home.html" target="_self">Home</a></li>
+            <li><a href="https://prediction-final.vercel.app/" target="_self">Yield Prediction</a></li>
+            <li><a href="diagno.html" target="_self">Diagnose</a></li>
+            <li><a href="agrilearn.html" target="_self">AgriLearn</a></li>
+            <li><a href="map.html" target="_self">Fertilizer</a></li>
+            <li><a href="weather.html" target="_self">Weather</a></li>
+            <li><a href="dasboard.html" target="_self">Sales Prediction</a></li>
+            <li class="active"><a href="government.html" target="_self">Government Schema</a></li>
+            <li><a href="contact.html" target="_self">Contact Us</a></li>
+            <li class="translate-item">
+                <div id="google_translate_element"></div>
+            </li>
+        </ul>
+    </nav>
+
+        <h1>Odisha Agriculture Schemes – Flip Cards</h1>
+
+        <!-- Search + Filter -->
+        <div class="filters">
+            <input type="text" id="searchBox" placeholder="🔍 Search scheme..." onkeyup="filterSchemes()">
+            <select id="categoryFilter" onchange="filterSchemes()">
+                <option value="All">All Categories</option>
+                <option value="Small & Marginal Farmers">Small & Marginal Farmers</option>
+                <option value="All Farmers">All Farmers</option>
+                <option value="Tribal & Small Farmers">Tribal & Small Farmers</option>
+                <option value="Organic Farmers">Organic Farmers</option>
+                <option value="Agri Entrepreneurs">Agri Entrepreneurs</option>
+                <option value="KBK Region Farmers">KBK Region Farmers</option>
+            </select>
+        </div>
+
+        <!-- GRID -->
+        <div class="grid-container" id="schemeGrid"></div>
+    </div>
+
+    <!-- VIDEO MODAL -->
+    <div id="videoModal" onclick="closeVideo(event)">
+        <div class="video-box" onclick="event.stopPropagation()">
+            <button class="close-video" onclick="closeVideo()">✕ Close</button>
+            <iframe id="videoFrame" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        /* GOOGLE TRANSLATE INITIALIZATION */
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,or,ta,te,bn',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        /* Full schemes list */
+        const schemes = [{
+            name: "KALIA Scheme",
+            img: "kalia.webp",
+            description: "Financial support to small farmers.",
+            benefit: "₹25,000 assistance.",
+            type: "Small & Marginal Farmers",
+            link: "https://kalia.odisha.gov.in/",
+            video: "https://www.youtube.com/embed/t3dyZDUlb1I"
+        }, {
+            name: "Biju Krushak Kalyan Yojana (BKKY)",
+            img: "BIJU.jpeg",
+            description: "Health insurance for farmer families.",
+            benefit: "₹2 lakh coverage.",
+            type: "All Farmers",
+            link: "https://or.wikipedia.org/wiki/%E0%AC%AC%E0%AC%BF%E0%AC%9C%E0%AD%81_%E0%AC%95%E0%AD%83%E0%AC%B7%E0%AC%95_%E0%AC%95%E0%AC%B2%E0%AD%8D%E0%AD%9F%E0%AC%BE%E0%AC%A3_%E0%AC%AF%E0%AD%8B%E0%AC%9C%E0%AC%A8%E0%AC%BE",
+            video: "https://www.youtube.com/watch?v=b7ozWhPzdtw"
+        }, {
+            name: "Odisha Millet Mission",
+            img: "Millet.webp",
+            description: "Promotes millet farming in tribal regions.",
+            benefit: "MSP + procurement.",
+            type: "Tribal & Small Farmers",
+            link: "https://milletsodisha.com/",
+            video: "https://www.youtube.com/watch?v=bBrqJxi9YyM"
+        }, {
+            name: "PKVY – Organic Farming",
+            img: "PMKVY.webp",
+            description: "Supports organic farming clusters.",
+            benefit: "₹50,000/ha assistance.",
+            type: "Organic Farmers",
+            link: "file:///E:/OneDrive/Desktop/AGRILEARN/PKVY%20pdf.pdf",
+            video: "https://www.youtube.com/embed/7bN4r9qX2sQ"
+        }, {
+            name: "Odisha Irrigation Scheme",
+            img: "irrigation.jpg",
+            description: "Drip & sprinkler irrigation subsidies.",
+            benefit: "50–75% subsidy.",
+            type: "All Farmers",
+            link: "https://www.dowrodisha.gov.in/",
+            video: "https://www.youtube.com/embed/9y1kV6XzQlw"
+        }, {
+            name: "KBK Agriculture Package",
+            img: "KBK.jpg",
+            description: "Special package for 8 KBK districts.",
+            benefit: "Irrigation + farm support.",
+            type: "KBK Region Farmers",
+            link: "https://odisha.gov.in",
+            video: "https://www.youtube.com/embed/8v2oL4zQ1qA"
+        }, {
+            name: "Seed Replacement Program",
+            img: "seed.jpg",
+            description: "Certified seed subsidy.",
+            benefit: "60% subsidy.",
+            type: "All Farmers",
+            link: "https://agriodisha.nic.in",
+            video: "https://www.youtube.com/embed/6XwHkqZ7m9I"
+        }, {
+            name: "MKUY – Agri Startups",
+            img: "MKUY.jpg",
+            description: "Boosts youth agri startups.",
+            benefit: "₹50 lakh support.",
+            type: "Agri Entrepreneurs",
+            link: "https://www.startupodisha.gov.in/",
+            video: "https://www.youtube.com/embed/4t8Pq9g1v3E"
+        }, {
+            name: "Farm Mechanization Scheme",
+            img: "mechanizationnscheme.jpg",
+            description: "Modern machines for farmers.",
+            benefit: "Up to 75% subsidy.",
+            type: "All Farmers",
+            link: "https://agrimachinery.nic.in/",
+            video: "https://www.youtube.com/embed/5r1Kf7aC8Js"
+        }];
+
+        /* Load cards */
+        function loadSchemes(list) {
+            const grid = document.getElementById("schemeGrid");
+            grid.innerHTML = "";
+
+            list.forEach((s) => {
+                grid.innerHTML += `
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="${s.img}" alt="${s.name}">
+                    <div class="scheme-header">${s.name}</div>
+                </div>
+                <div class="card-back">
+                    <div class="back-content">
+                        <div class="desc">
+                            <p><b>Description:</b> ${s.description}</p>
+                            <p><b>Benefits:</b> ${s.benefit}</p>
+                        </div>
+                        <div class="buttons">
+                            <button class="explore-btn" onclick="event.stopPropagation(); window.open('${s.link}', '_blank')">Explore</button>
+                            <button class="watch-btn" onclick="event.stopPropagation(); openVideo('${s.video}')">Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+            });
+        }
+
+        /* Search + Filter */
+        function filterSchemes() {
+            const search = document.getElementById("searchBox").value.toLowerCase();
+            const category = document.getElementById("categoryFilter").value;
+
+            const filtered = schemes.filter(s =>
+                s.name.toLowerCase().includes(search) &&
+                (category === "All" || s.type === category)
+            );
+
+            loadSchemes(filtered);
+        }
+
+        /* Video Modal Control */
+        function openVideo(url) {
+            // If plain YouTube watch URL, don't double-add params
+            const finalUrl = url.includes("embed") ?
+                url + "?autoplay=1" :
+                url;
+            document.getElementById("videoFrame").src = finalUrl;
+            document.getElementById("videoModal").style.display = "flex";
+        }
+
+        function closeVideo() {
+            document.getElementById("videoFrame").src = "";
+            document.getElementById("videoModal").style.display = "none";
+        }
+
+        /* Initial */
+        loadSchemes(schemes);
+    </script>
+
+    <script src="navbar.js"></script>
+</body>
+
+</html>

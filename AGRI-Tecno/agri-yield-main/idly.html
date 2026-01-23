@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🍚 Idly Rice Cultivation Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom right, #fffefc, #fff9e6, #fff3cc);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        header {
+            background-color: #011001;
+            color: #fff;
+            padding: 20px 16px;
+            text-align: center;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        /* Google translate box in header (top-right on desktop) */
+        
+        #google_translate_element {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffffff;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        /* Clean up Google branding / extra text */
+        
+        .goog-logo-link,
+        .goog-te-gadget span,
+        .goog-te-banner-frame,
+        #goog-gt-tt {
+            display: none !important;
+        }
+        
+        .goog-te-gadget {
+            font-size: 0 !important;
+        }
+        
+        .goog-te-combo {
+            background: transparent;
+            border: none;
+            padding: 0;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            background: #ffffff;
+            border-left: 6px solid #130f03;
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section h2 {
+            color: #ef6c00;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+        }
+        
+        .section p,
+        .section ul {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        ul {
+            padding-left: 20px;
+        }
+        
+        ul li {
+            margin-bottom: 6px;
+        }
+        
+        .back-btn {
+            display: block;
+            margin: 40px auto;
+            padding: 12px 24px;
+            background: #fa1d49;
+            color: #333;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(255, 202, 40, 0.7);
+            transition: background 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            width: fit-content;
+            min-width: 180px;
+        }
+        
+        .back-btn:hover {
+            background: #ffb300;
+            transform: scale(1.05);
+        }
+        /* =================== RESPONSIVE STYLES =================== */
+        /* Tablets / small laptops */
+        
+        @media (max-width: 900px) {
+            header {
+                font-size: 1.6rem;
+                padding: 18px 12px;
+            }
+            .container {
+                margin: 30px auto;
+                padding: 0 16px;
+            }
+            .section {
+                padding: 18px 18px;
+                margin-bottom: 24px;
+            }
+            .section h2 {
+                font-size: 1.25rem;
+            }
+        }
+        /* Large phones / small tablets */
+        
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.4rem;
+                padding: 16px 10px 44px;
+                /* extra bottom space for translate */
+            }
+            /* Move translator below title on mobile for more space */
+            #google_translate_element {
+                position: static;
+                transform: none;
+                margin: 8px auto 0;
+                background: #ffffff;
+                display: inline-block;
+            }
+            .container {
+                margin: 24px auto;
+                padding: 0 14px;
+            }
+            .section {
+                padding: 16px 14px;
+                margin-bottom: 18px;
+                border-left-width: 5px;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            }
+            .section h2 {
+                font-size: 1.15rem;
+                margin-bottom: 10px;
+            }
+            .section p,
+            .section ul {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            .back-btn {
+                width: 100%;
+                max-width: 260px;
+                margin: 26px auto 30px;
+            }
+            /* Reduce hover "jump" effect on touch devices */
+            .section:hover {
+                transform: translateY(-2px);
+            }
+        }
+        /* Small phones */
+        
+        @media (max-width: 480px) {
+            header {
+                font-size: 1.2rem;
+                padding: 14px 8px 40px;
+            }
+            .container {
+                margin: 20px auto;
+                padding: 0 10px;
+            }
+            .section {
+                padding: 14px 10px;
+                margin-bottom: 14px;
+                border-left-width: 4px;
+            }
+            .section h2 {
+                font-size: 1.05rem;
+            }
+            .section p,
+            .section ul {
+                font-size: 0.9rem;
+            }
+            .back-btn {
+                font-size: 0.95rem;
+                padding: 10px 18px;
+                max-width: 230px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        🍚 Idly Rice Cultivation Guide
+        <!-- Google Translate dropdown -->
+        <div id="google_translate_element"></div>
+    </header>
+
+    <div class="container">
+
+        <div class="section">
+            <h2>1. Land and Soil Preparation</h2>
+            <ul>
+                <li>Start with 2–3 deep ploughings to break soil clods.</li>
+                <li>Puddle the field by flooding and tilling to create a soft muddy bed.</li>
+                <li>Level the land for uniform water depth and proper crop growth.</li>
+                <li>Construct strong bunds and channels for irrigation.</li>
+                <li>Apply 8–10 tons of FYM or compost 2–3 weeks before transplanting.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>2. Soil Type and pH</h2>
+            <ul>
+                <li>Preferred soil: Fertile clay loam, alluvial soil, or sandy loam.</li>
+                <li>pH: Slightly acidic to neutral (5.5 – 7.5).</li>
+                <li>Soils rich in organic matter produce starchy rice suitable for idli batter.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>3. Climate Requirements</h2>
+            <ul>
+                <li>Optimal temperature: 20–35°C.</li>
+                <li>Annual rainfall: 100–120 cm or assured irrigation.</li>
+                <li>Season: Kuruvai (Jun–Sep) and Samba (Aug–Jan) in Tamil Nadu.</li>
+                <li>High humidity during vegetative and reproductive stages ensures good yield.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>4. Seed Variety and Treatment</h2>
+            <ul>
+                <li>Popular varieties: ADT 36, ADT 37, ADT 43, ADT 45, CO 50, CR 1009 Sub-1, White Ponni, IR 20.</li>
+                <li>Seed rate: 20–25 kg/ha for nursery sowing.</li>
+                <li>Salt-water treatment to remove unfilled grains.</li>
+                <li>Fungicide treatment: Carbendazim (2 g/kg) or Bavistin.</li>
+                <li>Bio-treatment with Trichoderma viride or Pseudomonas fluorescens improves resistance.</li>
+                <li>Pre-germinate seeds by soaking 12 hours and incubate 24 hours before sowing.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>5. Sowing Method and Spacing</h2>
+            <ul>
+                <li>Use raised nursery beds or wet-bed nurseries; 600–700 m² per hectare.</li>
+                <li>Transplant 20–25 days old seedlings.</li>
+                <li>Spacing: Normal: 20×15 cm (2–3 seedlings/hill), SRI: 25×25 cm (1 seedling/hill).</li>
+                <li>Planting depth: 2–3 cm for proper establishment.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>6. Fertilizer Schedule</h2>
+            <ul>
+                <li>Basal: FYM 10 tons/ha, Neem cake 200–250 kg/ha.</li>
+                <li>Chemical fertilizers per hectare: N 120–150 kg, P₂O₅ 40–50 kg, K₂O 40–60 kg.</li>
+                <li>Split application: 50% N + full P + 50% K at transplanting, 25% N + 25% K at tillering, remaining 25% N at panicle initiation.</li>
+                <li>Bio-fertilizers: Azospirillum and Phosphobacteria at 2 kg/ha each mixed with FYM.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>7. Irrigation Management</h2>
+            <ul>
+                <li>Keep nursery beds moist but not waterlogged.</li>
+                <li>Main field: Maintain 2–5 cm standing water; 5–7 cm during panicle initiation and flowering.</li>
+                <li>Use alternate wetting and drying (AWD) to save water and improve soil aeration.</li>
+                <li>Stop irrigation 7–10 days before harvest for proper grain maturation.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>8. Weed and Pest Control</h2>
+            <ul>
+                <li>Pre-emergence herbicide: Butachlor @1.5 L/ha within 3–5 days after transplanting.</li>
+                <li>Hand weeding at 20 and 40 days.</li>
+                <li>Pests: Stem borer (Carbofuran or Chlorantraniliprole), Leaf folder (Neem oil or Monocrotophos), BPH (Imidacloprid/Thiamethoxam).</li>
+                <li>Diseases: Blast (Tricyclazole 0.6 g/l), Sheath blight (Validamycin), Bacterial leaf blight (seed treatment + Streptocycline).</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>9. Harvesting Time and Yield</h2>
+            <ul>
+                <li>Duration: 120–135 days depending on variety.</li>
+                <li>Harvest when grains turn golden-yellow, panicles bend slightly, and straw dries.</li>
+                <li>Use sickles/harvesters, thresh, and dry grains to 12–14% moisture.</li>
+                <li>Yield: Normal: 4.5–5 tons/ha, SRI: 6–7 tons/ha with proper management.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>10. Post-Harvest Handling</h2>
+            <ul>
+                <li>Sun-dry grains to 12% moisture.</li>
+                <li>Store in gunny bags in cool, ventilated godowns with neem leaves for pest protection.</li>
+                <li>Mildly polish to retain nutrition and starch for idlis/dosas.</li>
+                <li>Usage: Idli, dosa, paniyaram, and other South Indian dishes.</li>
+            </ul>
+        </div>
+
+        <a href="rice.html" class="back-btn">← Back to Home</a>
+
+    </div>
+
+    <!-- Google Translate scripts -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,hi,ta,te,kn,ml,bn,or',
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                },
+                'google_translate_element'
+            );
+        }
+
+        // Restore selected language on reload
+        window.addEventListener("load", function() {
+            const lang = localStorage.getItem("selectedLang");
+            if (lang) {
+                const interval = setInterval(() => {
+                    const select = document.querySelector(".goog-te-combo");
+                    if (select) {
+                        select.value = lang;
+                        select.dispatchEvent(new Event("change"));
+                        clearInterval(interval);
+                    }
+                }, 500);
+            }
+        });
+
+        // Persist language whenever user changes it
+        document.addEventListener("change", function(e) {
+            if (e.target.classList.contains("goog-te-combo")) {
+                localStorage.setItem("selectedLang", e.target.value);
+            }
+        });
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+
+</html>

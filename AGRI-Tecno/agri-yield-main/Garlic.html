@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agri Learn - Varieties</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f2 url('https://www.transparenttextures.com/patterns/wood-pattern.png') repeat;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.1rem;
+            color: #064420;
+            background-color: #ffbb00;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            z-index: 10;
+        }
+        
+        .back-arrow:hover {
+            background-color: rgb(0, 102, 34);
+            color: white;
+            transform: translateY(-1px);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #064420;
+            margin: 80px 0 40px;
+        }
+        
+        #google_translate_element {
+            text-align: right;
+            margin-top: 60px;
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .card {
+            width: 360px;
+            background: #111;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+        
+        .card img {
+            width: calc(100% - 24px);
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin: 12px;
+        }
+        
+        .card-content {
+            padding: 25px;
+            color: white;
+            text-align: left;
+        }
+        
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #ffbb00;
+        }
+        
+        .card-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        
+        .get-started-btn {
+            display: block;
+            margin: 0 auto 25px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, #ffbb00, #ff8800);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #ffbb00;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .get-started-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #ffbb00;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px #ffbb00;
+            }
+            50% {
+                box-shadow: 0 0 20px #ff8800;
+            }
+            100% {
+                box-shadow: 0 0 10px #ffbb00;
+            }
+        }
+        /* ===== RESPONSIVE BREAKPOINTS ===== */
+        
+        @media (max-width: 900px) {
+            body {
+                padding: 16px;
+            }
+            #google_translate_element {
+                margin-top: 50px;
+                padding-right: 4px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 14px;
+            }
+            .back-arrow {
+                top: 14px;
+                left: 14px;
+                font-size: 1rem;
+                padding: 6px 12px;
+            }
+            #google_translate_element {
+                margin-top: 40px;
+                text-align: center;
+            }
+            h1 {
+                margin: 70px 0 30px;
+                font-size: 1.7rem;
+                padding: 0 10px;
+            }
+            .card {
+                width: 100%;
+                max-width: 380px;
+            }
+            .card-content {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .back-arrow {
+                top: 10px;
+                left: 10px;
+                font-size: 0.95rem;
+                padding: 6px 10px;
+            }
+            #google_translate_element {
+                margin-top: 35px;
+                text-align: center;
+            }
+            h1 {
+                margin: 60px 0 24px;
+                font-size: 1.5rem;
+            }
+            .card {
+                width: 100%;
+                max-width: 360px;
+            }
+            .card-content p {
+                font-size: 0.95rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            body {
+                padding: 8px;
+            }
+            .back-arrow {
+                top: 8px;
+                left: 8px;
+                font-size: 0.9rem;
+                padding: 5px 10px;
+            }
+            h1 {
+                margin: 55px 0 20px;
+                font-size: 1.3rem;
+            }
+            #google_translate_element {
+                margin-top: 30px;
+                text-align: center;
+            }
+            .card {
+                width: 100%;
+            }
+            .card-content {
+                padding: 16px;
+            }
+            .card-content h3 {
+                font-size: 1.2rem;
+            }
+            .card-content p {
+                font-size: 0.9rem;
+            }
+            .get-started-btn {
+                padding: 10px 20px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="agrilearn.html" class="back-arrow">← Back</a>
+
+    <!-- Translator Dropdown -->
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                    pageLanguage: 'en'
+                },
+                'google_translate_element'
+            );
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <h1>🌿 Garlic Varieties in India</h1>
+
+    <div class="cards-container">
+
+        <!-- 1. Open Pollinated Crop -->
+        <div class="card">
+            <img src="garlic.jpg" alt="Open Pollinated Crop">
+            <div class="card-content">
+                <h3>Open Pollinated Variety</h3>
+                <p><strong>Name of Variety:</strong> Red Skin Local Sweet Potato (Open Pollinated Variety)</p>
+                <p><strong>Type:</strong> Open Pollinated</p>
+                <p><strong>Where it is grown:</strong> Tamil Nadu (Erode, Salem, Namakkal, Dharmapuri, Villupuram, Cuddalore districts)</p>
+                <p><strong>About:</strong> Plant is a trailing vine with heart-shaped leaves. Tuber is medium to large sized, reddish skin with yellowish flesh inside. Rich in carbohydrates, vitamin A, and dietary fiber.</p>
+            </div>
+            <a href="OpenPollinated.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 2. Ooty Garlic -->
+        <div class="card">
+            <img src="garlic2.jpg" alt="Ooty Garlic">
+            <div class="card-content">
+                <h3>Ooty 1 Garlic (Hill Garlic)</h3>
+                <p><strong>Name of Variety:</strong> Ooty 1 Garlic (also called Ooty Garlic / Hill Garlic)</p>
+                <p><strong>Type:</strong> Traditional / Local (GI-tagged variety from Tamil Nadu)</p>
+                <p><strong>Where it is grown:</strong> Nilgiris district (Ooty hills, Tamil Nadu)</p>
+                <p><strong>About:</strong> Ooty Garlic is a small-bulbed garlic variety grown in the cool climate of the Nilgiris. It is well known for its unique pungent aroma and medicinal value.</p>
+            </div>
+            <a href="OotyGarlic.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 3. Kodaikanal Garlic -->
+        <div class="card">
+            <img src="garlic3.jpg" alt="Kodaikanal Garlic">
+            <div class="card-content">
+                <h3>Kodaikanal Garlic</h3>
+                <p><strong>Name of Variety:</strong> Kodaikanal Garlic (also called Hill Garlic of Kodaikanal)</p>
+                <p><strong>Type:</strong> Traditional / Local</p>
+                <p><strong>Where it is grown:</strong> Upper Palani Hills region around Kodaikanal (Dindigul district, Tamil Nadu)</p>
+                <p><strong>About:</strong> Kodaikanal Garlic is a unique hill-grown garlic variety cultivated in the cool and misty climate of Kodaikanal. Prized for its intense pungency, medicinal qualities, and small, compact bulbs.</p>
+            </div>
+            <a href="KodaikanalGarlic.html" style="text-decoration: none;">
+                <button class="get-started-btn">Explore More</button>
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

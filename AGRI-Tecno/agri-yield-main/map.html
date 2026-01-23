@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>India Fertilizer Shops</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CDN LINKS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="navbar.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+         :root {
+            --green-main: #036c09;
+            --green-dark: #1b5e20;
+            --green-light: #43a047;
+            --glass-bg: rgba(255, 255, 255, 0.14);
+            --glass-border: rgba(255, 255, 255, 0.4);
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background: radial-gradient(circle at top left, #e8f5e9 0, #c8e6c9 25%, #a5d6a7 45%, #7cb342 70%, #558b2f 100%);
+            background-attachment: fixed;
+            color: #333;
+        }
+        
+        .overlay {
+            min-height: 100vh;
+            padding: 40px 16px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* HERO */
+        
+        .hero {
+            text-align: center;
+            max-width: 720px;
+            margin-bottom: 24px;
+            color: #0c3f17;
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.1rem, 4vw, 2.9rem);
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        
+        .hero h1 span {
+            color: #ffffff;
+            padding: 4px 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #2e7d32, #66bb6a);
+            font-size: 0.9em;
+        }
+        
+        .hero p {
+            font-size: 1rem;
+            color: #143818;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+        /* GLASS CARD */
+        
+        .search-card {
+            width: 100%;
+            max-width: 880px;
+            margin-top: 8px;
+            padding: 20px 22px 18px;
+            border-radius: 20px;
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0.1));
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+            animation: floatCard 6s ease-in-out infinite alternate;
+        }
+        
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .search-header h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #145a24;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .search-header h4 i {
+            color: #1b5e20;
+        }
+        
+        .search-header small {
+            color: #1b5e20;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .selector-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr) auto auto;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .field-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1b5e20;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        
+        .field-label i {
+            font-size: 0.9rem;
+            color: #2e7d32;
+        }
+        
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .form-select {
+            font-size: 0.95rem;
+            padding: 9px 12px;
+            border-radius: 12px;
+            border: 1.5px solid rgba(46, 125, 50, 0.55);
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #1b5e20;
+            cursor: pointer;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.08s;
+        }
+        
+        .form-select:focus {
+            border-color: var(--green-light);
+            box-shadow: 0 0 0 3px rgba(67, 160, 71, 0.35);
+            outline: none;
+            transform: translateY(-1px);
+        }
+        
+        .form-select:disabled {
+            background-color: rgba(245, 245, 245, 0.9);
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+        
+        .find-btn,
+        .mic-btn {
+            border: none;
+            color: #fff;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.26s, transform 0.08s, box-shadow 0.26s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 44px;
+            padding: 0 18px;
+            white-space: nowrap;
+        }
+        
+        .find-btn {
+            background: linear-gradient(135deg, #1b5e20, #43a047);
+            font-weight: 700;
+            gap: 8px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+        }
+        
+        .find-btn:disabled {
+            background: linear-gradient(135deg, #9e9e9e, #bdbdbd);
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+        
+        .find-btn:not(:disabled):hover,
+        .mic-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.32);
+        }
+        
+        .find-btn:not(:disabled):active,
+        .mic-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .mic-btn {
+            background: radial-gradient(circle at top left, #2e7d32, #1b5e20);
+            font-size: 1.2rem;
+            width: 52px;
+            padding: 0;
+        }
+        
+        .mic-btn.listening {
+            background: radial-gradient(circle at top left, #e53935, #b71c1c);
+            animation: pulse 1s infinite;
+        }
+        
+        .find-btn i {
+            font-size: 0.9rem;
+        }
+        
+        .selection-info {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #0f401b;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .selection-info i {
+            color: #2e7d32;
+        }
+        /* INFO CARDS */
+        
+        .info-section {
+            margin-top: 40px;
+            max-width: 1100px;
+        }
+        
+        .info-card {
+            background: rgba(255, 255, 255, 0.94);
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+            height: 100%;
+            color: #333;
+            border: 1px solid rgba(76, 175, 80, 0.35);
+            text-align: center;
+            transition: all 0.35s ease;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 14px 30px rgba(46, 125, 50, 0.4);
+            border-color: #43a047;
+            background: linear-gradient(130deg, #e8f5e9, #ffffff);
+        }
+        
+        .info-card h5 {
+            color: #2e7d32;
+            font-weight: 700;
+            margin-top: 13px;
+        }
+        
+        .card-img {
+            width: 100%;
+            height: 170px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease, filter 0.3s ease;
+        }
+        
+        .info-card:hover .card-img img {
+            transform: scale(1.12);
+            filter: brightness(1.08);
+        }
+        /* GOOGLE TRANSLATE */
+        
+        #google_translate_element {
+            display: inline-block;
+        }
+        
+        .goog-logo-link,
+        .goog-te-gadget span,
+        .goog-te-banner-frame,
+        #goog-gt-tt {
+            display: none !important;
+        }
+        
+        .goog-te-gadget {
+            font-size: 0 !important;
+        }
+        
+        .goog-te-combo {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-family: "Segoe UI", sans-serif;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .goog-te-combo:hover,
+        .goog-te-combo:focus {
+            border-color: #4caf50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.35);
+        }
+        
+        .nav-links li.translate-item {
+            display: flex;
+            align-items: center;
+        }
+        /* ANIMATIONS */
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.6);
+            }
+            70% {
+                box-shadow: 0 0 0 12px rgba(229, 57, 53, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(229, 57, 53, 0);
+            }
+        }
+        
+        @keyframes floatCard {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-4px);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* RESPONSIVE TWEAKS */
+        
+            .overlay {
+                padding: 26px 12px 40px;
+            }
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            .hero p {
+                font-size: 0.9rem;
+            }
+            .search-card {
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            }
+            .card-img {
+                height: 150px;
+            }
+            .info-card {
+                padding: 18px;
+            }
+            .selection-info {
+                font-size: 0.85rem;
+            }
+        }
+        
+            .hero h1 {
+                font-size: 1.4rem;
+            }
+            .hero p {
+                font-size: 0.85rem;
+            }
+            .find-btn,
+            .mic-btn {
+                height: 40px;
+                font-size: 0.88rem;
+            }
+            .form-select {
+                font-size: 0.9rem;
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-leaf animated-leaf"></i> AgriCare
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <ul class="nav-links">
+            <li><a href="home.html" target="_self">Home</a></li>
+            <li><a href="https://prediction-final.vercel.app/" target="_self">Yield Prediction</a></li>
+            <li><a href="diagno.html" target="_self">Diagnose</a></li>
+            <li><a href="agrilearn.html" target="_self">AgriLearn</a></li>
+            <li class="active"><a href="map.html" target="_self">Fertilizer</a></li>
+            <li><a href="weather.html" target="_self">Weather</a></li>
+            <li><a href="dasboard.html" target="_self">Sales Prediction</a></li>
+            <li><a href="government.html" target="_self">Government Schema</a></li>
+            <li><a href="contact.html" target="_self">Contact Us</a></li>
+            <li class="translate-item">
+                <div id="google_translate_element"></div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="overlay">
+        <!-- HERO -->
+        <div class="hero">
+            <h1><span>Smart Finder</span> Fertilizer Shops Across India</h1>
+            <p>Select your state and district or use voice search. We’ll open Google Maps with nearby fertilizer shops.</p>
+        </div>
+
+        <!-- SEARCH CARD -->
+        <div class="search-card">
+            <div class="search-header">
+                <h4><i class="fa-solid fa-map-location-dot"></i>Select Your State & District</h4>
+                <small>Tips: Pick state → district, or just say “Coimbatore Tamil Nadu” using the mic.</small>
+            </div>
+
+            <div class="selector-row">
+                <div class="field-group">
+                    <div class="field-label">
+                        <i class="fa-solid fa-flag"></i> State / UT
+                    </div>
+                    <select id="stateSelect" class="form-select">
+                        <option value="">-- Select State / UT --</option>
+                    </select>
+                </div>
+
+                <div class="field-group">
+                    <div class="field-label">
+                        <i class="fa-solid fa-location-dot"></i> District
+                    </div>
+                    <select id="districtSelect" class="form-select" disabled>
+                        <option value="">-- Select District --</option>
+                    </select>
+                </div>
+
+                <button id="findBtn" class="find-btn" disabled>
+                    <i class="fa-solid fa-magnifying-glass-location"></i>
+                    Find Shops
+                </button>
+
+                <button id="micBtn" class="mic-btn" title="Voice Search">
+                    <i class="fas fa-microphone"></i>
+                </button>
+            </div>
+
+            <p id="selectionInfo" class="selection-info">
+                <i class="fa-regular fa-lightbulb"></i> Start by choosing your state.
+            </p>
+        </div>
+
+        <!-- INFO CARDS -->
+        <div class="container info-section">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <div class="card-img">
+                            <img src="fetilizer1.jpg" alt="Importance">
+                        </div>
+                        <h5>Increase Yield</h5>
+                        <p>Right fertilizer access at the right time helps farmers boost productivity and protect soil health.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <div class="card-img">
+                            <img src="fertilizer2.jpeg" alt="Quick Access">
+                        </div>
+                        <h5>Instant Location</h5>
+                        <p>One click (or voice) opens Google Maps with fertilizer shops near your selected district.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <div class="card-img">
+                            <img src="fertilizer3.jpeg" alt="Farmer Support">
+                        </div>
+                        <h5>Farmer Focused</h5>
+                        <p>Designed for Indian farmers – supports multiple Indian languages through Google Translate.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        /* ---------- FULL INDIA STATE + DISTRICT DATA ---------- */
+        const indiaData = {
+            "Andhra Pradesh": ["Anantapur", "Chittoor", "East Godavari", "Guntur", "Krishna", "Kurnool", "Nellore", "Prakasam", "Srikakulam", "Visakhapatnam", "Vizianagaram", "West Godavari", "YSR Kadapa"],
+            "Arunachal Pradesh": ["Tawang", "West Kameng", "East Kameng", "Papum Pare", "Kurung Kumey", "Kra Daadi", "Lower Subansiri", "Upper Subansiri", "West Siang", "East Siang", "Upper Siang", "Lower Siang", "Lower Dibang Valley", "Dibang Valley", "Anjaw", "Lohit", "Namsai", "Changlang", "Tirap", "Longding"],
+            "Assam": ["Baksa", "Barpeta", "Biswanath", "Bongaigaon", "Cachar", "Charaideo", "Chirang", "Darrang", "Dhemaji", "Dhubri", "Dibrugarh", "Goalpara", "Golaghat", "Hailakandi", "Hojai", "Jorhat", "Kamrup", "Kamrup Metropolitan", "Karbi Anglong", "Karimganj", "Kokrajhar", "Lakhimpur", "Majuli", "Morigaon", "Nagaon", "Nalbari", "Sivasagar", "Sonitpur", "South Salmara", "Tinsukia", "Udalguri", "West Karbi Anglong"],
+            "Bihar": ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai", "Bhagalpur", "Bhojpur", "Buxar", "Darbhanga", "East Champaran", "Gaya", "Gopalganj", "Jamui", "Jehanabad", "Kaimur", "Katihar", "Khagaria", "Kishanganj", "Lakhisarai", "Madhepura", "Madhubani", "Munger", "Muzaffarpur", "Nalanda", "Nawada", "Patna", "Purnia", "Rohtas", "Saharsa", "Samastipur", "Saran", "Sheikhpura", "Sheohar", "Sitamarhi", "Siwan", "Supaul", "Vaishali", "West Champaran"],
+            "Chhattisgarh": ["Balod", "Baloda Bazar", "Balrampur", "Bastar", "Bemetara", "Bijapur", "Bilaspur", "Dantewada", "Dhamtari", "Durg", "Gariaband", "Janjgir-Champa", "Jashpur", "Kabirdham", "Kanker", "Kondagaon", "Korba", "Koriya", "Mahasamund", "Mungeli", "Narayanpur", "Raigarh", "Raipur", "Rajnandgaon", "Sukma", "Surajpur", "Surguja"],
+            "Delhi": ["Central Delhi", "East Delhi", "New Delhi", "North Delhi", "North East Delhi", "North West Delhi", "Shahdara", "South Delhi", "South East Delhi", "South West Delhi", "West Delhi"],
+            "Goa": ["North Goa", "South Goa"],
+            "Gujarat": ["Ahmedabad", "Amreli", "Anand", "Aravalli", "Banaskantha", "Bharuch", "Bhavnagar", "Botad", "Chhota Udaipur", "Dahod", "Dang", "Devbhoomi Dwarka", "Gandhinagar", "Gir Somnath", "Jamnagar", "Junagadh", "Kheda", "Kutch", "Mahisagar", "Mehsana", "Morbi", "Narmada", "Navsari", "Panchmahal", "Patan", "Porbandar", "Rajkot", "Sabarkantha", "Surat", "Surendranagar", "Tapi", "Vadodara", "Valsad"],
+            "Haryana": ["Ambala", "Bhiwani", "Charkhi Dadri", "Faridabad", "Fatehabad", "Gurgaon", "Hisar", "Jhajjar", "Jind", "Kaithal", "Karnal", "Kurukshetra", "Mahendragarh", "Mewat", "Palwal", "Panchkula", "Panipat", "Rewari", "Rohtak", "Sirsa", "Sonipat", "Yamunanagar"],
+            "Himachal Pradesh": ["Bilaspur", "Chamba", "Hamirpur", "Kangra", "Kinnaur", "Kullu", "Lahaul and Spiti", "Mandi", "Shimla", "Sirmaur", "Solan", "Una"],
+            "Jharkhand": ["Bokaro", "Chatra", "Deoghar", "Dhanbad", "Dumka", "East Singhbhum", "Garhwa", "Giridih", "Godda", "Gumla", "Hazaribagh", "Jamtara", "Khunti", "Koderma", "Latehar", "Lohardaga", "Pakur", "Palamu", "Ramgarh", "Ranchi", "Sahebganj", "Saraikela", "Simdega", "West Singhbhum"],
+            "Karnataka": ["Bagalkot", "Ballari", "Belagavi", "Bengaluru Rural", "Bengaluru Urban", "Bidar", "Chamarajanagar", "Chikkaballapur", "Chikkamagaluru", "Chitradurga", "Dakshina Kannada", "Davanagere", "Dharwad", "Gadag", "Hassan", "Haveri", "Kalaburagi", "Kodagu", "Kolar", "Koppal", "Mandya", "Mysuru", "Raichur", "Ramanagara", "Shivamogga", "Tumakuru", "Udupi", "Uttara Kannada", "Vijayapura", "Yadgir"],
+            "Kerala": ["Alappuzha", "Ernakulam", "Idukki", "Kannur", "Kasaragod", "Kollam", "Kottayam", "Kozhikode", "Malappuram", "Palakkad", "Pathanamthitta", "Thiruvananthapuram", "Thrissur", "Wayanad"],
+            "Madhya Pradesh": ["Agar", "Alirajpur", "Anuppur", "Ashoknagar", "Balaghat", "Barwani", "Betul", "Bhind", "Bhopal", "Burhanpur", "Chhatarpur", "Chhindwara", "Damoh", "Datia", "Dewas", "Dhar", "Dindori", "Guna", "Gwalior", "Harda", "Hoshangabad", "Indore", "Jabalpur", "Jhabua", "Katni", "Khandwa", "Khargone", "Mandla", "Mandsaur", "Morena", "Narsinghpur", "Neemuch", "Panna", "Raisen", "Rajgarh", "Ratlam", "Rewa", "Sagar", "Satna", "Sehore", "Seoni", "Shahdol", "Shajapur", "Sheopur", "Shivpuri", "Sidhi", "Singrauli", "Tikamgarh", "Ujjain", "Umaria", "Vidisha"],
+            "Maharashtra": ["Ahmednagar", "Akola", "Amravati", "Beed", "Bhandara", "Buldhana", "Chandrapur", "Dhule", "Gadchiroli", "Gondia", "Hingoli", "Jalgaon", "Jalna", "Kolhapur", "Latur", "Mumbai City", "Mumbai Suburban", "Nagpur", "Nanded", "Nandurbar", "Nashik", "Osmanabad", "Palghar", "Parbhani", "Pune", "Raigad", "Ratnagiri", "Sangli", "Satara", "Sindhudurg", "Solapur", "Thane", "Wardha", "Washim", "Yavatmal"],
+            "Odisha": ["Angul", "Balangir", "Balasore", "Bargarh", "Bhadrak", "Boudh", "Cuttack", "Deogarh", "Dhenkanal", "Gajapati", "Ganjam", "Jagatsinghpur", "Jajpur", "Jharsuguda", "Kalahandi", "Kandhamal", "Kendrapara", "Kendujhar", "Khordha", "Koraput", "Malkangiri", "Mayurbhanj", "Nabarangpur", "Nayagarh", "Nuapada", "Puri", "Rayagada", "Sambalpur", "Subarnapur", "Sundargarh"],
+            "Punjab": ["Amritsar", "Barnala", "Bathinda", "Faridkot", "Fatehgarh Sahib", "Fazilka", "Ferozepur", "Gurdaspur", "Hoshiarpur", "Jalandhar", "Kapurthala", "Ludhiana", "Mansa", "Moga", "Mohali", "Muktsar", "Pathankot", "Patiala", "Rupnagar", "Sangrur", "Shaheed Bhagat Singh Nagar", "Tarn Taran"],
+            "Rajasthan": ["Ajmer", "Alwar", "Banswara", "Baran", "Barmer", "Bharatpur", "Bhilwara", "Bikaner", "Bundi", "Chittorgarh", "Churu", "Dausa", "Dholpur", "Dungarpur", "Hanumangarh", "Jaipur", "Jaisalmer", "Jalore", "Jhalawar", "Jhunjhunu", "Jodhpur", "Karauli", "Kota", "Nagaur", "Pali", "Pratapgarh", "Rajsamand", "Sawai Madhopur", "Sikar", "Sirohi", "Sri Ganganagar", "Tonk", "Udaipur"],
+            "Tamil Nadu": ["Ariyalur", "Chengalpattu", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", "Dindigul", "Erode", "Kallakurichi", "Kanchipuram", "Kanyakumari", "Karur", "Krishnagiri", "Madurai", "Nagapattinam", "Namakkal", "Nilgiris", "Perambalur", "Pudukkottai", "Ramanathapuram", "Ranipet", "Salem", "Sivagangai", "Tenkasi", "Thanjavur", "Theni", "Thoothukudi", "Tiruchirapalli", "Tirunelveli", "Tirupathur", "Tiruppur", "Tiruvallur", "Tiruvannamalai", "Tiruvarur", "Vellore", "Viluppuram", "Virudhunagar"],
+            "Telangana": ["Adilabad", "Bhadradri", "Hyderabad", "Jagitial", "Jangaon", "Jayashankar", "Jogulamba", "Kamareddy", "Karimnagar", "Khammam", "Komaram Bheem", "Mahabubabad", "Mahabubnagar", "Mancherial", "Medak", "Medchal", "Mulugu", "Nagarkurnool", "Nalgonda", "Narayanpet", "Nirmal", "Nizamabad", "Peddapalli", "Rajanna", "Rangareddy", "Sangareddy", "Siddipet", "Suryapet", "Vikarabad", "Wanaparthy", "Warangal", "Yadadri"],
+            "Uttar Pradesh": ["Agra", "Aligarh", "Ambedkar Nagar", "Amethi", "Amroha", "Auraiya", "Ayodhya", "Azamgarh", "Baghpat", "Bahraich", "Ballia", "Balrampur", "Banda", "Barabanki", "Bareilly", "Basti", "Bhadohi", "Bijnor", "Budaun", "Bulandshahr", "Chandauli", "Chitrakoot", "Deoria", "Etah", "Etawah", "Farrukhabad", "Fatehpur", "Firozabad", "Gautam Buddha Nagar", "Ghaziabad", "Ghazipur", "Gonda", "Gorakhpur", "Hamirpur", "Hapur", "Hardoi", "Hathras", "Jalaun", "Jaunpur", "Jhansi", "Kannauj", "Kanpur Dehat", "Kanpur Nagar", "Kasganj", "Kaushambi", "Kheri", "Kushinagar", "Lakhimpur", "Lalitpur", "Lucknow", "Maharajganj", "Mahoba", "Mainpuri", "Mathura", "Mau", "Meerut", "Mirzapur", "Moradabad", "Muzaffarnagar", "Pilibhit", "Pratapgarh", "Prayagraj", "Raebareli", "Rampur", "Saharanpur", "Sambhal", "Sant Kabir Nagar", "Shahjahanpur", "Shamli", "Shravasti", "Siddharthnagar", "Sitapur", "Sonbhadra", "Sultanpur", "Unnao", "Varanasi"],
+            "Uttarakhand": ["Almora", "Bageshwar", "Chamoli", "Champawat", "Dehradun", "Haridwar", "Nainital", "Pauri Garhwal", "Pithoragarh", "Rudraprayag", "Tehri Garhwal", "Udham Singh Nagar", "Uttarkashi"],
+            "West Bengal": ["Alipurduar", "Bankura", "Birbhum", "Cooch Behar", "Dakshin Dinajpur", "Darjeeling", "East Burdwan", "Hooghly", "Howrah", "Jalpaiguri", "Jhargram", "Kalimpong", "Kolkata", "Malda", "Murshidabad", "Nadia", "North 24 Parganas", "Paschim Medinipur", "Purba Medinipur", "Purulia", "South 24 Parganas", "Uttar Dinajpur"],
+            "Manipur": ["Bishnupur", "Chandel", "Churachandpur", "Imphal East", "Imphal West", "Jiribam", "Kakching", "Kamjong", "Kangpokpi", "Noney", "Pherzawl", "Senapati", "Tamenglong", "Tengnoupal", "Thoubal", "Ukhrul"],
+            "Meghalaya": ["East Garo Hills", "West Garo Hills", "North Garo Hills", "South Garo Hills", "South West Garo Hills", "East Khasi Hills", "West Khasi Hills", "South West Khasi Hills", "East Jaintia Hills", "West Jaintia Hills", "Ri-Bhoi"],
+            "Mizoram": ["Aizawl", "Lunglei", "Champhai", "Serchhip", "Kolasib", "Lawngtlai", "Mamit", "Siaha", "Hnahthial", "Khawzawl", "Saitual"],
+            "Nagaland": ["Dimapur", "Kohima", "Mokokchung", "Mon", "Peren", "Phek", "Tuensang", "Wokha", "Zunheboto", "Kiphire", "Longleng", "Noklak", "Tseminyu", "Chümoukedima", "Niuland"],
+            "Sikkim": ["East Sikkim", "West Sikkim", "North Sikkim", "South Sikkim", "Pakyong", "Soreng"],
+            "Tripura": ["Dhalai", "Gomati", "Khowai", "North Tripura", "Sepahijala", "South Tripura", "Unakoti", "West Tripura"],
+            "Andaman and Nicobar Islands": ["Nicobar", "North and Middle Andaman", "South Andaman"],
+            "Chandigarh": ["Chandigarh"],
+            "Dadra and Nagar Haveli and Daman and Diu": ["Dadra and Nagar Haveli", "Daman", "Diu"],
+            "Jammu and Kashmir": ["Anantnag", "Bandipora", "Baramulla", "Budgam", "Doda", "Ganderbal", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Poonch", "Pulwama", "Rajouri", "Ramban", "Reasi", "Samba", "Shopian", "Srinagar", "Udhampur"],
+            "Ladakh": ["Kargil", "Leh"],
+            "Lakshadweep": ["Lakshadweep"],
+            "Puducherry": ["Puducherry", "Karaikal", "Mahe", "Yanam"]
+        };
+
+        const stateSelect = document.getElementById("stateSelect");
+        const districtSelect = document.getElementById("districtSelect");
+        const micBtn = document.getElementById("micBtn");
+        const findBtn = document.getElementById("findBtn");
+        const selectionInfo = document.getElementById("selectionInfo");
+
+        function populateStates() {
+            const states = Object.keys(indiaData).sort();
+            states.forEach(state => {
+                const opt = document.createElement("option");
+                opt.value = state;
+                opt.textContent = state;
+                stateSelect.appendChild(opt);
+            });
+        }
+
+        function populateDistricts(state) {
+            districtSelect.innerHTML = '<option value="">-- Select District --</option>';
+
+            if (!state || !indiaData[state]) {
+                districtSelect.disabled = true;
+                findBtn.disabled = true;
+                selectionInfo.innerHTML = '<i class="fa-regular fa-lightbulb"></i> Start by choosing your state.';
+                return;
+            }
+
+            indiaData[state].forEach(dist => {
+                const opt = document.createElement("option");
+                opt.value = dist;
+                opt.textContent = dist;
+                districtSelect.appendChild(opt);
+            });
+
+            districtSelect.disabled = false;
+            findBtn.disabled = true;
+            selectionInfo.innerHTML = `<i class="fa-regular fa-circle-check"></i> State selected: <b>${state}</b>. Now choose your district.`;
+        }
+
+        function redirectToMap(state, district) {
+            if (!state) {
+                alert("Please select a state.");
+                return;
+            }
+            if (!district) {
+                alert("Please select a district.");
+                return;
+            }
+
+            selectionInfo.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Opening fertilizer shops near <b>${district}, ${state}</b>...`;
+
+            const query = encodeURIComponent(`fertilizer shops in ${district}, ${state}, India`);
+            window.location.href = "https://www.google.com/maps/search/" + query;
+        }
+
+        stateSelect.addEventListener("change", () => {
+            const state = stateSelect.value;
+            populateDistricts(state);
+        });
+
+        districtSelect.addEventListener("change", () => {
+            const state = stateSelect.value;
+            const district = districtSelect.value;
+
+            if (district) {
+                findBtn.disabled = false;
+                selectionInfo.innerHTML = `<i class="fa-regular fa-circle-check"></i> Ready: <b>${district}, ${state}</b>. Click <b>Find Shops</b> or use the mic.`;
+            } else {
+                findBtn.disabled = true;
+                if (state) {
+                    selectionInfo.innerHTML = `<i class="fa-regular fa-circle-check"></i> State selected: <b>${state}</b>. Now choose your district.`;
+                } else {
+                    selectionInfo.innerHTML = '<i class="fa-regular fa-lightbulb"></i> Start by choosing your state.';
+                }
+            }
+        });
+
+        findBtn.addEventListener("click", () => {
+            const state = stateSelect.value;
+            const district = districtSelect.value;
+            redirectToMap(state, district);
+        });
+
+        // Voice input
+        if ("webkitSpeechRecognition" in window) {
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = "en-IN";
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            micBtn.addEventListener("click", () => {
+                recognition.start();
+                micBtn.classList.add("listening");
+                selectionInfo.innerHTML = '<i class="fa-solid fa-ear-listen"></i> Listening... say your district and state (for example, "Coimbatore Tamil Nadu").';
+            });
+
+            recognition.onresult = (event) => {
+                const spokenText = event.results[0][0].transcript.trim().toLowerCase();
+                micBtn.classList.remove("listening");
+
+                let matchedState = null;
+                let matchedDistrict = null;
+
+                outer:
+                    for (const [state, districts] of Object.entries(indiaData)) {
+                        for (const dist of districts) {
+                            const dLower = dist.toLowerCase();
+                            if (spokenText === dLower || spokenText.includes(dLower)) {
+                                matchedState = state;
+                                matchedDistrict = dist;
+                                break outer;
+                            }
+                        }
+                    }
+
+                if (!matchedState) {
+                    for (const state of Object.keys(indiaData)) {
+                        const sLower = state.toLowerCase();
+                        if (spokenText === sLower || spokenText.includes(sLower)) {
+                            matchedState = state;
+                            break;
+                        }
+                    }
+                }
+
+                if (matchedState || matchedDistrict) {
+                    if (matchedState) {
+                        stateSelect.value = matchedState;
+                        populateDistricts(matchedState);
+                    }
+
+                    if (matchedDistrict) {
+                        districtSelect.value = matchedDistrict;
+                        findBtn.disabled = false;
+                        selectionInfo.innerHTML = `<i class="fa-regular fa-circle-check"></i> Detected: <b>${matchedDistrict}, ${matchedState}</b>. Opening Google Maps...`;
+                        redirectToMap(matchedState, matchedDistrict);
+                    } else {
+                        selectionInfo.innerHTML = `<i class="fa-regular fa-circle-check"></i> Detected state: <b>${matchedState}</b>. Now pick your district.`;
+                    }
+                } else {
+                    selectionInfo.innerHTML = '<i class="fa-regular fa-circle-xmark"></i> Location not recognized. Try again or select from the dropdowns.';
+                    alert("Location not recognized: " + spokenText);
+                }
+            };
+
+            recognition.onerror = () => {
+                micBtn.classList.remove("listening");
+                selectionInfo.innerHTML = '<i class="fa-regular fa-circle-xmark"></i> Voice recognition error. Try again.';
+                alert("Voice recognition error. Try again.");
+            };
+        } else {
+            micBtn.style.display = "none";
+        }
+
+        /* Google Translate init + persistence */
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: [
+                    'en', 'hi', 'bn', 'te', 'mr', 'ta', 'gu', 'ur',
+                    'kn', 'ml', 'pa', 'or', 'as', 'ne', 'sd', 'sa',
+                    'gom', 'mai', 'bho', 'mni-Mtei', 'sat'
+                ].join(','),
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+
+        window.addEventListener("load", function() {
+            populateStates();
+            const lang = localStorage.getItem("selectedLang");
+            if (lang) {
+                const interval = setInterval(() => {
+                    const select = document.querySelector(".goog-te-combo");
+                    if (select) {
+                        select.value = lang;
+                        select.dispatchEvent(new Event("change"));
+                        clearInterval(interval);
+                    }
+                }, 500);
+            }
+        });
+
+        document.addEventListener("change", function(e) {
+            if (e.target.classList.contains("goog-te-combo")) {
+                localStorage.setItem("selectedLang", e.target.value);
+            }
+        });
+    </script>
+
+    <!-- Google Translate script -->
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="navbar.js"></script>
+</body>
+
+</html>

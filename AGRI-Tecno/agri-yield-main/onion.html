@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Learn - Onion Varieties</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f2 url('https://www.transparenttextures.com/patterns/wood-pattern.png') repeat;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.1rem;
+            color: #064420;
+            background-color: #ffbb00;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        
+        .back-arrow:hover {
+            background-color: rgb(0, 102, 34);
+            color: white;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #064420;
+            margin: 60px 0 40px;
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .card {
+            width: 360px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+        
+        .card img {
+            width: calc(100% - 24px);
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin: 12px;
+        }
+        
+        .card-content {
+            padding: 20px 25px;
+            color: white;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0;
+        }
+        
+        .card-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .get-started-btn {
+            display: block;
+            margin: 15px auto 25px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: fit-content;
+        }
+        
+        .get-started-btn:hover {
+            transform: scale(1.1);
+        }
+        /* Specific colors based on onion type */
+        
+        .red-onion {
+            background: linear-gradient(135deg, #1d0303, #e57373);
+        }
+        
+        .local-onion {
+            background: linear-gradient(135deg, #2b1c06, #e57373);
+        }
+        
+        .get-started-btn.red-onion {
+            background: linear-gradient(90deg, #ffd54f, #ff8a80);
+            box-shadow: 0 0 15px #ff8a80;
+        }
+        
+        .get-started-btn.local-onion {
+            background: linear-gradient(90deg, #ffd54f, #ff9800);
+            box-shadow: 0 0 15px #ffd54f;
+        }
+        
+        @media (max-width: 400px) {
+            .card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="agrilearn.html" class="back-arrow">← Back</a>
+    <h1>🧅 Onion Varieties in India</h1>
+
+    <div class="cards-container">
+
+        <!-- 1. Red Onion -->
+        <div class="card red-onion">
+            <img src="onion1.jpg" alt="Red Onion">
+            <div class="card-content">
+                <h3>🧅 Red Onion</h3>
+                <p><strong>Type:</strong> Open Pollinated / Traditional</p>
+                <p><strong>Where:</strong> Maharashtra, Gujarat, Karnataka, Tamil Nadu (Perambalur, Namakkal, Dindigul)</p>
+                <p><strong>About:</strong> Medium to large bulbs, bright red skin, moderately pungent, good storage.</p>
+            </div>
+            <a href="RedOnion.html" style="text-decoration: none;">
+                <button class="get-started-btn red-onion">Explore More</button>
+            </a>
+        </div>
+
+        <!-- 2. Local Onion -->
+        <div class="card local-onion">
+            <img src="onion2.jpg" alt="Local Onion">
+            <div class="card-content">
+                <h3>🧅 Small Onion (Shallot / Sambar Onion)
+                </h3>
+                <p><strong>Type:</strong> Traditional / Local</p>
+                <p><strong>Where:</strong> Mainly Tamil Nadu (Perambalur, Trichy, Salem, Erode, Namakkal)</p>
+                <p><strong>About:</strong> Small reddish bulbs, sweet-aromatic flavor, shorter shelf life.</p>
+            </div>
+            <a href="LocalOnion.html" style="text-decoration: none;">
+                <button class="get-started-btn local-onion">Explore More</button>
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

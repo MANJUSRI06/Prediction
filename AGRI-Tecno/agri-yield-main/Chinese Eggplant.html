@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌱 Chinese Eggplant Cultivation Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom right, #e8f5e9, #fffde7, #f1f8e9);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1b5e20, #2e7d32, #43a047);
+            color: white;
+            padding: 25px 15px;
+            text-align: center;
+            font-size: 1.9rem;
+            letter-spacing: 1px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        /* Translator Dropdown */
+        
+        .translate-box {
+            text-align: right;
+            margin: 15px 20px 0 0;
+        }
+        
+        #google_translate_element {
+            display: inline-block;
+            background: #ffffff;
+            padding: 4px 8px;
+            border-radius: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        /* Hide Google top banner */
+        
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        
+        body {
+            top: 0px !important;
+        }
+        /* Hide Google branding text and logo */
+        
+        .goog-logo-link,
+        .goog-te-gadget span {
+            display: none !important;
+        }
+        /* Dropdown styling */
+        
+        .goog-te-combo {
+            padding: 4px 8px;
+            border: 2px solid #2e7d32;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            background: #ffffff;
+            color: #2e7d32;
+            cursor: pointer;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        .goog-te-combo:hover {
+            border-color: #43a047;
+            box-shadow: 0 0 6px rgba(67, 160, 71, 0.5);
+        }
+        
+        .container {
+            max-width: 950px;
+            margin: 20px auto 40px auto;
+            padding: 0 20px;
+        }
+        /* Tools row: expand/collapse + jump select */
+        
+        .tool-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: linear-gradient(to bottom, rgba(232, 245, 233, 0.98), rgba(241, 248, 233, 0.94));
+            padding: 8px 0 6px;
+            backdrop-filter: blur(4px);
+        }
+        
+        .tool-group-left,
+        .tool-group-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .tool-label {
+            font-size: 0.85rem;
+            color: #1b5e20;
+            opacity: 0.9;
+        }
+        
+        .tool-select {
+            padding: 6px 10px;
+            border-radius: 20px;
+            border: 1px solid #a5d6a7;
+            font-size: 0.85rem;
+            outline: none;
+            max-width: 260px;
+            background: #fff;
+            color: #1b5e20;
+        }
+        
+        .tool-btn {
+            border: none;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: #e8f5e9;
+            color: #1b5e20;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .tool-btn:hover {
+            background: #c8e6c9;
+        }
+        
+        .section {
+            background: white;
+            border-left: 6px solid #43a047;
+            border-radius: 10px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        /* Alternating soft background colors for sections (still works) */
+        
+        .section:nth-of-type(odd) {
+            background: #f9fff9;
+        }
+        
+        .section:nth-of-type(even) {
+            background: #fffdf6;
+        }
+        
+        .section:hover {
+            transform: translateY(-3px);
+            background: #f1f8f4;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            cursor: pointer;
+        }
+        
+        .section-header.active {
+            background: rgba(232, 245, 233, 0.7);
+        }
+        
+        .section-header:focus {
+            outline: 2px solid #43a047;
+            outline-offset: 2px;
+        }
+        
+        .section h2 {
+            color: #2e7d32;
+            margin: 0;
+            font-size: 1.4rem;
+        }
+        
+        .toggle-icon {
+            font-size: 1rem;
+            color: #1b5e20;
+            transition: transform 0.25s ease;
+        }
+        
+        .section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .section-body {
+            padding: 10px 24px 18px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+        }
+        
+        .section-body p,
+        .section-body ul {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .section-body ul {
+            padding-left: 20px;
+        }
+        
+        .section-body ul li {
+            margin-bottom: 6px;
+        }
+        
+        .back-btn {
+            display: block;
+            margin: 40px auto 0;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #43a047, #2e7d32);
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 35px;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+            text-align: center;
+            width: fit-content;
+            font-size: 1.05rem;
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            transform: scale(1.05);
+        }
+        /* Back to top button */
+        
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 18px;
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: none;
+            background: #2e7d32;
+            color: #fff;
+            font-size: 0.8rem;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+            display: none;
+            align-items: center;
+            gap: 6px;
+            z-index: 900;
+        }
+        
+        #backToTop:hover {
+            background: #1b5e20;
+        }
+        /* RESPONSIVE */
+        
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.5rem;
+                padding: 18px 8px;
+            }
+            .container {
+                padding: 0 14px;
+            }
+            .translate-box {
+                text-align: center;
+                margin: 10px 0 0 0;
+            }
+            .tool-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .tool-group-left,
+            .tool-group-right {
+                justify-content: space-between;
+            }
+            .tool-select {
+                flex: 1;
+                max-width: none;
+            }
+            .section-header {
+                padding: 12px 14px;
+            }
+            .section-body {
+                padding: 8px 14px 14px;
+            }
+            .section h2 {
+                font-size: 1.15rem;
+            }
+            .back-btn {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                font-size: 1.25rem;
+            }
+            .container {
+                padding: 0 10px;
+            }
+            .tool-label {
+                display: none;
+            }
+            .section {
+                border-left-width: 4px;
+            }
+            .section h2 {
+                font-size: 1.03rem;
+            }
+            .section-body p,
+            .section-body ul li {
+                font-size: 0.9rem;
+            }
+            #backToTop {
+                bottom: 14px;
+                right: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>🌱 Chinese Eggplant Cultivation Guide</header>
+
+    <!-- Translator Dropdown -->
+    <div class="translate-box">
+        <div id="google_translate_element"></div>
+    </div>
+
+    <div class="container">
+
+        <!-- Tools: jump + expand/collapse -->
+        <div class="tool-row">
+            <div class="tool-group-left">
+                <span class="tool-label">Jump to:</span>
+                <select id="jumpSelect" class="tool-select">
+                    <option value="">Select section…</option>
+                    <option value="1">1. Land and Soil Preparation</option>
+                    <option value="2">2. Soil Type and pH</option>
+                    <option value="3">3. Climate Requirements</option>
+                    <option value="4">4. Seed Variety and Treatment</option>
+                    <option value="5">5. Sowing Method and Spacing</option>
+                    <option value="6">6. Fertilizer Schedule</option>
+                    <option value="7">7. Irrigation Management</option>
+                    <option value="8">8. Weed and Pest Control</option>
+                    <option value="9">9. Harvesting Time and Yield</option>
+                    <option value="10">10. Post-Harvest Handling</option>
+                </select>
+            </div>
+            <div class="tool-group-right">
+                <button id="expandAll" class="tool-btn">🔽 Expand all</button>
+                <button id="collapseAll" class="tool-btn">🔼 Collapse all</button>
+            </div>
+        </div>
+
+        <div class="section" data-section="1">
+            <div class="section-header" tabindex="0">
+                <h2>1. Land and Soil Preparation</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Select well-drained fertile land with good organic matter.</p>
+                <p>Plough the field 2–3 times to get fine tilth and remove weeds/stubbles.</p>
+                <p>Raised beds or ridges are better, as Chinese eggplants are sensitive to waterlogging.</p>
+                <p>Apply 15–20 tons of well-decomposed farmyard manure (FYM) or compost per hectare during land prep.</p>
+            </div>
+        </div>
+
+        <div class="section" data-section="2">
+            <div class="section-header" tabindex="0">
+                <h2>2. Soil Type and pH</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Best grown in sandy loam or loam soils that are loose and rich in nutrients.</p>
+                <p>Soil pH: 5.5 – 6.5 (slightly acidic to neutral).</p>
+                <p>Avoid heavy clay soils as roots may not spread well and fruits become small.</p>
+            </div>
+        </div>
+
+        <div class="section" data-section="3">
+            <div class="section-header" tabindex="0">
+                <h2>3. Climate Requirements</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Prefers warm, humid climates with plenty of sunlight.</p>
+                <p>Ideal temperature range: 22–30°C for growth and fruiting.</p>
+                <p>Sensitive to cold and frost (below 15°C can reduce flowering).</p>
+                <p>Needs 6–8 hours of direct sunlight daily for maximum yield.</p>
+            </div>
+        </div>
+
+        <div class="section" data-section="4">
+            <div class="section-header" tabindex="0">
+                <h2>4. Seed Variety and Treatment</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p><b>Popular Chinese eggplant varieties:</b></p>
+                <ul>
+                    <li>Pingtung Long (Taiwan)</li>
+                    <li>Orient Express F1</li>
+                    <li>Purple Shine</li>
+                    <li>Thai Long Green (variant)</li>
+                </ul>
+                <p>Seed rate: 250–300 g per acre (nursery requirement).</p>
+                <p>Treat seeds with <i>Trichoderma viride</i> (4 g/kg) or carbendazim (2 g/kg) to prevent fungal issues.</p>
+                <p>Hot water treatment (50°C for 25 minutes) improves germination and disease resistance.</p>
+            </div>
+        </div>
+
+        <div class="section" data-section="5">
+            <div class="section-header" tabindex="0">
+                <h2>5. Sowing Method and Spacing</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Seeds are sown in raised nursery beds and transplanted after 25–30 days when seedlings are 12–15 cm tall.</p>
+                <p>Prepare beds enriched with FYM and sand for good drainage.</p>
+                <p><b>Spacing:</b></p>
+                <ul>
+                    <li>Row-to-row: 60 cm</li>
+                    <li>Plant-to-plant: 45 cm</li>
+                </ul>
+                <p>Plant population: 10,000–12,000 plants per acre (slightly higher than American type, as fruits are slender and lighter).</p>
+            </div>
+        </div>
+
+        <div class="section" data-section="6">
+            <div class="section-header" tabindex="0">
+                <h2>6. Fertilizer Schedule</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Apply 15–20 tons of FYM/compost before transplanting.</p>
+                <p><b>Fertilizer requirement per hectare:</b> NPK: 100:60:60 kg</p>
+                <p><b>Application:</b></p>
+                <ul>
+                    <li>Apply full P & K + ⅓ N as basal dose.</li>
+                    <li>Remaining N applied in 2–3 splits (30, 60, 90 days after transplanting).</li>
+                </ul>
+                <p>Foliar sprays of Boron (0.2%), Zinc sulphate (0.5%), and Magnesium sulphate (0.5%) improve fruit quality and reduce flower drop.</p>
+            </div>
+        </div>
+
+        <div class="section" data-section="7">
+            <div class="section-header" tabindex="0">
+                <h2>7. Irrigation Management</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>First irrigation just after transplanting.</p>
+                <p>Regular irrigation every 7–10 days in winter and 4–5 days in summer.</p>
+                <p>Avoid overwatering as roots are shallow and prone to rot.</p>
+                <p>Drip irrigation with mulching saves water and improves yield.</p>
+            </div>
+        </div>
+
+        <div class="section" data-section="8">
+            <div class="section-header" tabindex="0">
+                <h2>8. Weed and Pest Control</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>First hand weeding at 20–25 days after transplanting, second at 45 days.</p>
+                <p>Mulching reduces weed growth and conserves soil moisture.</p>
+                <p><b>Major pests:</b></p>
+                <ul>
+                    <li>Fruit and shoot borer – use neem oil sprays or pheromone traps.</li>
+                    <li>Aphids & whiteflies – manage with yellow sticky traps, neem seed extract, or imidacloprid (if severe).</li>
+                    <li>Spider mites – common in hot dry climates, controlled with acaricides or miticides.</li>
+                </ul>
+                <p><b>Diseases:</b></p>
+                <ul>
+                    <li>Bacterial wilt – rotate crops, avoid waterlogging.</li>
+                    <li>Powdery mildew & leaf spots – use sulphur sprays or mancozeb.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" data-section="9">
+            <div class="section-header" tabindex="0">
+                <h2>9. Harvesting Time and Yield</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>First harvest: 55–65 days after transplanting (slightly earlier than American type).</p>
+                <p>Harvest when fruits are slender, glossy, and tender (before they harden).</p>
+                <p>Fruits are usually 20–30 cm long, thin-skinned, and mild in flavor.</p>
+                <p>Harvest at 4–6 day intervals for continuous fruiting.</p>
+                <p><b>Yield potential:</b></p>
+                <ul>
+                    <li>15–20 tons per hectare under normal management.</li>
+                    <li>Hybrids may yield 25–30 tons per hectare.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" data-section="10">
+            <div class="section-header" tabindex="0">
+                <h2>10. Post-Harvest Handling</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Handle carefully as the thin skin bruises easily.</p>
+                <p>Grade fruits by length, shape, and color for better market value.</p>
+                <p>Can be stored at 10–12°C with 90–95% RH for 7–10 days.</p>
+                <p>Packed in ventilated crates or bamboo baskets for local markets.</p>
+            </div>
+        </div>
+
+        <a href="brinjal.html" class="back-btn">← Back to Home</a>
+
+    </div>
+
+    <!-- Back to Top -->
+    <button id="backToTop">⬆ Top</button>
+
+    <!-- Google Translate Script + persistence -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'ta,hi,ml,te,kn,bn,mr,gu,pa,en',
+                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+            }, 'google_translate_element');
+        }
+
+        // Restore selected language on reload
+        window.addEventListener("load", function() {
+            const lang = localStorage.getItem("selectedLang");
+            if (lang) {
+                const interval = setInterval(() => {
+                    const select = document.querySelector(".goog-te-combo");
+                    if (select) {
+                        select.value = lang;
+                        select.dispatchEvent(new Event("change"));
+                        clearInterval(interval);
+                    }
+                }, 500);
+            }
+        });
+
+        // Save language when user changes it
+        document.addEventListener("change", function(e) {
+            if (e.target.classList.contains("goog-te-combo")) {
+                localStorage.setItem("selectedLang", e.target.value);
+            }
+        });
+
+        // ===== INTERACTIVITY: COLLAPSIBLE SECTIONS + TOOLS =====
+        const sections = document.querySelectorAll(".section");
+
+        function toggleSection(section) {
+            section.classList.toggle("collapsed");
+            const body = section.querySelector(".section-body");
+            if (section.classList.contains("collapsed")) {
+                body.style.display = "none";
+            } else {
+                body.style.display = "block";
+            }
+        }
+
+        // Init: mobile starts with only first section open
+        function initSections() {
+            const isMobile = window.innerWidth <= 600;
+            sections.forEach((section, index) => {
+                const body = section.querySelector(".section-body");
+                if (isMobile && index !== 0) {
+                    section.classList.add("collapsed");
+                    body.style.display = "none";
+                } else {
+                    section.classList.remove("collapsed");
+                    body.style.display = "block";
+                }
+            });
+        }
+
+        initSections();
+        window.addEventListener("resize", initSections);
+
+        sections.forEach(section => {
+            const header = section.querySelector(".section-header");
+            header.addEventListener("click", () => toggleSection(section));
+            header.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleSection(section);
+                }
+            });
+        });
+
+        const expandAllBtn = document.getElementById("expandAll");
+        const collapseAllBtn = document.getElementById("collapseAll");
+
+        expandAllBtn.addEventListener("click", () => {
+            sections.forEach(section => {
+                section.classList.remove("collapsed");
+                section.querySelector(".section-body").style.display = "block";
+            });
+        });
+
+        collapseAllBtn.addEventListener("click", () => {
+            sections.forEach(section => {
+                section.classList.add("collapsed");
+                section.querySelector(".section-body").style.display = "none";
+            });
+        });
+
+        // Quick jump select
+        const jumpSelect = document.getElementById('jumpSelect');
+        jumpSelect.addEventListener('change', () => {
+            const val = jumpSelect.value;
+            if (!val) return;
+            const targetSection = document.querySelector(`.section[data-section="${val}"]`);
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+
+        // Back to top visibility + behaviour
+        const backToTopBtn = document.getElementById("backToTop");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 250) {
+                backToTopBtn.style.display = "flex";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        });
+
+        backToTopBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+        // Highlight current section header while scrolling
+        const observerOptions = {
+            root: null,
+            rootMargin: "0px 0px -60% 0px",
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const section = entry.target;
+                const header = section.querySelector('.section-header');
+                if (entry.isIntersecting) {
+                    header.classList.add('active');
+                } else {
+                    header.classList.remove('active');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+    </script>
+
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+
+</html>
